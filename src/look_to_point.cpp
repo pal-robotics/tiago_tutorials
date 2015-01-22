@@ -86,7 +86,6 @@ static const std::string cameraInfoTopic = "/xtion/rgb/camera_info";
 
 // Intrinsic parameters of the camera
 cv::Mat cameraIntrinsics;
-bool intrinsicsReceived;
 
 // Our Action interface type for moving REEM-C's head, provided as a typedef for convenience
 typedef actionlib::SimpleActionClient<control_msgs::PointHeadAction> PointHeadClient;
