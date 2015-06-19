@@ -41,18 +41,11 @@
  *
  * How to test this application:
  *
- * 1) Launch a simulation of REEM-C
+ * 1) Launch the application:
  *
- *   $ roslaunch reemc_tutorials reemc_look_to_point_world.launch
+ *   $ rosrun tiago_tutorials look_to_point
  *
- * 2) Launch the head controllers:
- *   $ roslaunch reemc_controller_configuration joint_trajectory_controllers.launch
- *
- * 3) Launch the application:
- *
- *   $ rosrun reemc_tutorials look_to_point
- *
- * 4) Click on image pixels to make REEM-C look towards that direction
+ * 2) Click on image pixels to make TIAGo look towards that direction
  *
  */
 
@@ -87,17 +80,21 @@ static const std::string cameraInfoTopic = "/xtion/rgb/camera_info";
 // Intrinsic parameters of the camera
 cv::Mat cameraIntrinsics;
 
-// Our Action interface type for moving REEM-C's head, provided as a typedef for convenience
+// Our Action interface type for moving TIAGo's head, provided as a typedef for convenience
 typedef actionlib::SimpleActionClient<control_msgs::PointHeadAction> PointHeadClient;
 typedef boost::shared_ptr<PointHeadClient> PointHeadClientPtr;
 
 PointHeadClientPtr pointHeadClient;
+
+ros::Time latestImageStamp;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // ROS call back for every new image received
 void imageCallback(const sensor_msgs::ImageConstPtr& imgMsg)
 {
+  latestImageStamp = imgMsg->header.stamp;
+
   cv_bridge::CvImagePtr cvImgPtr;
 
   cvImgPtr = cv_bridge::toCvCopy(imgMsg, sensor_msgs::image_encodings::BGR8);
@@ -116,7 +113,7 @@ void onMouse( int event, int u, int v, int, void* )
   geometry_msgs::PointStamped pointStamped;
 
   pointStamped.header.frame_id = cameraFrame;
-  pointStamped.header.stamp    = ros::Time::now();
+  pointStamped.header.stamp    = latestImageStamp;
 
   //compute normalized coordinates of the selected pixel
   double x = ( u  - cameraIntrinsics.at<double>(0,2) )/ cameraIntrinsics.at<double>(0,0);
@@ -141,7 +138,7 @@ void onMouse( int event, int u, int v, int, void* )
   ros::Duration(0.5).sleep();
 }
 
-// Create a ROS action client to move REEM-C's head
+// Create a ROS action client to move TIAGo's head
 void createPointHeadClient(PointHeadClientPtr& actionClient)
 {
   ROS_INFO("Creating action client to head controller ...");
@@ -192,16 +189,16 @@ int main(int argc, char** argv)
     cameraIntrinsics.at<double>(2, 2) = 1;
   }
 
-  // Create a point head action client to move the REEM-C's head
+  // Create a point head action client to move the TIAGo's head
   createPointHeadClient( pointHeadClient );
 
-  // Create the window to show REEM-C's camera images
+  // Create the window to show TIAGo's camera images
   cv::namedWindow(windowName, cv::WINDOW_AUTOSIZE);
 
   // Set mouse handler for the window
   cv::setMouseCallback(windowName, onMouse);
 
-  // Define ROS topic from where REEM-C publishes images
+  // Define ROS topic from where TIAGo publishes images
   image_transport::ImageTransport it(nh);
   // use compressed image transport to use less network bandwidth
   image_transport::TransportHints transportHint("compressed");
