@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(tiago_tutorials)
+project(look_to_point)
 
 find_package(catkin REQUIRED COMPONENTS
-  actionlib
-  control_msgs
-  cv_bridge
-  geometry_msgs
-  image_transport
   roscpp
+  actionlib
+  cv_bridge
+  image_transport
   sensor_msgs
+  control_msgs
+  geometry_msgs
 )
 
 catkin_package()
@@ -27,9 +27,4 @@ install(TARGETS look_to_point
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-
-install(PROGRAMS
-   scripts/look_hand.py
-   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
