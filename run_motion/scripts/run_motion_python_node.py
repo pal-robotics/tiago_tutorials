@@ -24,7 +24,7 @@ import time
 # ROS imports
 import rospy
 from actionlib import SimpleActionClient, GoalStatus
-from play_motion_msgs.msg import PlayMotionAction, PlayMotionGoal, PlayMotionResult
+from play_motion_msgs.msg import PlayMotionAction, PlayMotionGoal
 
 
 def show_usage():
@@ -57,10 +57,14 @@ def wait_for_valid_time(timeout):
     start_time = time.time()
     while not rospy.is_shutdown():
         if not rospy.Time.now().is_zero():
-            break
+            return
         if time.time() - start_time > timeout:
             rospy.logerr("Timed-out waiting for valid time.")
             exit(0)
+        time.sleep(0.1)
+    # If control+C is pressed the loop breaks, we can exit
+    exit(0)
+
 
 def get_status_string(status_code):
     return GoalStatus.to_string(status_code)
