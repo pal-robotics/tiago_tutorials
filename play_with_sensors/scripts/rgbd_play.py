@@ -121,7 +121,7 @@ def get_pixel_depth(x, y, depth_image=None):
         if img.is_bigendian:
             distance = (img.data[index] << 8) + img.data[index + 1]
         else:
-            distance = img.data[index] + (img.data[index + 1] << 8)
+            distance = int(img.data[index]) + (int(img.data[index + 1]) << 8)
         return distance
 
 
