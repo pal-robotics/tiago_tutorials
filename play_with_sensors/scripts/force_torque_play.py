@@ -53,7 +53,7 @@ class ForceTorquePlay(object):
 
     def do_stuff_with_last_msg(self):
         """Print funny sentences about what we can guess of our status thanks to the force torque sensor"""
-        self.last_msg = WrenchStamped()
+        # self.last_msg = WrenchStamped()  # line for autocompletion pourposes
         f = self.last_msg.wrench.force
         t = self.last_msg.wrench.torque
         total_torque = abs(t.x) + abs(t.y) + abs(t.z)
