@@ -117,7 +117,8 @@ def get_pixel_depth(x, y, depth_image=None):
         distance = struct.unpack('f', byte_data)[0]
         return distance
     else:  # NOT TESTED
-        rospy.loginfo("Got a raw depth image (2 byte integers) (UNTESTED)")
+        rospy.logwarn("Got a raw depth image (2 byte integers) (UNTESTED) it will probably fail.")
+        # Encoding 16UC1, 
         if img.is_bigendian:
             distance = (img.data[index] << 8) + img.data[index + 1]
         else:
@@ -128,15 +129,20 @@ def get_pixel_depth(x, y, depth_image=None):
 class RGBDPlay(object):
     def __init__(self):
         self.last_msg = None
-        self.rgbd_sub = rospy.Subscriber('/xtion/depth/image_raw',
+        # To get the same kind of raw image in simulation or real robot
+        if rospy.get_param('/use_sim_time', False):
+            depth_32FC1_topic = '/xtion/depth/image_raw'
+        else:
+            depth_32FC1_topic = '/xtion/depth/image'
+        self.rgbd_sub = rospy.Subscriber(depth_32FC1_topic,
                                          Image,
-                                         self.pointcloud_cb,
+                                         self.depth_img_cb,
                                          queue_size=1)
         rospy.loginfo(
             "Subscribed to: '" + str(self.rgbd_sub.resolved_name) + "' topic.")
         self.run()
 
-    def pointcloud_cb(self, msg):
+    def depth_img_cb(self, msg):
         """
         :type msg: Image
         """
