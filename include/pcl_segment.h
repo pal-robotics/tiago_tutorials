@@ -15,11 +15,11 @@
 #include <pcl_tiago/pclConfig.h>
 
 
-class pcl_test
+class pcl_segment
 {
 public:
-	pcl_test(ros::NodeHandle nh_);
-	~pcl_test();
+	pcl_segment(ros::NodeHandle nh_);
+	~pcl_segment();
 	void filter(pcl::PCLPointCloud2::Ptr cloud_);
 	void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input);
 	void dynam_CB(pcl_tiago::pclConfig &config, uint32_t level);

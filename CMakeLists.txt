@@ -138,12 +138,12 @@ add_definitions(${PCL_DEFINITIONS})
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(pcl_test_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(pcl_segment_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(pcl_test_node
+# target_link_libraries(pcl_segment_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -198,6 +198,6 @@ add_definitions(${PCL_DEFINITIONS})
 # catkin_add_nosetests(test)
 
 
-add_executable(pcl_test src/pcl_test.cpp)
-  add_dependencies(pcl_test ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencfg)
-  target_link_libraries(pcl_test ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+add_executable(pcl_segment src/pcl_segment.cpp)
+  add_dependencies(pcl_segment ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencfg)
+  target_link_libraries(pcl_segment ${catkin_LIBRARIES} ${PCL_LIBRARIES})

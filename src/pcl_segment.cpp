@@ -1,32 +1,28 @@
-#include "pcl_test.h"
+#include "pcl_segment.h"
 
-pcl_test::pcl_test(ros::NodeHandle nh_)
+pcl_segment::pcl_segment(ros::NodeHandle nh_)
 {
-	sub = nh_.subscribe("/xtion/depth_registered/points", 1, &pcl_test::cloud_cb, this);
+	sub = nh_.subscribe("/xtion/depth_registered/points", 1, &pcl_segment::cloud_cb, this);
 	pub = nh_.advertise<pcl::PCLPointCloud2>("filtered", 1);
 	pub_1 = nh_.advertise<pcl::PCLPointCloud2>("extracted_surface", 1);
 	pub_2 = nh_.advertise<pcl::PCLPointCloud2>("original_without_extracted_surface", 1);
-	f = boost::bind(&pcl_test::dynam_CB, this, _1, _2);
+	f = boost::bind(&pcl_segment::dynam_CB, this, _1, _2);
 	server.setCallback(f);
 
 }
 
-pcl_test::~pcl_test(){}
+pcl_segment::~pcl_segment(){}
 
-void pcl_test::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
+void pcl_segment::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
 {
 	pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2);
     pcl_conversions::toPCL(*input, *cloud);
-	pcl_test::filter(cloud);
+	pcl_segment::filter(cloud);
 }
 
-void pcl_test::dynam_CB(pcl_tiago::pclConfig& config, uint32_t level)
+void pcl_segment::dynam_CB(pcl_tiago::pclConfig& config, uint32_t level)
 {
-	// ROS_INFO("Reconfigure Request: %d %f %s %s %d",
-	//         config.int_param, config.double_param, 
- //            config.str_param.c_str(), 
- //            config.bool_param?"True":"False", 
- //            config.size);
+
 	setLeafX = config.setLeafSize_X;
 	setLeafY = config.setLeafSize_Y;
 	setLeafZ = config.setLeafSize_Z;
@@ -37,7 +33,7 @@ void pcl_test::dynam_CB(pcl_tiago::pclConfig& config, uint32_t level)
 	ROS_INFO_STREAM("Max Iterations: " << MaxIt << " - Distance Threshold: " << DistThresh);
 }
 
-void pcl_test::filter(pcl::PCLPointCloud2::Ptr cloud_)
+void pcl_segment::filter(pcl::PCLPointCloud2::Ptr cloud_)
 {	
 	pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
 	pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2);
@@ -81,9 +77,9 @@ void pcl_test::filter(pcl::PCLPointCloud2::Ptr cloud_)
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "pcl_test");
+  ros::init(argc, argv, "pcl_segment");
   ros::NodeHandle nh;
-  pcl_test pcl_object(nh);
+  pcl_segment pcl_object(nh);
 
   // dynamic_reconfigure::Server<pcl_tiago::pclConfig> server;
   // dynamic_reconfigure::Server<pcl_tiago::pclConfig> f;
