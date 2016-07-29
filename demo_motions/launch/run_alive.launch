@@ -1,0 +1,8 @@
+<launch>
+	<arg name="robot" default="custom" />
+	<rosparam command="load" file="$(find run_motion)/src/custom_motions_$(arg robot).yaml" />
+  	<node pkg="run_motion" type="run_loop_node" name="tiago_alive" output="screen">
+    	<param name="enable_motion" value="false" />
+  	</node>
+</launch>
+
