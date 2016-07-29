@@ -28,6 +28,8 @@ void pcl_segment::dynam_CB(pcl_tiago::pclConfig& config, uint32_t level)
 	setLeafZ = config.setLeafSize_Z;
 	MaxIt = config.Max_Iterations;
 	DistThresh = config.Distance_Threshold;
+	optimize = config.Optimize_Coefficients;
+	choose_image = config.image;
 
 	ROS_INFO_STREAM("Leaf Size (" << setLeafX << ", "<< setLeafY << ", " << setLeafZ << ")");
 	ROS_INFO_STREAM("Max Iterations: " << MaxIt << " - Distance Threshold: " << DistThresh);
@@ -38,20 +40,26 @@ void pcl_segment::filter(pcl::PCLPointCloud2::Ptr cloud_)
 	pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
 	pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2);
 	sor.setInputCloud(cloud_);		
-	sor.setLeafSize (setLeafX, setLeafY, setLeafZ/*0.02f, 0.02f, 0.02f*/);
+	sor.setLeafSize (setLeafX, setLeafY, setLeafZ);
 	sor.filter(*cloud_filtered);
 	pub.publish(cloud_filtered);
 
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered_points (new pcl::PointCloud<pcl::PointXYZ>); 
-	pcl::fromPCLPointCloud2(*cloud_, *cloud_filtered_points);
+	
+	if(choose_image == 0)
+		pcl::fromPCLPointCloud2(*cloud_, *cloud_filtered_points);
+	else if(choose_image = 1)
+		pcl::fromPCLPointCloud2(*cloud_filtered, *cloud_filtered_points);
+	
 	pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients);
 	pcl::PointIndices::Ptr inliers (new pcl::PointIndices);
 
 	pcl::SACSegmentation<pcl::PointXYZ> seg;
+	seg.setOptimizeCoefficients (optimize);
 	seg.setModelType (pcl::SACMODEL_PLANE);
 	seg.setMethodType (pcl::SAC_RANSAC);
-	seg.setMaxIterations(1000);
-	seg.setDistanceThreshold (0.01);
+	seg.setMaxIterations(MaxIt);
+	seg.setDistanceThreshold (DistThresh);
 	seg.setInputCloud (cloud_filtered_points);
 	seg.segment (*inliers, *coefficients);
 
@@ -80,12 +88,6 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "pcl_segment");
   ros::NodeHandle nh;
   pcl_segment pcl_object(nh);
-
-  // dynamic_reconfigure::Server<pcl_tiago::pclConfig> server;
-  // dynamic_reconfigure::Server<pcl_tiago::pclConfig> f;
-  // f = boost::bind(&/*pcl_object->*/dynam_CB, _1, _2);
-  // server.setCallback(f);
-
   ros::spin();
   return 0;
 }

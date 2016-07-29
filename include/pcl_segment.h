@@ -24,6 +24,8 @@ public:
 	void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input);
 	void dynam_CB(pcl_tiago::pclConfig &config, uint32_t level);
 	double setLeafX, setLeafY, setLeafZ, MaxIt, DistThresh;
+	bool optimize;
+	int choose_image;
 
 	pcl::PCLPointCloud2::Ptr cloud_filtered;
 	ros::Subscriber sub;
