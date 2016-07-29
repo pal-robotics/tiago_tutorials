@@ -15,6 +15,8 @@ catkin_package(
 add_executable(run_motion src/run_motion_node.cpp)
 target_link_libraries(run_motion ${catkin_LIBRARIES})
 
+add_executable(run_loop_node src/run_loop_node.cpp)
+target_link_libraries(run_loop_node ${catkin_LIBRARIES})
 
 ## Install
 

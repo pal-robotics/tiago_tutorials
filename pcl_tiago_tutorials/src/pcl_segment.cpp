@@ -48,7 +48,7 @@ void pcl_segment::filter(pcl::PCLPointCloud2::Ptr cloud_)
 	
 	if(choose_image == 0)
 		pcl::fromPCLPointCloud2(*cloud_, *cloud_filtered_points);
-	else if(choose_image = 1)
+	else if(choose_image == 1)
 		pcl::fromPCLPointCloud2(*cloud_filtered, *cloud_filtered_points);
 	
 	pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients);

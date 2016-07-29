@@ -4,5 +4,4 @@
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find pcl_tiago)/resources/rviz/pcl_segment.rviz"/>
 	<node name="rqt_gui" pkg="rqt_gui" type="rqt_gui" />
 
-
 </launch>
