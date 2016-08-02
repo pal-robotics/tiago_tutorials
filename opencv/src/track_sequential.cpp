@@ -24,7 +24,7 @@ protected:
 	void ContourDetection(cv::Mat thresh_in, cv::Mat &output_);
 
 private:
-	std::string win1, win2, win3;
+	std::string win1, win2;
 	cv::Mat img_bgr, img1, img2, thresh, diff;
 	int i;
 };
@@ -33,12 +33,10 @@ private:
 TrackSequential::TrackSequential(ros::NodeHandle nh_): _imageTransport(nh_)
 {
 	win1 = "orig";
-	win2 = "2nd frame";
-	win3 = "thresh diff";
+	win2 = "thresh diff";
 	image_sub = _imageTransport.subscribe("xtion/rgb/image_raw", 1, &TrackSequential::imageCB, this, image_transport::TransportHints("compressed"));
 	cv::namedWindow(win1, CV_WINDOW_AUTOSIZE);
 	cv::namedWindow(win2, CV_WINDOW_AUTOSIZE);
-	cv::namedWindow(win3, CV_WINDOW_AUTOSIZE);
 	i=0;
 }
 
@@ -78,11 +76,10 @@ void TrackSequential::ImageProcessing()
 
 		cv::morphologyEx(thresh, thresh, 2, cv::getStructuringElement( 2, cv::Size(3, 3)));
 
-		cv::imshow(win3, thresh);
-
 		this->ContourDetection(thresh, img_bgr);
 
 		cv::imshow(win1, img_bgr);
+		cv::imshow(win2, thresh);
 	}
 	
 	++i;
@@ -125,6 +122,6 @@ int main(int argc, char** argv)
   ros::NodeHandle nh;
 
   TrackSequential ts(nh);
-  
+
   ros::spin();
 }
