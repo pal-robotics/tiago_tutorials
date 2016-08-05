@@ -54,10 +54,10 @@ void TrackSequential::imageCB(const sensor_msgs::ImageConstPtr& msg)
 		cvPtr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
 	}
 	catch (cv_bridge::Exception& e) 
-  {
-    ROS_ERROR("cv_bridge exception: %s", e.what());
-    return;
-  }
+	{
+	  ROS_ERROR("cv_bridge exception: %s", e.what());
+	  return;
+	}
 	cvPtr->image.copyTo(img_bgr);
   cv::cvtColor(cvPtr->image, img1, cv::COLOR_BGR2GRAY);
   this->ImageProcessing();

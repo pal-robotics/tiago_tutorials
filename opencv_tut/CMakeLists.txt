@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(opencv)
+project(opencv_tut)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -13,8 +13,10 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
 )
 
+
+
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(OpenCV 2.4 REQUIRED )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
@@ -104,8 +106,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES opencv
+  LIBRARIES opencv_tut
   CATKIN_DEPENDS roscpp rospy image_transport cv_bridge pal_detection_msgs  geometry_msgs
   DEPENDS system_lib
 )
@@ -119,27 +120,28 @@ catkin_package(
 include_directories(include)
 include_directories(SYSTEM
   ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-# add_library(opencv
-#   src/${PROJECT_NAME}/opencv.cpp
+# add_library(opencv_tut
+#   src/${PROJECT_NAME}/opencv_tut.cpp
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(opencv ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(opencv_tut ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(opencv_node src/opencv_node.cpp)
+# add_executable(opencv_tut_node src/opencv_tut_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(opencv_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(opencv_tut_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(opencv_node
+# target_link_libraries(opencv_tut_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -158,7 +160,7 @@ include_directories(SYSTEM
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS opencv opencv_node
+# install(TARGETS opencv_tut opencv_tut_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -192,5 +194,9 @@ include_directories(SYSTEM
 # catkin_add_nosetests(test)
 
 add_executable(track_sequential src/track_sequential.cpp)
-	target_link_libraries(track_sequential yaml-cpp ${catkin_LIBRARIES})
-	add_dependencies(track_sequential rviz_generate_messages_cpp)
+  target_link_libraries(track_sequential yaml-cpp ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+  add_dependencies(track_sequential rviz_generate_messages_cpp)
+
+add_executable(find_keypoints src/find_keypoints.cpp)
+  target_link_libraries(find_keypoints yaml-cpp ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+  add_dependencies(find_keypoints rviz_generate_messages_cpp)
