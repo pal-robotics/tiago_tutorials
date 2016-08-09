@@ -1,0 +1,224 @@
+#! /usr/bin/env python
+
+
+import sys
+import signal
+import rospy
+import rospkg
+from PyQt4 import QtGui, uic
+from opencv_tut.msg import valueMatrix
+pub = rospy.Publisher('opencv_tut/Matrix_values', valueMatrix)
+class MyWindow(QtGui.QMainWindow):
+	def __init__(self):
+		super(MyWindow, self).__init__()
+		self.rospack = rospkg.RosPack()
+		path = self.rospack.get_path('opencv_tut')
+		uic.loadUi(path + '/resources/gui_keypoints.ui', self)
+		self.setMinMax()
+		self.setLabels()
+		
+		self.zero_zero_slider.valueChanged.connect(self.zero_zero_cb)
+		self.zero_one_slider.valueChanged.connect(self.zero_one_cb)
+		self.zero_two_slider.valueChanged.connect(self.zero_two_cb)
+		self.one_zero_slider.valueChanged.connect(self.one_zero_cb)
+		self.one_one_slider.valueChanged.connect(self.one_one_cb)
+		self.one_two_slider.valueChanged.connect(self.one_two_cb)
+		self.two_zero_slider.valueChanged.connect(self.two_zero_cb)
+		self.two_one_slider.valueChanged.connect(self.two_one_cb)
+		self.two_two_slider.valueChanged.connect(self.two_two_cb)
+		self.alpha_slider.valueChanged.connect(self.alpha_cb)
+		self.beta_slider.valueChanged.connect(self.beta_cb)
+		self.Detector_choice.currentIndexChanged.connect(self.Detector_choice_cb)
+
+		self.setTick()
+		self.Contrast_tick.stateChanged.connect(self.Contrast_cb)
+		self.Keypoints_tick.stateChanged.connect(self.Keypoints_cb)
+		self.Original_tick.stateChanged.connect(self.Original_cb)
+		self.Sharpen_tick.stateChanged.connect(self.Sharpen_cb)
+		self.Combined_tick.stateChanged.connect(self.Combined_cb)
+
+
+		# pub = rospy.Publisher('opencv_tut/Matrix_values', valueMatrix)
+
+		self.show()
+
+		# | zero_zero	one_zero	two_zero |
+		# |									 |
+		# |	zero_one	one_one		two_one  |
+		# |									 |
+		# | zero_two	one_two		two_zero |
+
+	def setLabels(self):
+		self.zero_zero_label.setText(str(0))
+		self.zero_one_label.setText(str(-1))
+		self.zero_two_label.setText(str(0))
+		self.one_zero_label.setText(str(-1))
+		self.one_one_label.setText(str(5))
+		self.one_two_label.setText(str(-1))
+		self.two_zero_label.setText(str(0))
+		self.two_one_label.setText(str(-1))
+		self.two_two_label.setText(str(0))
+		self.alpha_value_label.setText(str(2.2))
+		self.beta_value_label.setText(str(50))
+
+
+	def setMinMax(self):
+		self.zero_zero_slider.setMinimum(-10)
+		self.zero_one_slider.setMinimum(-10)
+		self.zero_two_slider.setMinimum(-10)
+		self.one_zero_slider.setMinimum(-10)
+		self.one_one_slider.setMinimum(-10)
+		self.one_two_slider.setMinimum(-10)
+		self.two_zero_slider.setMinimum(-10)
+		self.two_one_slider.setMinimum(-10)
+		self.two_two_slider.setMinimum(-10)
+		self.alpha_slider.setMinimum(0)
+		self.beta_slider.setMinimum(0)
+
+		self.zero_zero_slider.setMaximum(10)
+		self.zero_one_slider.setMaximum(10)
+		self.zero_two_slider.setMaximum(10)
+		self.one_zero_slider.setMaximum(10)
+		self.one_one_slider.setMaximum(10)
+		self.one_two_slider.setMaximum(10)
+		self.two_zero_slider.setMaximum(10)
+		self.two_one_slider.setMaximum(10)
+		self.two_two_slider.setMaximum(10)
+		self.alpha_slider.setMaximum(50)
+		self.beta_slider.setMaximum(100)
+
+		self.zero_zero_slider.setValue(0)
+		self.zero_one_slider.setValue(-1)
+		self.zero_two_slider.setValue(0)
+		self.one_zero_slider.setValue(-1)
+		self.one_one_slider.setValue(5)
+		self.one_two_slider.setValue(-1)
+		self.two_zero_slider.setValue(0)
+		self.two_one_slider.setValue(-1)
+		self.two_two_slider.setValue(0)
+		self.alpha_slider.setValue(22)	
+		self.beta_slider.setValue(50)	
+
+	def setTick(self):
+		self.Contrast_tick.setChecked(False)
+		self.Keypoints_tick.setChecked(True)
+		self.Original_tick.setChecked(False)
+		self.Sharpen_tick.setChecked(False)
+		self.Combined_tick.setChecked(True)
+
+	def Detector_choice_cb(self):
+		value = self.Detector_choice.currentText()
+		rospy.loginfo("Called: %s", value)
+		msg = valueMatrix()
+		msg.header.frame_id = str(value)
+		pub.publish(msg)
+
+	def Contrast_cb(self):
+		tick = self.Contrast_tick.checkState()
+		self.pubTickMsg("Contrast", tick)
+		rospy.loginfo("contrast: %s", tick)
+
+	def Keypoints_cb(self):
+		tick = self.Keypoints_tick.checkState()
+		self.pubTickMsg("Keypoints", tick)
+		rospy.loginfo("keypoints: %s", tick)
+
+	def Original_cb(self):
+		tick = self.Original_tick.checkState()
+		self.pubTickMsg("Original", tick)
+		rospy.loginfo("original: %s", tick)
+
+	def Combined_cb(self):
+		tick = self.Combined_tick.checkState()
+		self.pubTickMsg("Combined", tick)
+		rospy.loginfo("Combined: %s", tick)
+
+	def Sharpen_cb(self):
+		tick = self.Sharpen_tick.checkState()
+		self.pubTickMsg("Sharpen", tick)
+		rospy.loginfo("sharpen: %s", tick)								
+
+	def zero_zero_cb(self):
+		value = self.zero_zero_slider.value()
+		self.zero_zero_label.setText(str(value))
+		self.pubValMsg("zero_zero", value)
+		rospy.loginfo("zero_zero %s", value)
+
+	def zero_one_cb(self):
+		value = self.zero_one_slider.value()
+		self.zero_one_label.setText(str(value))
+		self.pubValMsg("zero_one", value)
+		rospy.loginfo("zero_one%s", value)
+
+	def zero_two_cb(self):
+		value = self.zero_two_slider.value()
+		self.zero_two_label.setText(str(value))
+		self.pubValMsg("zero_two", value)
+		rospy.loginfo("zero_two%s", value)
+
+	def one_zero_cb(self):
+		value = self.one_zero_slider.value()
+		rospy.loginfo("value: %s" , value)
+		self.one_zero_label.setText(str(value))		
+		self.pubValMsg("one_zero", value)
+
+	def one_one_cb(self):
+		value = self.one_one_slider.value()
+		self.one_one_label.setText(str(value))		
+		self.pubValMsg("one_one", value)
+		rospy.loginfo("one_one%s", value)
+
+	def one_two_cb(self):
+		value = self.one_two_slider.value()
+		self.one_two_label.setText(str(value))
+		self.pubValMsg("one_two", value)
+		rospy.loginfo("one_two%s", value)
+
+	def two_zero_cb(self):
+		value = self.two_zero_slider.value()
+		self.two_zero_label.setText(str(value))
+		self.pubValMsg("two_zero", value)
+		rospy.loginfo("two_zero%s", value)
+
+	def two_one_cb(self):
+		value = self.two_one_slider.value()
+		self.two_one_label.setText(str(value))
+		self.pubValMsg("two_one", value)
+		rospy.loginfo("two_one%s", value)
+
+	def two_two_cb(self):
+		value = self.two_two_slider.value()
+		self.two_two_label.setText(str(value))
+		self.pubValMsg("two_two", value)
+		rospy.loginfo("two_two%s", value)
+	
+	def alpha_cb(self):
+		value = float(self.alpha_slider.value())
+		value_dec = float(value/10)
+		self.alpha_value_label.setText(str(value_dec))
+		self.pubValMsg("alpha", value_dec)
+
+	def beta_cb(self):
+		value = self.beta_slider.value()
+		self.beta_value_label.setText(str(value))
+		self.pubValMsg("beta", value)
+
+	def pubValMsg(self, name, value):
+		msg = valueMatrix()
+		msg.header.frame_id = name
+		msg.value = value
+		pub.publish(msg)
+
+	def pubTickMsg(self, name, tick):
+		msg = valueMatrix()
+		msg.header.frame_id = name
+		msg.tick = tick
+		pub.publish(msg)
+
+
+if __name__ == '__main__':
+	rospy.init_node('find_keypoints_gui')
+	app = QtGui.QApplication(sys.argv)
+	signal.signal(signal.SIGINT, signal.SIG_DFL)
+	myWindow = MyWindow()
+   	sys.exit(app.exec_())

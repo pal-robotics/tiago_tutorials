@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   pal_detection_msgs
   cv_bridge
   geometry_msgs
+  message_generation
 )
 
 
@@ -50,11 +51,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+ add_message_files(
+   FILES
+   valueMatrix.msg
+ )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -71,10 +71,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+ generate_messages(
+   DEPENDENCIES
+   std_msgs  # Or other packages containing msgs
+ )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -200,3 +200,7 @@ add_executable(track_sequential src/track_sequential.cpp)
 add_executable(find_keypoints src/find_keypoints.cpp)
   target_link_libraries(find_keypoints yaml-cpp ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
   add_dependencies(find_keypoints rviz_generate_messages_cpp)
+
+add_executable(flann_matching src/flann_matching.cpp)
+  target_link_libraries(flann_matching yaml-cpp ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+  add_dependencies(flann_matching rviz_generate_messages_cpp)

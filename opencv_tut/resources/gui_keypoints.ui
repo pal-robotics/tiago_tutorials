@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VariableWindow</class>
+ <widget class="QMainWindow" name="VariableWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>692</width>
+    <height>598</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>421</width>
+      <height>511</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0" alignment="Qt::AlignHCenter">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Kernel Matrix for Sharpening Image</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QSlider" name="zero_zero_slider">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="zero_zero_label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QSlider" name="one_zero_slider">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLabel" name="one_zero_label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QSlider" name="two_zero_slider">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QLabel" name="two_zero_label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QSlider" name="zero_one_slider">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="zero_one_label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QSlider" name="one_one_slider">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLabel" name="one_one_label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QSlider" name="two_one_slider">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="5">
+        <widget class="QLabel" name="two_one_label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QSlider" name="zero_two_slider">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="zero_two_label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QSlider" name="one_two_slider">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QLabel" name="one_two_label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="4">
+        <widget class="QSlider" name="two_two_slider">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="5">
+        <widget class="QLabel" name="two_two_label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>0</y>
+      <width>214</width>
+      <height>117</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_7">
+     <item row="1" column="0">
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="0" column="0" rowspan="2">
+        <widget class="QSlider" name="alpha_slider">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="alpha_label">
+         <property name="text">
+          <string>alpha:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="alpha_value_label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="1">
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="1" column="1">
+        <widget class="QLabel" name="beta_value_label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" rowspan="2">
+        <widget class="QSlider" name="beta_slider">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="beta_label">
+         <property name="text">
+          <string>beta:</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="0" column="0" colspan="2">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Contrast Parameters</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>180</y>
+      <width>211</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
+      <widget class="QLabel" name="CVWindows">
+       <property name="text">
+        <string>CV Windows</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QCheckBox" name="Keypoints_tick">
+       <property name="text">
+        <string>Keypoints</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QCheckBox" name="Sharpen_tick">
+       <property name="text">
+        <string>Sharpen</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QCheckBox" name="Contrast_tick">
+       <property name="text">
+        <string>Contrast</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QCheckBox" name="Original_tick">
+       <property name="text">
+        <string>Original</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="2" alignment="Qt::AlignHCenter">
+      <widget class="QCheckBox" name="Combined_tick">
+       <property name="text">
+        <string>Combined</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QSplitter" name="splitter">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>380</y>
+      <width>137</width>
+      <height>44</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+    <widget class="QLabel" name="DetectorAlgorithm">
+     <property name="text">
+      <string>Detector Algorithms</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="Detector_choice">
+     <item>
+      <property name="text">
+       <string>ORB</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SURF</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SIFT</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>AKAZE</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>BRISK</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <zorder>layoutWidget</zorder>
+   <zorder>Keypoints_tick</zorder>
+   <zorder>Contrast_tick</zorder>
+   <zorder>Sharpen_tick</zorder>
+   <zorder>Original_tick</zorder>
+   <zorder>CVWindows</zorder>
+   <zorder>label_3</zorder>
+   <zorder>alpha_slider</zorder>
+   <zorder>alpha_label</zorder>
+   <zorder>alpha_value_label</zorder>
+   <zorder>layoutWidget_2</zorder>
+   <zorder>Combined_tick</zorder>
+   <zorder>Combined_tick</zorder>
+   <zorder>Original_tick</zorder>
+   <zorder>checkBox_6</zorder>
+   <zorder>checkBox_7</zorder>
+   <zorder>checkBox_8</zorder>
+   <zorder>checkBox_9</zorder>
+   <zorder>checkBox_10</zorder>
+   <zorder>label_8</zorder>
+   <zorder>Detector_choice</zorder>
+   <zorder>DetectorAlgorithm</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_3</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>692</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
