@@ -18,33 +18,30 @@ class FindKeypoints
 public:
 	FindKeypoints(ros::NodeHandle nh_);
 	~FindKeypoints();
-	
 protected:
 	void imageCB(const sensor_msgs::ImageConstPtr& msg);
     void matrixCB(const opencv_tut::valueMatrixConstPtr& msg);
-    void surfFeaturesDetection(cv::Mat img_, cv::Mat& out_);
-    void contrastChange(cv::Mat tochange);
-    void sharpenImg(cv::Mat img);
+    void FeaturesDetection(cv::Mat in, cv::Mat& out);
+    void contrastChange(cv::Mat in, cv::Mat& out);
+    void sharpenImg(cv::Mat in, cv::Mat& out);
+    void cvWindows();
 	image_transport::ImageTransport _imageTransport;
     image_transport::Subscriber image_sub;
     ros::Subscriber matrix_sub;
-    int alpha, beta;
+    float alpha;
+    int beta;
     int zero_zero, zero_one, zero_two, one_zero, one_one, one_two, two_zero, two_one, two_two;
     bool keypoints_bool, sharpen_bool, contrast_bool, original_bool, combined_bool;
+    std::string detector_from_msg;
 };
 
-const std::string win1 = "KeyPoints";
-const std::string win2 = "Sharper";
-const std::string win3 = "Contrast";
-
 const std::string key_win= "Keypoints";
-const std::string shar_win= "Sharpen Image";
+const std::string sharp_win= "Sharpen Image";
 const std::string cont_win = "Contrast Manipulation";
 const std::string orig_win = "Original Image";
 const std::string combi_win= "Combined Effects";
 
-
-const std::string img_path = "/home/job/pal_robotics_catkin/src/tiago_tutorials/opencv_tut/resources/aruco.jpg";
+//const std::string img_path = "/home/job/pal_robotics_catkin/src/tiago_tutorials/opencv_tut/resources/aruco.jpg";
 
 FindKeypoints::FindKeypoints(ros::NodeHandle nh_): _imageTransport(nh_)
 {
@@ -53,10 +50,10 @@ FindKeypoints::FindKeypoints(ros::NodeHandle nh_): _imageTransport(nh_)
     zero_zero = 0; zero_one = -1; zero_two = 0;
     one_zero = -1; one_one = 5; one_two = -1;
     two_zero = 0; two_one = -1; two_two = 0;
+    keypoints_bool= true;
+    sharpen_bool = contrast_bool = original_bool = combined_bool = false;
+    detector_from_msg = "SURF";
 
-    cv::namedWindow(win1, CV_WINDOW_FREERATIO);
-    cv::namedWindow(win2, CV_WINDOW_FREERATIO);
-    cv::namedWindow(win3, CV_WINDOW_FREERATIO);
     image_sub = _imageTransport.subscribe("xtion/rgb/image_raw", 1, &FindKeypoints::imageCB, this, image_transport::TransportHints("compressed"));
     matrix_sub = nh_.subscribe("/opencv_tut/Matrix_values", 1, &FindKeypoints::matrixCB, this);
 }
@@ -103,68 +100,114 @@ void FindKeypoints::matrixCB(const opencv_tut::valueMatrixConstPtr& msg)
     else if(msg->header.frame_id == "Combined")
         combined_bool = msg->tick;
 
+    else
+        detector_from_msg = msg->header.frame_id;
+
+    this->cvWindows();
 }
 
+void FindKeypoints::cvWindows()
+{
+    if(keypoints_bool == true)
+        cv::namedWindow(key_win, CV_WINDOW_FREERATIO);
+    else if (keypoints_bool == false)
+        cv::destroyWindow(key_win);
+
+    if(sharpen_bool == true)
+        cv::namedWindow(sharp_win, CV_WINDOW_FREERATIO);
+    else if (sharpen_bool == false)
+        cv::destroyWindow(sharp_win);
+
+    if(contrast_bool == true)
+        cv::namedWindow(cont_win, CV_WINDOW_FREERATIO);
+    else if (contrast_bool == false)
+        cv::destroyWindow(cont_win);
+
+    if(original_bool == true)
+        cv::namedWindow(orig_win, CV_WINDOW_FREERATIO);
+    else if (original_bool == false)
+        cv::destroyWindow(orig_win);
+
+    if(combined_bool == true)
+        cv::namedWindow(combi_win, CV_WINDOW_FREERATIO);
+    else if (combined_bool == false)
+        cv::destroyWindow(combi_win);
+}
 
 void FindKeypoints::imageCB(const sensor_msgs::ImageConstPtr& msg)
 {
-	cv::Mat img, out;
+    cv::Mat img, keypoints_mat, sharp_mat, contrast_mat, combi_mat;
 	cv_bridge::CvImagePtr cvPtr;
 	try
 	{ 
-		cvPtr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
+        cvPtr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
 	}
 	catch (cv_bridge::Exception& e) 
   {
     ROS_ERROR("cv_bridge exception: %s", e.what());
     return;
   }
-    cv::Mat img_aruco = cv::imread(img_path, 1);
-//    this->surfFeaturesDetection(img_aruco, img_aruco);
+//    cv::Mat img_aruco = cv::imread(img_path, 1);
+//    this->FeaturesDetection(img_aruco, img_aruco);
 
     cvPtr->image.copyTo(img);
-    this->contrastChange(img);
 
-    this->surfFeaturesDetection(img, out);
-    this->sharpenImg(img);
-    cv::imshow(win1, out);
+    if(original_bool == true)
+     {
+        cv::imshow(orig_win, img);
+    }
+    if(contrast_bool == true)
+    {
+        this->contrastChange(img, contrast_mat);
+        cv::imshow(cont_win, contrast_mat);
+    }
+    if(sharpen_bool == true)
+    {
+        this->sharpenImg(img, sharp_mat);
+        cv::imshow(sharp_win, sharp_mat);
+    }
+    if(keypoints_bool == true)
+    {
+        this->FeaturesDetection(img, keypoints_mat);
+        cv::imshow(key_win, keypoints_mat);
+    }
+    if(combined_bool == true)
+    {
+        cv::Mat combi_mat_1, combi_mat_2;
+        this->contrastChange(img, combi_mat_1);
+        this->sharpenImg(combi_mat_1, combi_mat_2);
+        this->FeaturesDetection(combi_mat_2, combi_mat);
+        cv::imshow(combi_win, combi_mat);
+    }
     cv::waitKey(2);
 }
 
-void FindKeypoints::sharpenImg(cv::Mat img)
+void FindKeypoints::sharpenImg(cv::Mat in, cv::Mat& out)
 {
-
-    cv::Mat sharper = cv::Mat::zeros(img.size(), img.type());
-
+    out = cv::Mat::zeros(in.size(), in.type());
     cv::Mat kern = (cv::Mat_<char>(3,3) << zero_zero, zero_one, zero_two,
                                                                      one_zero, one_one, one_two,
                                                                     zero_two, one_one, one_two);
-
-    cv::filter2D(img, sharper, img.depth(), kern);
-    cv::imshow(win2, sharper);
-
+    cv::filter2D(in, out, in.depth(), kern);
 }
 
-void FindKeypoints::contrastChange(cv::Mat tochange)
+void FindKeypoints::contrastChange(cv::Mat in, cv::Mat& out)
 {
-    cv::Mat processed = cv::Mat::zeros(tochange.size(), tochange.type());
-    for(int i = 0; i<tochange.rows; i++)
-        for(int j = 0; j<tochange.cols; j++)
+    out = cv::Mat::zeros(in.size(), in.type());
+    for(int i = 0; i<in.rows; i++)
+        for(int j = 0; j<in.cols; j++)
             for(int k = 0; k<3; ++k)
-                processed.at<cv::Vec3b>(i,j).val[k] = cv::saturate_cast<uchar>(alpha * (tochange.at<cv::Vec3b>(i,j).val[k] + beta));
-
-    cv::imshow(win3, processed);
+                out.at<cv::Vec3b>(i,j).val[k] = cv::saturate_cast<uchar>(alpha * (in.at<cv::Vec3b>(i,j).val[k] + beta));
 }
 
-void FindKeypoints::surfFeaturesDetection(cv::Mat img_, cv::Mat& out_)
+void FindKeypoints::FeaturesDetection(cv::Mat in, cv::Mat& out)
 {
-	cv::SurfFeatureDetector detector(400);
+    std::vector<cv::KeyPoint> keypoints;
 
-	std::vector<cv::KeyPoint> keypoints;
-
-	detector.detect(img_, keypoints);
-
-	cv::drawKeypoints(img_, keypoints, out_, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT);
+    cv::initModule_nonfree();
+    cv::Ptr<cv::FeatureDetector> detector = cv::FeatureDetector::create(detector_from_msg);
+    detector->detect(in, keypoints);
+    cv::drawKeypoints(in, keypoints, out, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT);
 }
 
 int main(int argc, char** argv)

@@ -163,7 +163,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -232,7 +232,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -306,11 +306,6 @@
     <widget class="QComboBox" name="Detector_choice">
      <item>
       <property name="text">
-       <string>ORB</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
        <string>SURF</string>
       </property>
      </item>
@@ -321,7 +316,7 @@
      </item>
      <item>
       <property name="text">
-       <string>AKAZE</string>
+       <string>ORB</string>
       </property>
      </item>
      <item>
@@ -329,32 +324,47 @@
        <string>BRISK</string>
       </property>
      </item>
+     <item>
+      <property name="text">
+       <string>MSER</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>GFTT</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>HARRIS</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Dense</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SimpleBlob</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>FAST</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>STAR</string>
+      </property>
+     </item>
     </widget>
    </widget>
    <zorder>layoutWidget</zorder>
-   <zorder>Keypoints_tick</zorder>
-   <zorder>Contrast_tick</zorder>
-   <zorder>Sharpen_tick</zorder>
-   <zorder>Original_tick</zorder>
-   <zorder>CVWindows</zorder>
-   <zorder>label_3</zorder>
-   <zorder>alpha_slider</zorder>
-   <zorder>alpha_label</zorder>
-   <zorder>alpha_value_label</zorder>
-   <zorder>layoutWidget_2</zorder>
-   <zorder>Combined_tick</zorder>
-   <zorder>Combined_tick</zorder>
-   <zorder>Original_tick</zorder>
-   <zorder>checkBox_6</zorder>
-   <zorder>checkBox_7</zorder>
-   <zorder>checkBox_8</zorder>
-   <zorder>checkBox_9</zorder>
-   <zorder>checkBox_10</zorder>
-   <zorder>label_8</zorder>
-   <zorder>Detector_choice</zorder>
-   <zorder>DetectorAlgorithm</zorder>
-   <zorder>label_3</zorder>
-   <zorder>label_3</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>splitter</zorder>
+   <zorder>layoutWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

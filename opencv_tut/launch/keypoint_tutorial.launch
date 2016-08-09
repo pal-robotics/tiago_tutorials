@@ -1,0 +1,6 @@
+<launch>
+
+<node name="gui" pkg="opencv_tut" type="gui_find_keypoints.py"/>
+<node name="vision_code" pkg="opencv_tut" type="find_keypoints" output="screen"/>
+
+</launch>

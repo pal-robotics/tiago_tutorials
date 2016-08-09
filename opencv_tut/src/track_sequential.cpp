@@ -59,29 +59,23 @@ void TrackSequential::imageCB(const sensor_msgs::ImageConstPtr& msg)
 	  return;
 	}
 	cvPtr->image.copyTo(img_bgr);
-  cv::cvtColor(cvPtr->image, img1, cv::COLOR_BGR2GRAY);
-  this->ImageProcessing();
+    cv::cvtColor(cvPtr->image, img1, cv::COLOR_BGR2GRAY);
+    this->ImageProcessing();
 
   img1.copyTo(img2);
 }
-
 
 void TrackSequential::ImageProcessing()
 {
 	if(i!=0)
 	{	
 		cv::absdiff(img1,img2,diff);
-
 		cv::threshold(diff, thresh, 20, 255, cv::THRESH_BINARY);
-
 		cv::morphologyEx(thresh, thresh, 2, cv::getStructuringElement( 2, cv::Size(3, 3)));
-
 		this->ContourDetection(thresh, img_bgr);
-
 		cv::imshow(win1, img_bgr);
 		cv::imshow(win2, thresh);
 	}
-	
 	++i;
 	cv::waitKey(1);
 }
@@ -89,27 +83,18 @@ void TrackSequential::ImageProcessing()
 void TrackSequential::ContourDetection(cv::Mat thresh_in, cv::Mat &output_)
 {
 	cv::Mat temp;
-
 	cv::Rect objectBoundingRectangle = cv::Rect(0,0,0,0);
-
 	thresh_in.copyTo(temp);
-
 	std::vector<std::vector<cv::Point> > contours;
 	std::vector<cv::Vec4i> hierarchy;
-
 	cv::findContours(temp, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
-
 	if(contours.size()>0)
 	{
 		std::vector<std::vector<cv::Point> > largest_contour;
-
 		largest_contour.push_back(contours.at(contours.size()-1));
-
 		objectBoundingRectangle = cv::boundingRect(largest_contour.at(0));
-
 		int x = objectBoundingRectangle.x+objectBoundingRectangle.width/2;
 		int y = objectBoundingRectangle.y+objectBoundingRectangle.height/2;
-
 		cv::circle(output_,cv::Point(x,y),20,cv::Scalar(0,255,0),2);
 	}
 }
@@ -118,10 +103,7 @@ void TrackSequential::ContourDetection(cv::Mat thresh_in, cv::Mat &output_)
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "TrackSequential");
-
   ros::NodeHandle nh;
-
   TrackSequential ts(nh);
-
   ros::spin();
 }

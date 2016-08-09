@@ -23,26 +23,29 @@ public:
 	
 protected:
 	void imageCB(const sensor_msgs::ImageConstPtr& msg);
-    void featuresDetection(cv::Mat &img_, std::vector<cv::KeyPoint> &vector_);
-    void matchVectors(cv::Mat &img_feed, std::vector<cv::KeyPoint>& vector_feed, cv::Mat &img_aruco, std::vector<cv::KeyPoint>& vector_aruco, std::vector<cv::DMatch>& good_matches, cv::Mat& matches_matrix);
+//    void featuresDetection(cv::Mat &img_, std::vector<cv::KeyPoint> &vector_);
+//    void matchVectors(cv::Mat &img_feed, std::vector<cv::KeyPoint>& vector_feed, cv::Mat &img_aruco, std::vector<cv::KeyPoint>& vector_aruco, std::vector<cv::DMatch>& good_matches, cv::Mat& matches_matrix);
     void homography(std::vector<cv::KeyPoint> aruco_, std::vector<cv::KeyPoint> feed_, std::vector<cv::DMatch> match, cv::Mat aruco_img, cv::Mat matches_mat);
+    void orbMatching(cv::Mat in_feed,cv::Mat in_static ,cv::Mat& out);
+    void siftMatching(cv::Mat in_feed,cv::Mat in_static ,cv::Mat& out);
 
 	image_transport::ImageTransport _imageTransport;
     image_transport::Subscriber image_sub;
 };
 
-const std::string win1 = "Feed";
-const std::string win2 = "Aruco";
-const std::string win3 = "Matches";
+const std::string orb_win = "ORB";
+const std::string sift_win = "SIFT";
+
+
 const std::string path = "/home/job/pal_robotics_catkin/src/tiago_tutorials/opencv_tut/resources/aruco.jpg";
 //const std::string path = "/home/job/pal_robotics_catkin/src/tiago_tutorials/opencv_tut/resources/frame0003.jpg";
 
 FlannMatching::FlannMatching(ros::NodeHandle nh_): _imageTransport(nh_)
 {
 	image_sub = _imageTransport.subscribe("xtion/rgb/image_raw", 1, &FlannMatching::imageCB, this, image_transport::TransportHints("compressed"));
-//    cv::namedWindow(win1, CV_WINDOW_FREERATIO);
-//    cv::namedWindow(win2, CV_WINDOW_FREERATIO);
-    cv::namedWindow(win3, CV_WINDOW_FREERATIO);
+    cv::namedWindow(orb_win, CV_WINDOW_FREERATIO);
+    cv::namedWindow(sift_win, CV_WINDOW_FREERATIO);
+//    cv::namedWindow(win3, CV_WINDOW_FREERATIO);
 }
 
 FlannMatching::~FlannMatching()
@@ -52,11 +55,9 @@ FlannMatching::~FlannMatching()
 
 void FlannMatching::imageCB(const sensor_msgs::ImageConstPtr& msg)
 {
-	cv::Mat img, out;
-	cv_bridge::CvImagePtr cvPtr;
-    std::vector<cv::DMatch> good_matches;
-    cv::Mat matches_matrix;
+    cv::Mat img, orb_mat, sift_mat;
 
+	cv_bridge::CvImagePtr cvPtr;
 	try
 	{ 
 		cvPtr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
@@ -66,62 +67,85 @@ void FlannMatching::imageCB(const sensor_msgs::ImageConstPtr& msg)
     ROS_ERROR("cv_bridge exception: %s", e.what());
     return;
   }
+    cvPtr->image.copyTo(img);
+
+
     cv::Mat img_aruco = cv::imread(path);
     if(!img_aruco.data)
         ROS_INFO("NO DATA");
-    std::vector<cv::KeyPoint> key_aruco;
-    this->featuresDetection(img_aruco, key_aruco);
 
-    cvPtr->image.copyTo(img);
-    std::vector<cv::KeyPoint> key_img;
-    this->featuresDetection(img, key_img);
-    this->matchVectors(img, key_img, img_aruco, key_aruco, good_matches, matches_matrix);
-//    this->homography(key_aruco, key_img, good_matches, img_aruco, matches_matrix);
+    this->orbMatching(img, img_aruco, orb_mat);
+    this->siftMatching(img, img_aruco, sift_mat);
 
-//    cv::imshow(win1, img_aruco);
-//    cv::imshow(win2, img);
-    cv::waitKey(4);
+    cv::imshow(sift_win, sift_mat);
+    cv::imshow(orb_win, orb_mat);
+
+    cv::waitKey(1);
 }
 
-void FlannMatching::featuresDetection(cv::Mat& img_, std::vector<cv::KeyPoint>& vector_)
+void FlannMatching::orbMatching(cv::Mat in_feed,cv::Mat in_static ,cv::Mat& out)
 {
-    cv::SiftFeatureDetector detector(400);
+    cv::Mat desc_feed, desc_static;
+    cv::OrbFeatureDetector detector;
 
-    detector.detect(img_, vector_);
+    std::vector<cv::KeyPoint> vec_feed, vec_static;
 
-    cv::drawKeypoints(img_, vector_, img_, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT);
-}
+    detector.detect(in_feed, vec_feed);
+    detector.detect(in_static, vec_static);
 
-void FlannMatching::matchVectors(cv::Mat& img_feed, std::vector<cv::KeyPoint>& vector_feed, cv::Mat& img_aruco_, std::vector<cv::KeyPoint>& vector_aruco, std::vector<cv::DMatch>& good_matches, cv::Mat& matches_matrix)
-{
-    cv::Mat desc_feed, desc_aruco;
+    cv::OrbDescriptorExtractor extractor;
 
-    cv::SiftDescriptorExtractor extract;
-
-    extract.compute(img_feed, vector_feed, desc_feed);
-    extract.compute(img_aruco_, vector_aruco, desc_aruco);
+    extractor.compute(in_feed, vec_feed, desc_feed);
+    extractor.compute(in_static, vec_static, desc_static);
 
     cv::BFMatcher matcher;
     std::vector<std::vector<cv::DMatch>> matches;
-    matcher.knnMatch(desc_feed, desc_aruco, matches,2);
+    matcher.knnMatch(desc_feed, desc_static, matches, 2);
 
-    for(const auto d : matches)
-    {
-        if(d[0].distance<d[1].distance*0.6)
-            good_matches.push_back(d[0]);
-    }
+    std::vector<cv::DMatch> good_matches;
 
-//    ROS_INFO_STREAM("good matches : " << good_matches.size());
+    for(const auto m : matches)
+        if(m[0].distance<m[1].distance*0.6)
+            good_matches.push_back(m[0]);
 
-    cv::drawMatches(img_feed, vector_feed, img_aruco_, vector_aruco, good_matches, matches_matrix);
-//    cv::drawMatches(img_aruco_, vector_aruco, img_feed, vector_feed, good_matches, matches_matrix);
-    cv::imshow(win3, matches_matrix);
+    cv::drawMatches(in_feed, vec_feed, in_static, vec_static, good_matches, out);
 }
+
+void FlannMatching::siftMatching(cv::Mat in_feed,cv::Mat in_static ,cv::Mat& out)
+{
+    cv::Mat desc_feed, desc_static;
+    cv::SiftFeatureDetector detector;
+
+    std::vector<cv::KeyPoint> vec_feed, vec_static;
+
+    detector.detect(in_feed, vec_feed);
+    detector.detect(in_static, vec_static);
+
+    cv::SiftDescriptorExtractor extractor;
+
+    extractor.compute(in_feed, vec_feed, desc_feed);
+    extractor.compute(in_static, vec_static, desc_static);
+
+    cv::BFMatcher matcher;
+    std::vector<std::vector<cv::DMatch>>matches;
+    matcher.knnMatch(desc_feed, desc_static, matches, 2);
+
+    std::vector<cv::DMatch> good_matches;
+
+    for(const auto m : matches)
+        if(m[0].distance<m[1].distance*0.6)
+            good_matches.push_back(m[0]);
+
+    cv::drawMatches(in_feed, vec_feed, in_static, vec_static, good_matches, out);
+}
+
+
+
 
 void FlannMatching::homography(std::vector<cv::KeyPoint> aruco_, std::vector<cv::KeyPoint> feed_, std::vector<cv::DMatch> match_vector, cv::Mat aruco_img, cv::Mat matches_mat)
 {
     std::vector<cv::Point2f> aruco_2f, feed_2f;
-ROS_INFO("Started Homography");
+    ROS_INFO("Started Homography");
     for(int i = 0; i<match_vector.size(); ++i)
     {
         aruco_2f.push_back(aruco_[match_vector[i].queryIdx].pt);
@@ -143,7 +167,6 @@ ROS_INFO("Started Homography");
     cv::line(matches_mat, feed_corners[2] + cv::Point2f(aruco_img.cols, 0), feed_corners[3] + cv::Point2f(aruco_img.rows), cv::Scalar(0,255,0), 4);
     cv::line(matches_mat, feed_corners[3] + cv::Point2f(aruco_img.cols, 0), feed_corners[0] + cv::Point2f(aruco_img.rows), cv::Scalar(0,255,0), 4);
 
-    cv::imshow(win2, matches_mat);
 }
 
 int main(int argc, char** argv)
