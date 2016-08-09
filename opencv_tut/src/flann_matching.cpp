@@ -126,9 +126,11 @@ void FlannMatching::siftMatching(cv::Mat in_feed,cv::Mat in_static ,cv::Mat& out
     extractor.compute(in_feed, vec_feed, desc_feed);
     extractor.compute(in_static, vec_static, desc_static);
 
-    cv::BFMatcher matcher;
+//    cv::BFMatcher matcher;
+    cv::FlannBasedMatcher matcher;
     std::vector<std::vector<cv::DMatch>>matches;
     matcher.knnMatch(desc_feed, desc_static, matches, 2);
+//    matcher.knnMatch();
 
     std::vector<cv::DMatch> good_matches;
 
@@ -138,8 +140,6 @@ void FlannMatching::siftMatching(cv::Mat in_feed,cv::Mat in_static ,cv::Mat& out
 
     cv::drawMatches(in_feed, vec_feed, in_static, vec_static, good_matches, out);
 }
-
-
 
 
 void FlannMatching::homography(std::vector<cv::KeyPoint> aruco_, std::vector<cv::KeyPoint> feed_, std::vector<cv::DMatch> match_vector, cv::Mat aruco_img, cv::Mat matches_mat)
