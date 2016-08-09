@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   dynamic_reconfigure
   sensor_msgs
+  pcl_conversions
 )
 
 find_package(PCL REQUIRED)
