@@ -200,5 +200,5 @@ add_definitions(${PCL_DEFINITIONS})
 
 
 add_executable(pcl_segment src/pcl_segment.cpp)
-  add_dependencies(pcl_segment ${${pcl_tiago_tutorials}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} ${pcl_tiago_tutorials}_gencfg)
+  add_dependencies(pcl_segment ${pcl_tiago_tutorials_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} pcl_tiago_tutorials_gencfg)
   target_link_libraries(pcl_segment ${catkin_LIBRARIES} ${PCL_LIBRARIES})
