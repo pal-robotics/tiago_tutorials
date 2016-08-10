@@ -12,7 +12,7 @@
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/extract_indices.h>
 #include <dynamic_reconfigure/server.h>
-#include <pcl_tiago/pclConfig.h>
+#include <pcl_tiago_tutorials/pclConfig.h>
 
 
 class pcl_segment
@@ -22,7 +22,7 @@ public:
 	~pcl_segment();
 	void filter(pcl::PCLPointCloud2::Ptr cloud_);
 	void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input);
-	void dynam_CB(pcl_tiago::pclConfig &config, uint32_t level);
+    void dynam_CB(pcl_tiago_tutorials::pclConfig &config, uint32_t level);
 	double setLeafX, setLeafY, setLeafZ, MaxIt, DistThresh;
 	bool optimize;
 	int choose_image;
@@ -30,7 +30,7 @@ public:
 	pcl::PCLPointCloud2::Ptr cloud_filtered;
 	ros::Subscriber sub;
   	ros::Publisher pub, pub_1, pub_2;
-  	dynamic_reconfigure::Server<pcl_tiago::pclConfig> server;
-  	dynamic_reconfigure::Server<pcl_tiago::pclConfig>::CallbackType f;
+    dynamic_reconfigure::Server<pcl_tiago_tutorials::pclConfig> server;
+    dynamic_reconfigure::Server<pcl_tiago_tutorials::pclConfig>::CallbackType f;
 
 };

@@ -20,7 +20,7 @@ void pcl_segment::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
 	pcl_segment::filter(cloud);
 }
 
-void pcl_segment::dynam_CB(pcl_tiago::pclConfig& config, uint32_t level)
+void pcl_segment::dynam_CB(pcl_tiago_tutorials::pclConfig& config, uint32_t level)
 {
 
 	setLeafX = config.setLeafSize_X;
