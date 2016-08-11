@@ -103,7 +103,7 @@ find_package(PCL REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 
 catkin_package(
-  INCLUDE_DIRS include
+  # INCLUDE_DIRS include
 #  LIBRARIES pcl_tutorial
   CATKIN_DEPENDS roscpp dynamic_reconfigure sensor_msgs
 #  DEPENDS system_lib
@@ -116,7 +116,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 
-include_directories(include)
+# include_directories(include)
 
 include_directories(SYSTEM 
   ${catkin_INCLUDE_DIRS}

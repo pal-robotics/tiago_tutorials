@@ -1,7 +1,7 @@
 <launch>
 
-	<node name="PCL_Segmentation_Tutorial" pkg="pcl_tiago" type="pcl_segment" output="screen"/>
-	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find pcl_tiago)/resources/rviz/pcl_segment.rviz"/>
+	<node name="PCL_Segmentation_Tutorial" pkg="pcl_tiago_tutorials" type="pcl_segment" output="screen"/>
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find pcl_tiago_tutorials)/resources/rviz/pcl_segment.rviz"/>
 	<node name="rqt_gui" pkg="rqt_gui" type="rqt_gui" />
 
 </launch>
