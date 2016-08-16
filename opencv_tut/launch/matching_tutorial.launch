@@ -1,0 +1,6 @@
+<launch>
+
+<node name="gui" pkg="opencv_tut" type="gui_flann_matching.py"/>
+<node name="flann_matching" pkg="opencv_tut" type="flann_matching" output="screen"/>
+
+</launch>

@@ -6,7 +6,7 @@ import rospy
 import rospkg
 from PyQt4 import QtGui, uic
 from opencv_tut.msg import valueMatrix
-pub = rospy.Publisher('opencv_tut/Matrix_values', valueMatrix)
+pub = rospy.Publisher('opencv_tut/find_keypoints_gui', valueMatrix)
 class MyWindow(QtGui.QMainWindow):
 	def __init__(self):
 		super(MyWindow, self).__init__()

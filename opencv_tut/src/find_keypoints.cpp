@@ -27,7 +27,7 @@ protected:
     void cvWindows();
 	image_transport::ImageTransport _imageTransport;
     image_transport::Subscriber image_sub;
-    ros::Subscriber matrix_sub;
+    ros::Subscriber gui_sub;
     float alpha;
     int beta;
     int zero_zero, zero_one, zero_two, one_zero, one_one, one_two, two_zero, two_one, two_two;
@@ -55,7 +55,7 @@ FindKeypoints::FindKeypoints(ros::NodeHandle nh_): _imageTransport(nh_)
     detector_from_msg = "SURF";
 
     image_sub = _imageTransport.subscribe("xtion/rgb/image_raw", 1, &FindKeypoints::imageCB, this, image_transport::TransportHints("compressed"));
-    matrix_sub = nh_.subscribe("/opencv_tut/Matrix_values", 1, &FindKeypoints::matrixCB, this);
+    gui_sub = nh_.subscribe("/opencv_tut/find_keypoints_gui", 1, &FindKeypoints::matrixCB, this);
 }
 
 FindKeypoints::~FindKeypoints()
