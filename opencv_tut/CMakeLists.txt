@@ -193,12 +193,12 @@ include_directories(SYSTEM
 
 add_executable(track_sequential src/track_sequential.cpp)
   target_link_libraries(track_sequential yaml-cpp ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
-  add_dependencies(track_sequential generate_messages_cpp)
+  add_dependencies(track_sequential ${PROJECT_NAME}_generate_messages_cpp)
 
 add_executable(find_keypoints src/find_keypoints.cpp)
   target_link_libraries(find_keypoints yaml-cpp ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
-  add_dependencies(find_keypoints generate_messages_cpp)
+  add_dependencies(find_keypoints ${PROJECT_NAME}_generate_messages_cpp)
 
 add_executable(flann_matching src/flann_matching.cpp)
   target_link_libraries(flann_matching yaml-cpp ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
-  add_dependencies(flann_matching generate_messages_cpp)
+  add_dependencies(flann_matching ${PROJECT_NAME}_generate_messages_cpp)
