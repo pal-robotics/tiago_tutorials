@@ -14,8 +14,6 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
-
-
 ## System dependencies are found with CMake's conventions
 find_package(OpenCV 2.4 REQUIRED )
 
@@ -107,7 +105,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   LIBRARIES opencv_tut
-  CATKIN_DEPENDS roscpp rospy image_transport cv_bridge pal_detection_msgs  geometry_msgs
+  CATKIN_DEPENDS roscpp rospy image_transport cv_bridge pal_detection_msgs  geometry_msgs message_generation
   DEPENDS system_lib
 )
 
