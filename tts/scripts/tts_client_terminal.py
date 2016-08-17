@@ -18,7 +18,5 @@ if __name__ == '__main__':
 	goal = TtsGoal()
 	while not rospy.is_shutdown():
 		text = raw_input("Enter sentence: ")
-		if(text == "^C"):
-			pass
 		goal.rawtext.text = text
 		client.send_goal(goal)
