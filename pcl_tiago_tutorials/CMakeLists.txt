@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   dynamic_reconfigure
   sensor_msgs
   pcl_conversions
+  pcl_ros
 )
 
 find_package(PCL REQUIRED)
