@@ -18,11 +18,11 @@
 #include <pcl_ros/point_cloud.h>
 #include <pcl/segmentation/extract_clusters.h>
 
-class pcl_segment
+class PclSegment
 {
 public:
-    pcl_segment(ros::NodeHandle nh_);
-    ~pcl_segment();
+    PclSegment(ros::NodeHandle nh_);
+    ~PclSegment();
     void segmentPlane(pcl::PCLPointCloud2::Ptr cloud_);
     void segmentCylinder(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_);
     void segmentEuclidean(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_);
@@ -41,10 +41,10 @@ public:
 
 typedef pcl::PointXYZ PointT;
 
-pcl_segment::pcl_segment(ros::NodeHandle nh_)
+PclSegment::PclSegment(ros::NodeHandle nh_)
 {
-    ROS_INFO("Started pcl_Segment");
-    sub = nh_.subscribe("/xtion/depth_registered/points", 1, &pcl_segment::cloud_cb, this);
+    ROS_INFO("Started PclSegment");
+    sub = nh_.subscribe("/xtion/depth_registered/points", 1, &PclSegment::cloud_cb, this);
     ROS_INFO("subscribed");
 	pub = nh_.advertise<pcl::PCLPointCloud2>("filtered", 1);
     ROS_INFO("published filtered");
@@ -57,28 +57,28 @@ pcl_segment::pcl_segment(ros::NodeHandle nh_)
     pub_4 = nh_.advertise<pcl::PointCloud<PointT> >("pub_four", 1);
 //    pub_3 = nh_.advertise<sensor_msgs::PointCloud2>("2nd filter");
     ROS_INFO("published 2nd filter");
-    f = boost::bind(&pcl_segment::dynam_CB, this, _1, _2);
+    f = boost::bind(&PclSegment::dynam_CB, this, _1, _2);
 	server.setCallback(f);
     iteration = 0;
     ROS_INFO("Finished creating subscribers and publishers");
 }
 
-pcl_segment::~pcl_segment(){}
+PclSegment::~PclSegment(){}
 
-void pcl_segment::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
+void PclSegment::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
 {
 	pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2);
     pcl::PointCloud<PointT>::Ptr cloud_1(new pcl::PointCloud<PointT>);
     pcl_conversions::toPCL(*input, *cloud);
     pcl::fromROSMsg(*input, *cloud_1);
-   pcl_segment::segmentPlane(cloud);
-//    pcl_segment::segmentCylinder(cloud_1);
-    // pcl_segment::segmentEuclidean(cloud_1);
+   PclSegment::segmentPlane(cloud);
+//    PclSegment::segmentCylinder(cloud_1);
+    // PclSegment::segmentEuclidean(cloud_1);
     iteration++;
     ROS_INFO_STREAM("Iteration: " << iteration);
 }
 
-void pcl_segment::dynam_CB(const pcl_tiago_tutorials::pclConfig &config, uint32_t level)
+void PclSegment::dynam_CB(const pcl_tiago_tutorials::pclConfig &config, uint32_t level)
 {
 	setLeafX = config.setLeafSize_X;
 	setLeafY = config.setLeafSize_Y;
@@ -88,7 +88,7 @@ void pcl_segment::dynam_CB(const pcl_tiago_tutorials::pclConfig &config, uint32_
 	choose_image = config.image;
 }
 
-void pcl_segment::segmentPlane(pcl::PCLPointCloud2::Ptr cloud_)
+void PclSegment::segmentPlane(pcl::PCLPointCloud2::Ptr cloud_)
 {	
 	pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
 	pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2);
@@ -135,7 +135,7 @@ void pcl_segment::segmentPlane(pcl::PCLPointCloud2::Ptr cloud_)
 	pub_2.publish(cloud_);
 }
 
-void pcl_segment::segmentEuclidean(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_)
+void PclSegment::segmentEuclidean(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_)
 {
     pcl::VoxelGrid<PointT> vox;
     pcl::PointCloud<PointT>::Ptr cloud_filt (new pcl::PointCloud<PointT>);
@@ -202,7 +202,7 @@ void pcl_segment::segmentEuclidean(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_)
   }
 }
 
-void pcl_segment::segmentCylinder(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_)
+void PclSegment::segmentCylinder(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_)
 {
     pcl::PointCloud<PointT>::Ptr cloud_filt (new pcl::PointCloud<PointT>), cloud_filt2 (new pcl::PointCloud<PointT>), cloud_plane (new pcl::PointCloud<PointT>);
     pcl::PointCloud<pcl::Normal>::Ptr cloud_norm(new pcl::PointCloud<pcl::Normal>), cloud_norm2(new pcl::PointCloud<pcl::Normal>);
@@ -277,9 +277,9 @@ void pcl_segment::segmentCylinder(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_)
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "pcl_segment");
+  ros::init(argc, argv, "PclSegment");
   ros::NodeHandle nh;
-  pcl_segment pcl_object(nh);
+  PclSegment pcl_object(nh);
   ros::spin();
   return 0;
 }

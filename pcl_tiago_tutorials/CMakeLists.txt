@@ -152,6 +152,13 @@ add_definitions(${PCL_DEFINITIONS})
 # )
 
 
+add_executable(pcl_segment src/pcl_segment.cpp)
+  add_dependencies(pcl_segment ${pcl_tiago_tutorials_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} pcl_tiago_tutorials_gencfg)
+  target_link_libraries(pcl_segment ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+
+add_executable(region_segment src/region_segment.cpp)
+  add_dependencies(region_segment ${pcl_tiago_tutorials_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} pcl_tiago_tutorials_gencfg)
+  target_link_libraries(region_segment ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
 #############
 ## Install ##
@@ -202,6 +209,3 @@ add_definitions(${PCL_DEFINITIONS})
 # catkin_add_nosetests(test)
 
 
-add_executable(pcl_segment src/pcl_segment.cpp)
-  add_dependencies(pcl_segment ${pcl_tiago_tutorials_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} pcl_tiago_tutorials_gencfg)
-  target_link_libraries(pcl_segment ${catkin_LIBRARIES} ${PCL_LIBRARIES})
