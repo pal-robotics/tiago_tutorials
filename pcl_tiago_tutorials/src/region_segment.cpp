@@ -15,7 +15,10 @@
 #include <pcl/segmentation/region_growing.h>
 #include <pcl/segmentation/region_growing_rgb.h>
 #include <pcl/segmentation/min_cut_segmentation.h>
-
+#include <pcl/range_image/range_image.h>
+#include <pcl/visualization/range_image_visualizer.h>
+#include <pcl/visualization/pcl_visualizer.h>
+#include <pcl/features/range_image_border_extractor.h>
 
 
 typedef pcl::PointXYZ PointT;
@@ -27,15 +30,15 @@ public:
 	RegionSegment(ros::NodeHandle nh);
 	~RegionSegment();
 	 ros::Subscriber sub;
-	 ros::Publisher pub, pub_rgb;
+     ros::Publisher pub;
 
 protected:
 void region_segment(pcl::PointCloud<PointT>::Ptr cloud);
 void colour_segment(pcl::PointCloud<PointR>::Ptr cloud);
 void min_cut_segment(pcl::PointCloud<PointT>::Ptr cloud);
-
-
 void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input);
+void range_image(pcl::PointCloud<PointT> cloud);
+void setViewerPose (pcl::visualization::PCLVisualizer& viewer, const Eigen::Affine3f& viewer_pose);
 
 };
 
@@ -51,15 +54,62 @@ RegionSegment::~RegionSegment(){}
 
 void RegionSegment::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
 {
-	pcl::PointCloud<PointT>::Ptr cloud(new pcl::PointCloud<PointT>);
-	pcl::fromROSMsg(*input, *cloud);
-	// this->region_segment(cloud);
-	this->min_cut_segment(cloud);
+//	pcl::PointCloud<PointT>::Ptr cloud(new pcl::PointCloud<PointT>);
+//	pcl::fromROSMsg(*input, *cloud);
+// this->region_segment(cloud);
+//	this->min_cut_segment(cloud);
+
+    pcl::PointCloud<PointT> cloud;
+    pcl::fromROSMsg(*input, cloud);
+
+    this->range_image(cloud);
 
 	// pcl::PointCloud<PointR>::Ptr cloudRGB(new pcl::PointCloud<PointR>);
 	// pcl::fromROSMsg(*input, *cloudRGB);
 	// this->colour_segment(cloudRGB);
 }
+
+void RegionSegment::range_image(pcl::PointCloud<PointT> cloud)
+{
+    cloud.width = (uint32_t) cloud.points.size();
+    cloud.height = 1;
+
+    float angularResolution = (float) (  1.0f * (M_PI/180.0f));  //   1.0 degree in radians
+    float maxAngleWidth     = (float) (360.0f * (M_PI/180.0f));  // 360.0 degree in radians
+    float maxAngleHeight    = (float) (180.0f * (M_PI/180.0f));  // 180.0 degree in radians
+    Eigen::Affine3f sensorPose = (Eigen::Affine3f)Eigen::Translation3f(0.0f, 0.0f, 0.0f);
+    pcl::RangeImage::CoordinateFrame coordinate_frame = pcl::RangeImage::CAMERA_FRAME;
+//    pcl::RangeImage::CoordinateFrame coordinate_frame = pcl::RangeImage::LASER_FRAME;
+    float noiseLevel=0.00;
+    float minRange = 0.0f;
+    int borderSize = 1;
+
+    boost::shared_ptr<pcl::RangeImage> range_image_ptr(new pcl::RangeImage);
+    pcl::RangeImage& rangeImage = *range_image_ptr;
+    rangeImage.createFromPointCloud(cloud, angularResolution, maxAngleWidth, maxAngleHeight, sensorPose, coordinate_frame, noiseLevel, minRange, borderSize);
+
+
+
+    pcl::visualization::RangeImageVisualizer range_image_widget ("Range image");
+    range_image_widget.showRangeImage (rangeImage);
+    while (!range_image_widget.wasStopped ())
+     {
+        range_image_widget.spinOnce ();
+        pcl_sleep (0.01);
+    }
+    exit(EXIT_SUCCESS);
+}
+
+void RegionSegment::setViewerPose (pcl::visualization::PCLVisualizer& viewer, const Eigen::Affine3f& viewer_pose)
+{
+  Eigen::Vector3f pos_vector = viewer_pose * Eigen::Vector3f(0, 0, 0);
+  Eigen::Vector3f look_at_vector = viewer_pose.rotation () * Eigen::Vector3f(0, 0, 1) + pos_vector;
+  Eigen::Vector3f up_vector = viewer_pose.rotation () * Eigen::Vector3f(0, -1, 0);
+  viewer.setCameraPosition (pos_vector[0], pos_vector[1], pos_vector[2],
+                                                    look_at_vector[0], look_at_vector[1], look_at_vector[2],
+                                                    up_vector[0], up_vector[1], up_vector[2]);
+}
+
 
 void RegionSegment::region_segment(pcl::PointCloud<PointT>::Ptr cloud)
 {
