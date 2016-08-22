@@ -36,7 +36,7 @@ class Action(QtGui.QMainWindow):
 
 	def button_cb(self):
 		self.textFeedback.clear()
-		value = self.textSend.toPlainTxt()
+		value = self.textSend.toPlainText()
 		goal = TtsGoal()
 		goal.rawtext.text = str(value)
 		goal.wait_before_speaking = float(self.interval_slider.value())/10
