@@ -29,6 +29,9 @@ protected:
 	int myShiTomasi_qualityLevel = 50;
 	int myHarris_qualityLevel = 50;
 	int max_qualityLevel = 100;
+	int blockSize = 3;
+	int apertureSize = 3;
+
 	cv::Mat myHarris_copy, myShiTomasi_copy, Mc;
 	double myHarris_minVal, myHarris_maxVal, myShiTomasi_minVal, myShiTomasi_maxVal;
 };
@@ -40,16 +43,17 @@ cv::RNG rng(12345);
 CornerDetection::CornerDetection(ros::NodeHandle nh_): _imageTransport(nh_)
 {
 	image_sub = _imageTransport.subscribe("xtion/rgb/image_raw", 1, &CornerDetection::imageCB, this, image_transport::TransportHints("compressed"));
-	cv::namedWindow(shiTomasi_win, cv::WINDOW_AUTOSIZE);
+	cv::namedWindow(shiTomasi_win, CV_WINDOW_FREERATIO);
   cv::createTrackbar( " Quality Level:", shiTomasi_win, &myShiTomasi_qualityLevel, max_qualityLevel/*, this->myShiTomasi_function*/ );
+  cv::createTrackbar( " Block Size:", shiTomasi_win, &blockSize, 25);
 
-	cv::namedWindow(harris_win, cv::WINDOW_AUTOSIZE);
+	cv::namedWindow(harris_win, CV_WINDOW_FREERATIO);
   cv::createTrackbar( " Quality Level:", harris_win, &myHarris_qualityLevel, max_qualityLevel/*, this->myHarris_function */);
 }
 
 CornerDetection::~CornerDetection()
 {
-
+	cv::destroyAllWindows();
 }
 
 void CornerDetection::imageCB(const sensor_msgs::ImageConstPtr& msg)
@@ -68,7 +72,6 @@ void CornerDetection::imageCB(const sensor_msgs::ImageConstPtr& msg)
 	cvPtr->image.copyTo(img);
 	cv::cvtColor(img, img_gray, cv::COLOR_BGR2GRAY);
 
-	int blockSize = 3; int apertureSize = 3;
 
   /// My Harris matrix -- Using cornerEigenValsAndVecs
   myHarris_dst = cv::Mat::zeros( img_gray.size(), CV_32FC(6) );
