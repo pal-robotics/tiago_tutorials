@@ -195,6 +195,10 @@ add_executable(track_sequential src/track_sequential.cpp)
   target_link_libraries(track_sequential yaml-cpp ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
   add_dependencies(track_sequential ${PROJECT_NAME}_generate_messages_cpp)
 
+add_executable(corner_detection src/corner_detection.cpp)
+  target_link_libraries(corner_detection yaml-cpp ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+  add_dependencies(corner_detection ${PROJECT_NAME}_generate_messages_cpp)
+
 add_executable(find_keypoints src/find_keypoints.cpp)
   target_link_libraries(find_keypoints yaml-cpp ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
   add_dependencies(find_keypoints ${PROJECT_NAME}_generate_messages_cpp)
