@@ -147,8 +147,6 @@ void FindKeypoints::imageCB(const sensor_msgs::ImageConstPtr& msg)
     ROS_ERROR("cv_bridge exception: %s", e.what());
     return;
   }
-//    cv::Mat img_aruco = cv::imread(img_path, 1);
-//    this->FeaturesDetection(img_aruco, img_aruco);
 
     cvPtr->image.copyTo(img);
 
@@ -186,8 +184,8 @@ void FindKeypoints::sharpenImg(cv::Mat in, cv::Mat& out)
 {
     out = cv::Mat::zeros(in.size(), in.type());
     cv::Mat kern = (cv::Mat_<char>(3,3) << zero_zero, zero_one, zero_two,
-                                                                     one_zero, one_one, one_two,
-                                                                    zero_two, one_one, one_two);
+                                            one_zero, one_one, one_two,
+                                            zero_two, one_one, one_two);
     cv::filter2D(in, out, in.depth(), kern);
 }
 
