@@ -235,8 +235,8 @@ void FindKeypoints::contrastChange(cv::Mat in, cv::Mat& out)
 
 void FindKeypoints::FeaturesDetection(cv::Mat in, cv::Mat& out)
 {	
-	cv::initModule_nonfree();
 	std::vector<cv::KeyPoint> keypoints;
+	cv::initModule_nonfree();
 	cv::Ptr<cv::FeatureDetector> detector = cv::FeatureDetector::create(detector_from_msg);
 	detector->detect(in, keypoints);
 	cv::drawKeypoints(in, keypoints, out, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT);
