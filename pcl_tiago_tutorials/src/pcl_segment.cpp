@@ -28,7 +28,7 @@ public:
 	void segmentEuclidean(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_);
 	void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input);
 	void dynam_CB(const pcl_tiago_tutorials::pclConfig &config, uint32_t level);
-	double setLeafX, setLeafY, setLeafZ, DistThresh;
+	double setLeafX, setLeafY, setLeafZ, DistThresh, RadLim;
 	bool optimize;
 	int choose_image;
 	int choose_method;
@@ -37,7 +37,7 @@ public:
 	ros::Subscriber sub;
 	ros::Publisher pub, pub_1, pub_2, pub_3, pub_4;
 	dynamic_reconfigure::Server<pcl_tiago_tutorials::pclConfig> server;
-	dynamic_reconfigure::Server<pcl_tiago_tutorials::pclConfig>::CallbackType f;
+	dynamic_reconfigure::Server<pcl_tiago_tutorials::pclConfig>::CallbackType cb;
 };
 
 typedef pcl::PointXYZ PointT;
@@ -47,12 +47,11 @@ PclSegment::PclSegment(ros::NodeHandle nh_)
 	sub = nh_.subscribe("/xtion/depth_registered/points", 1, &PclSegment::cloud_cb, this);
 	pub = nh_.advertise<pcl::PCLPointCloud2>("filtered", 1);
 	pub_1 = nh_.advertise<pcl::PCLPointCloud2>("extracted_surface", 1);
-	pub_2 = nh_.advertise<pcl::PCLPointCloud2>("original_without_extracted_surface", 1);
 	pub_3 = nh_.advertise<pcl::PointCloud<PointT> >("pub_three", 1);
 	pub_4 = nh_.advertise<pcl::PointCloud<PointT> >("pub_four", 1);
 
-	f = boost::bind(&PclSegment::dynam_CB, this, _1, _2);
-	server.setCallback(f);
+	cb = boost::bind(&PclSegment::dynam_CB, this, _1, _2);
+	server.setCallback(cb);
 	iteration = 0;
 }
 
@@ -82,6 +81,7 @@ void PclSegment::dynam_CB(const pcl_tiago_tutorials::pclConfig &config, uint32_t
 	setLeafY = config.setLeafSize_Y;
 	setLeafZ = config.setLeafSize_Z;
 	DistThresh = config.Distance_Threshold;
+	RadLim = config.Radius_Limit;
 	optimize = config.Optimize_Coefficients;
 	choose_image = config.image;
 	choose_method = config.method;
@@ -108,11 +108,10 @@ void PclSegment::segmentPlane(pcl::PCLPointCloud2::Ptr cloud_)
 
 	pcl::SACSegmentation<pcl::PointXYZ> seg;
 	seg.setOptimizeCoefficients (optimize);
-	seg.setModelType (pcl::SACMODEL_PLANE);
-	seg.setMethodType (pcl::SAC_RANSAC);
-	// seg.setMaxIterations(MaxIt);
-	seg.setDistanceThreshold (DistThresh);
-//    seg.setDistanceThreshold(0.01);
+	seg.setModelType(pcl::SACMODEL_PLANE);
+	seg.setMethodType(pcl::SAC_RANSAC);
+	// seg.setDistanceThreshold (DistThresh);
+	seg.setDistanceThreshold(0.01);
 	seg.setInputCloud (cloud_filtered_points);
 	seg.segment (*inliers, *coefficients);
 
@@ -124,14 +123,9 @@ void PclSegment::segmentPlane(pcl::PCLPointCloud2::Ptr cloud_)
 	extract.setIndices(inliers);
 	extract.setNegative(false);
 	extract.filter(*cloud_1);
-	extract.setNegative(true);
-	extract.filter(*cloud_2);
 
 	pcl::toPCLPointCloud2(*cloud_1, *cloud_);
 	pub_1.publish(cloud_);
-
-	pcl::toPCLPointCloud2(*cloud_2, *cloud_);
-	pub_2.publish(cloud_);
 }
 
 void PclSegment::segmentEuclidean(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_)
@@ -166,7 +160,6 @@ void PclSegment::segmentEuclidean(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_)
 		extract.setIndices(inliers);
 		extract.setNegative(false);
 		extract.filter(*cloud_plane);
-
 
 		extract.setNegative(true);
 		extract.filter(*cloud_filt);
@@ -214,7 +207,6 @@ void PclSegment::segmentCylinder(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_)
 	pass.setFilterLimits(0, 1.5);
 	pass.filter(*cloud_filt);
 
-
 	pcl::search::KdTree<PointT>::Ptr tree(new pcl::search::KdTree<PointT>());
 	pcl::NormalEstimation<PointT, pcl::Normal> ne;
 	ne.setSearchMethod(tree);
@@ -227,7 +219,7 @@ void PclSegment::segmentCylinder(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_)
 	seg.setModelType (pcl::SACMODEL_NORMAL_PLANE);
 	seg.setNormalDistanceWeight(0.1);
 	seg.setMethodType (pcl::SAC_RANSAC);
-	// seg.setMaxIterations(100);
+	seg.setMaxIterations(100);
 	seg.setDistanceThreshold (0.03);
 	seg.setInputCloud (cloud_filt);
 	seg.setInputNormals(cloud_norm);
@@ -239,8 +231,6 @@ void PclSegment::segmentCylinder(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_)
 	extract.setNegative(false);
 
 	extract.filter(*cloud_plane);
-
-	// pub_4.publish(cloud_plane);
 
 	pcl::ExtractIndices<pcl::Normal> extract_norm;
 	extract.setNegative(true);
@@ -254,9 +244,10 @@ void PclSegment::segmentCylinder(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_)
 	seg.setModelType (pcl::SACMODEL_CYLINDER);
 	seg.setNormalDistanceWeight(0.1);
 	seg.setMethodType (pcl::SAC_RANSAC);
-	// seg.setMaxIterations(10000);
 	seg.setDistanceThreshold (0.05);
 	seg.setRadiusLimits(0, 0.1);
+	// seg.setDistanceThreshold (DistThresh);
+	// seg.setRadiusLimits(0, RadLim);
 	seg.setInputCloud (cloud_filt2);
 	seg.setInputNormals(cloud_norm2);
 	seg.segment (*inliers_cyl, *coefficients_cyl);
