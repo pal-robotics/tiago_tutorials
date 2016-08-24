@@ -48,7 +48,8 @@
   <build_depend>image_transport</build_depend>
   <build_depend>geometry_msgs</build_depend>
   <build_depend>message_generation</build_depend>
-  <build_depend>libopencv-nonfree-dev</build_depend>
+  <!--<build_depend>libopencv-nonfree-dev</build_depend>-->
+  <build_depend>opencv2-nonfree</build_depend>
   <!-- <build_depend> -->
   <run_depend>roscpp</run_depend>
   <run_depend>rospy</run_depend>
@@ -58,7 +59,8 @@
   <run_depend>image_transport</run_depend>
   <run_depend>geometry_msgs</run_depend>
   <run_depend>message_generation</run_depend>
-  <run_depend>libopencv-nonfree-dev</run_depend>
+  <!--<run_depend>libopencv-nonfree-dev</run_depend>-->
+  <run_depend>opencv2-nonfree</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
