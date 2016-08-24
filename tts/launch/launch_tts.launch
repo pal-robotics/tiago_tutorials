@@ -1,7 +1,0 @@
-<launch>
-
-  <node name="sound_play_node" pkg="sound_play" type="soundplay_node.py" />
-  <node name="tts_to_soundplay" pkg="tts" type="tts_to_soundplay.py" />
-  <node name="tts_client_gui" pkg="tts" type="tts_client_gui.py" output="screen"/>
-
-</launch>
