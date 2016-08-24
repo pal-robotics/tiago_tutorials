@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <package>
   <name>opencv_tut</name>
-  <version>0.0.0</version>
-  <description>The opencv package</description>
-  <author email="job@todo.todo">Jordi Pages</author>
+  <version>1.0.0</version>
+  <description>This package contains a set of tutorials for using the OpenCV library, the tutorials include sharpening of images, keypoint detection and FLANN matching</description>
 
-  <maintainer email="job@todo.todo">Jordi Pages</maintainer>
+  <author email="job.1994@gmail.com">Job van Dieten</author>
+  <maintainer email="jordi.pages@pal-robotics.com">Jordi Pages</maintainer>
 
-
-  <license>TODO</license>
+  <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>
@@ -31,6 +30,4 @@
   <run_depend>message_generation</run_depend>
   <run_depend>opencv2-nonfree</run_depend>
 
-  <export>
-  </export>
 </package>

@@ -1,3 +1,40 @@
+/*
+ * Software License Agreement (Modified BSD License)
+ *
+ *  Copyright (c) 2016, PAL Robotics, S.L.
+ *  All rights reserved.
+ *
+ *  Redistribution and use in source and binary forms, with or without
+ *  modification, are permitted provided that the following conditions
+ *  are met:
+ *
+ *   * Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *   * Redistributions in binary form must reproduce the above
+ *     copyright notice, this list of conditions and the following
+ *     disclaimer in the documentation and/or other materials provided
+ *     with the distribution.
+ *   * Neither the name of PAL Robotics, S.L. nor the names of its
+ *     contributors may be used to endorse or promote products derived
+ *     from this software without specific prior written permission.
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ *  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ *  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ *  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ *  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ *  POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/** \author Job van Dieten. */
+
+
 // ROS HEADERS
 #include <ros/ros.h>
 #include <cv_bridge/cv_bridge.h>
@@ -15,8 +52,8 @@ class TrackSequential
 public:
 	TrackSequential(ros::NodeHandle nh_);
 	~TrackSequential();
-  image_transport::ImageTransport _imageTransport;
-  image_transport::Subscriber image_sub;
+	image_transport::ImageTransport _imageTransport;
+	image_transport::Subscriber image_sub;
 
 protected:
 	void imageCB(const sensor_msgs::ImageConstPtr& msg);
@@ -55,14 +92,14 @@ void TrackSequential::imageCB(const sensor_msgs::ImageConstPtr& msg)
 	}
 	catch (cv_bridge::Exception& e) 
 	{
-	  ROS_ERROR("cv_bridge exception: %s", e.what());
-	  return;
+		ROS_ERROR("cv_bridge exception: %s", e.what());
+		return;
 	}
 	cvPtr->image.copyTo(img_bgr);
-    cv::cvtColor(cvPtr->image, img1, cv::COLOR_BGR2GRAY);
-    this->ImageProcessing();
+		cv::cvtColor(cvPtr->image, img1, cv::COLOR_BGR2GRAY);
+		this->ImageProcessing();
 
-  img1.copyTo(img2);
+	img1.copyTo(img2);
 }
 
 void TrackSequential::ImageProcessing()
@@ -102,8 +139,8 @@ void TrackSequential::ContourDetection(cv::Mat thresh_in, cv::Mat &output_)
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "TrackSequential");
-  ros::NodeHandle nh;
-  TrackSequential ts(nh);
-  ros::spin();
+	ros::init(argc, argv, "TrackSequential");
+	ros::NodeHandle nh;
+	TrackSequential ts(nh);
+	ros::spin();
 }

@@ -1,13 +1,19 @@
 --First step--
 clone the directory into a catkin workspace, to create a new workspace follow the following ROS official tutorial http://wiki.ros.org/catkin/Tutorials/create_a_workspace
-$git clone <directory>
+$ git clone <directory>
 
 Make sure the terminal is in the catkin Workspace, and build the package
-$catkin_make --pkg opencv_tut 
+$ catkin_make --pkg opencv_tut 
 
 These tutorials require speciffically OpenCV 2.4 to be installed. If this is not yet the case, follow the instructions on the OpenCV page, such as 
 http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.html
-----
+
+An extra module needed is the libopencv-nonfree-dev. If it is not yet installed follow these steps
+sudo add-apt-repository --yes ppa:xqms/opencv-nonfree
+sudo apt-get update
+sudo apt-get install libopencv-nonfree-dev
+
+
 
 
 
@@ -16,6 +22,9 @@ This tutorial package contains 4 seperate sections:
 -Keypoints
 -Matching
 -Corner Detection
+
+
+
 
 
 
@@ -29,7 +38,6 @@ On any ROS system connected to the MASTER URI, run the following program
 $ rosrun opencv_tut track_sequential
 
 In gazebo, create a sphere from the toolbar, resize it to be roughly between the size of a football to a tennisball. Drag the ball in front of and above the camera, and release the ball.
-----
 
 
 
@@ -43,7 +51,6 @@ Then, on any ROS System connected to the MASTER URI, launch the following file
 $ roslaunch opencv_tut keypoint_tutorial.launch
 
 Use the Gui to change the varibales and see the different keypoint detectors. See the Wiki page for more detail. Use a teleop to move around the office, a recommended place is in front of the wall with the image of the PAL Robotics REEM robot, as this offers multiple features, and will also be used for the matching section of this package.
-----
 
 
 
@@ -57,7 +64,6 @@ Then launch the matching tutorial launch file on any system connected to MASTER 
 $ roslaunch opencv_tut matching_tutorial.launch
 
 Use the gui to swtich between the matchers and detectors. More information can be found on the wiki page.
----
 
 
 
