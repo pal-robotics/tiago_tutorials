@@ -13,6 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(OpenCV 2.4 REQUIRED )
 
+message("Opencv libraries: " ${OpenCV_LIBRARIES})
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
 add_message_files(
