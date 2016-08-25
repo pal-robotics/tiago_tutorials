@@ -84,6 +84,6 @@ As in previous tutorials, first launch tiago gazebo in the office tutorial world
 
 execute the corner detection node on any system connected to the MASTER URI
 
-`$ rosrun opencv_tut corner_detection.cpp`
+`$ rosrun opencv_tut corner_detection`
 
 It is recommended to use a teleop software to move the robot in front of the cupboard in the corner of the office, as this provides nice corners to test the algorithms on. Use the sliders in the window to change the variables that the corner detection algorithms use. 
