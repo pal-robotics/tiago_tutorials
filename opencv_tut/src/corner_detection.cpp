@@ -65,7 +65,8 @@ protected:
 	int myShiTomasi_qualityLevel = 50;
 	int myHarris_qualityLevel = 50;
 	int max_qualityLevel = 100;
-	int blockSize = 3;
+	int blockSize_shi = 3;
+	int blockSize_harris = 3;
 	int apertureSize = 3;
 	cv::Mat myHarris_copy, myShiTomasi_copy, Mc;
 	double myHarris_minVal, myHarris_maxVal, myShiTomasi_minVal, myShiTomasi_maxVal;
@@ -81,9 +82,10 @@ CornerDetection::CornerDetection(ros::NodeHandle nh_): _imageTransport(nh_)
 	
 	cv::namedWindow(shiTomasi_win, CV_WINDOW_FREERATIO);
   cv::createTrackbar( " Quality Level:", shiTomasi_win, &myShiTomasi_qualityLevel, max_qualityLevel);
-  cv::createTrackbar( " Block Size:", shiTomasi_win, &blockSize, 25);
+  cv::createTrackbar( " Block Size:", shiTomasi_win, &blockSize_shi, 25);
 	cv::namedWindow(harris_win, CV_WINDOW_FREERATIO);
   cv::createTrackbar( " Quality Level:", harris_win, &myHarris_qualityLevel, max_qualityLevel);
+  cv::createTrackbar( " Block Size:", harris_win, &blockSize_harris, 25);
 }
 
 CornerDetection::~CornerDetection()
@@ -93,11 +95,16 @@ CornerDetection::~CornerDetection()
 
 void CornerDetection::imageCB(const sensor_msgs::ImageConstPtr& msg)
 {
+	if(blockSize_harris == 0)
+		blockSize_harris = 1;
+		if(blockSize_shi == 0)
+		blockSize_shi = 1;
+
 	cv::Mat img, img_gray, myHarris_dst, myShiTomasi_dst;
 	cv_bridge::CvImagePtr cvPtr;
 
 	try
-	{ 
+	{
 		cvPtr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
 	}
 	catch (cv_bridge::Exception& e) 
@@ -111,7 +118,7 @@ void CornerDetection::imageCB(const sensor_msgs::ImageConstPtr& msg)
   myHarris_dst = cv::Mat::zeros( img_gray.size(), CV_32FC(6) );
   Mc = cv::Mat::zeros( img_gray.size(), CV_32FC1 );
 
-  cv::cornerEigenValsAndVecs( img_gray, myHarris_dst, blockSize, apertureSize, cv::BORDER_DEFAULT );
+  cv::cornerEigenValsAndVecs( img_gray, myHarris_dst, blockSize_harris, apertureSize, cv::BORDER_DEFAULT );
 
   for( int j = 0; j < img_gray.rows; j++ )
 		for( int i = 0; i < img_gray.cols; i++ )
@@ -126,7 +133,7 @@ void CornerDetection::imageCB(const sensor_msgs::ImageConstPtr& msg)
   this->myHarris_function(img, img_gray);
 
   myShiTomasi_dst = cv::Mat::zeros( img_gray.size(), CV_32FC1 );
-  cv::cornerMinEigenVal( img_gray, myShiTomasi_dst, blockSize, apertureSize, cv::BORDER_DEFAULT );
+  cv::cornerMinEigenVal( img_gray, myShiTomasi_dst, blockSize_shi, apertureSize, cv::BORDER_DEFAULT );
   cv::minMaxLoc( myShiTomasi_dst, &myShiTomasi_minVal, &myShiTomasi_maxVal, 0, 0, cv::Mat() );
 
   this->myShiTomasi_function(img, img_gray, myShiTomasi_dst);
@@ -144,10 +151,8 @@ void CornerDetection::myHarris_function(cv::Mat img, cv::Mat img_gray)
 
 	for( int j = 0; j < img_gray.rows; j++ )
 		for( int i = 0; i < img_gray.cols; i++ )
-		{
 			if( Mc.at<float>(j,i) > myHarris_minVal + ( myHarris_maxVal - myHarris_minVal )*myHarris_qualityLevel/max_qualityLevel )
 				cv::circle( myHarris_copy, cv::Point(i,j), 4, cv::Scalar( rng.uniform(0,255), rng.uniform(0,255), rng.uniform(0,255) ), -1, 8, 0 );
-		}
 
 	cv::imshow( harris_win, myHarris_copy );
 }
@@ -161,10 +166,8 @@ void CornerDetection::myShiTomasi_function(cv::Mat img, cv::Mat img_gray, cv::Ma
 
 	for( int j = 0; j < img_gray.rows; j++ )
 		for( int i = 0; i < img_gray.cols; i++ )
-		{
 			if( myShiTomasi_dst.at<float>(j,i) > myShiTomasi_minVal + ( myShiTomasi_maxVal - myShiTomasi_minVal )*myShiTomasi_qualityLevel/max_qualityLevel )
 				cv::circle( myShiTomasi_copy, cv::Point(i,j), 4, cv::Scalar( rng.uniform(0,255), rng.uniform(0,255), rng.uniform(0,255) ), -1, 8, 0 );
-		}
 		
 	cv::imshow( shiTomasi_win, myShiTomasi_copy );
 }

@@ -1,7 +1,7 @@
 # First step
 Create a workspace through the following tutorial
 
-[link](http://wiki.ros.org/catkin/Tutorials/create_a_workspace)
+<http://wiki.ros.org/catkin/Tutorials/create_a_workspace)>
 
 Then clone the following link into the catkin work directory
 
@@ -13,7 +13,7 @@ Make sure the terminal is in the catkin Workspace, and build the package
 
 These tutorials require speciffically OpenCV 2.4 to be installed. If this is not yet the case, follow the instructions on the OpenCV page, such as 
 
-[link](http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.html)
+<http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.html)>
 
 An extra module needed is the libopencv-nonfree-dev. If it is not yet installed follow these steps
 
@@ -65,7 +65,7 @@ Matching takes two images, one from the feed, and another static image to compar
 
 As in previous tutorials, first launch tiago gazebo in the office tutorial world on the MASTER URI
 
-`$ roslaunch tiago_gazebo tiago_gazebo.launch robot:=steel`
+`$ roslaunch tiago_gazebo tiago_gazebo.launch robot:=titanium world:=tutorial_office`
 
 Then launch the matching tutorial launch file on any system connected to MASTER URI
 
@@ -76,12 +76,14 @@ Use the gui to swtich between the matchers and detectors. More information can b
 
 
 # Corner Detection
-This code allows the user to determine the quality of two types of corner detectors, ShiTomasi and Harris. The slider in one window affects the quality and block size of both detectors.
+This code allows the user to determine the quality of two types of corner detectors, ShiTomasi and Harris.
 
 As in previous tutorials, first launch tiago gazebo in the office tutorial world on the MASTER URI
 
-`$ roslaunch tiago_gazebo tiago_gazebo.launch robot:=steel`
+`$ roslaunch tiago_gazebo tiago_gazebo.launch robot:=titanium world:=tutorial_office`
 
 execute the corner detection node on any system connected to the MASTER URI
 
 `$ rosrun opencv_tut corner_detection.cpp`
+
+It is recommended to use a teleop software to move the robot in front of the cupboard in the corner of the office, as this provides nice corners to test the algorithms on. Use the sliders in the window to change the variables that the corner detection algorithms use. 
