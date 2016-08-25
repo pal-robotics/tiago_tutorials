@@ -13,7 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(OpenCV 2.4 REQUIRED )
 
-message("Opencv libraries: " ${OpenCV_LIBRARIES})
+list(APPEND OpenCV_LIBRARIES opencv_nonfree)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
