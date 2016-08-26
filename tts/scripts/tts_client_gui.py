@@ -61,11 +61,13 @@ class Action(QtGui.QMainWindow):
 		self.textFeedback.appendPlainText("current word: " + feedback.text_said)
 		self.textFeedback.appendPlainText("next word: " + feedback.next_word)
 
+
 	def button_cb(self):
 		self.textFeedback.clear()
 		value = self.textSend.toPlainText()
 		goal = TtsGoal()
 		goal.rawtext.text = str(value)
+		goal.rawtext.lang_id = "EN"
 		goal.wait_before_speaking = float(self.interval_slider.value())/10
 		self.client.send_goal(goal, feedback_cb = self.feedbackCb)
 		self.client.wait_for_result()

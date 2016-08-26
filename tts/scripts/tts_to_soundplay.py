@@ -84,8 +84,6 @@ class TtsServer(object):
 			rospy.sleep(0.7)
 
 		del words[:]
-		rospy.loginfo(str(len(words)))
-
 if __name__ == '__main__':
 	rospy.init_node('tts_to_soundplay')
 	obj = TtsServer(rospy.get_name())
