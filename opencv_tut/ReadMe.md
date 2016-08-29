@@ -13,7 +13,7 @@ Make sure the terminal is in the catkin Workspace, and build the package
 
 These tutorials require speciffically OpenCV 2.4 to be installed. If this is not yet the case, follow the instructions on the OpenCV page, such as 
 
-<http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.html)>
+<http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.html>
 
 An extra module needed is the libopencv-nonfree-dev. If it is not yet installed follow these steps
 
