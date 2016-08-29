@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <package>
   <name>demo_motions</name>
-  <version>0.0.0</version>
-  <description>The demo_motions package</description>
+  <version>1.0.0</version>
+  <description>This code runs several motions designed to show the mobility and use of the arm of the TIAGo robot</description>
 
-  <maintainer email="job.1994@gmail.com">Job van Dieten</maintainer>
+  <author email="job.1994@gmail.com">Job van Dieten</author>
+  <maintainer email="jordi.pages@pal-robotics.com">Job van Dieten</maintainer>
 
   <license>TODO</license>
 
