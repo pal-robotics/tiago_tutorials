@@ -1,7 +1,7 @@
 # First Step
 This tutorial makes use of the PAL Robotics Text-to-Speech action server, developed for the TiaGO robot. The tutorial uses the action server to send messages to a soundplay-node, so the first step is to obtain the sound play package. This can be done by looking at the soundplay wiki page 
 
-<http://wiki.ros.org/sound_play >
+<http://wiki.ros.org/sound_play>
 
 or directly by cloning the following github package into your catkin workspace and building 
 
