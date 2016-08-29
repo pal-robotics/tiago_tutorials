@@ -1,7 +1,7 @@
 # First step
 Create a workspace through the following tutorial
 
-<http://wiki.ros.org/catkin/Tutorials/create_a_workspace)>
+<http://wiki.ros.org/catkin/Tutorials/create_a_workspace>
 
 Then clone the following link into the catkin work directory
 
