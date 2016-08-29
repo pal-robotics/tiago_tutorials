@@ -1,4 +1,4 @@
-#Demo motions
+# Demo motions
 
 This tutorial simply shows some of the movements possible by the TiaGO robot using the PlayMotion action server. To run the motions launch the gazebo simulator. Two models of the TiaGO robot can be used for this tutorial, namely steel and titanium.
 ~~~~
