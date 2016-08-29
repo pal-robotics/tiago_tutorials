@@ -6,11 +6,12 @@ find_package(catkin REQUIRED COMPONENTS
   play_motion_msgs
   roscpp
   rospy
+  roslib
 )
-
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
 catkin_package(
 )
 
 add_executable(run_loop_node src/run_loop_node.cpp)
-target_link_libraries(run_loop_node ${catkin_LIBRARIES})
+target_link_libraries(run_loop_node yaml-cpp ${catkin_LIBRARIES})
