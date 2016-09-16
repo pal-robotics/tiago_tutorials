@@ -1,0 +1,29 @@
+play_motion:
+  motions:
+    pregrasp:
+      joints: [torso_lift_joint, arm_1_joint,
+      arm_2_joint, arm_3_joint, arm_4_joint, arm_5_joint,
+      arm_6_joint, arm_7_joint]
+      points:
+      - positions: [0.15, 0.20, -1.34, -0.20, 1.94, -1.57, 1.37, 0.0]
+        time_from_start: 0.0
+      - positions: [0.34, 0.20, -1.34, -0.20, 1.94, -1.57, 1.37, 0.0]
+        time_from_start: 2.0
+      - positions: [0.34, 0.21, -1.02, -0.20, 1.94, -1.57, 1.52, 0.0]
+        time_from_start: 3.5
+      - positions: [0.34, 0.21, 0.35, -0.2, 2.0, -1.57, 1.52, 0.0]
+        time_from_start: 6.5
+      - positions: [0.34, 0.21, 0.35, -0.2, 0.0, -1.57, 1.52, 0.0]
+        time_from_start: 10.0
+      - positions: [0.34, 0.21, 0.35, -3.0, 0.0, -1.57, 1.52, 0.0]
+        time_from_start: 12.0
+      - positions: [0.34, 0.05, -0.07, -3.0, 1.5, -1.57, 0.2, 0.0]
+        time_from_start: 17
+
+    pick_final_pose:
+      joints: [torso_lift_joint, arm_1_joint,
+      arm_2_joint, arm_3_joint, arm_4_joint, arm_5_joint,
+      arm_6_joint, arm_7_joint]
+      points:  
+      - positions: [0.34, 0.21, -0.2, -2.2, 1.15, -1.57, 0.2, 0.0]
+        time_from_start: 10.0
