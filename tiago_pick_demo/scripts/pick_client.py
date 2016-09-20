@@ -84,7 +84,9 @@ class PickAruco(object):
 
 		rospy.loginfo("Waiting for '/play_motion' AS...")
 		self.play_m_as = SimpleActionClient('/play_motion', PlayMotionAction)
-		self.play_m_as.wait_for_server()
+		if not self.play_m_as.wait_for_server(rospy.Duration(20)):
+			rospy.logerr("Could not connect to /play_motion AS")
+			exit()
 		rospy.loginfo("Connected!")
 		rospy.sleep(1.0)
 		rospy.loginfo("Done initializing PickAruco.")
