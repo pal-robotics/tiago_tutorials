@@ -61,16 +61,21 @@ int main(int argc, char** argv)
   std::cout << "To pause using the run_alive program, use '$ rosparam set /tiago_alive/enable_motion false'\n";
   std::cout << "==========================================================================================\n\n";
   
-  std::vector<std::string> motions_vec;
+  std::vector<std::string> motions_vec, descriptions_vec;
   std::string yaml_name = ros::package::getPath("demo_motions") + "/resources/custom_motions_" + model + ".yaml";
 
   YAML::Node node;
   node = YAML::LoadFile(yaml_name);
-  YAML::Node node_1 = node["play_motion"];
-  YAML::Node node_2 = node_1["motions"];
+  YAML::Node node_play_motion = node["play_motion"];
+  YAML::Node node_motions = node_play_motion["motions"];
 
-  for(YAML::const_iterator it=node_2.begin(); it!= node_2.end(); it++)
+  for(YAML::const_iterator it=node_motions.begin(); it!= node_motions.end(); it++)
+  {
     motions_vec.push_back(it->first.as<std::string>());
+    YAML::Node node_motion = node_motions[it->first.as<std::string>()];
+    YAML::Node node_meta   = node_motion["meta"];
+    descriptions_vec.push_back(node_meta["description"].as<std::string>());
+  }
 
   std::cout << "\n" << "These are the motions loaded for the "<< model << "model:" << "\n";
 
@@ -95,40 +100,47 @@ int main(int argc, char** argv)
   {  
     bool myparam = false;
     bool success = nh.getParamCached("/tiago_alive/enable_motion", myparam);
+    std::vector<int> last_motions_executed;
     if(success == true)
     {
       if(myparam == true)
       {
         ROS_INFO("Waiting for Action Server ...");
         client.waitForServer();
-        int random_select = rand() % goal_array_size; 
+        int random_select = rand() % goal_array_size;
 
-        if(random_select == check_previous_execution) 
-          random_select = rand() % goal_array_size; 
+        //if the selected motion has been already executed
+        while (std::find(last_motions_executed.begin(), last_motions_executed.end(), random_select) != last_motions_executed.end())
+            random_select = rand() % goal_array_size;
+
+        play_motion_msgs::PlayMotionGoal goal;
+
+        goal.motion_name = motions_vec[random_select];
+        if ( descriptions_vec[random_select] == "skip planning")
+            goal.skip_planning = true;
         else
-        {
-          play_motion_msgs::PlayMotionGoal goal;
+            goal.skip_planning = false;
+        goal.priority = 0;
 
-          goal.motion_name = motions_vec[random_select];
-          goal.skip_planning = false;
-          goal.priority = 0;
+        ROS_INFO_STREAM("Sending goal with motion: " << goal.motion_name);
+        client.sendGoal(goal);
 
-          ROS_INFO_STREAM("Sending goal with motion: " << goal.motion_name);
-          client.sendGoal(goal);
+        ROS_INFO("Waiting for result ...");
+        bool actionOk = client.waitForResult(ros::Duration(90.0));
 
-          ROS_INFO("Waiting for result ...");
-          bool actionOk = client.waitForResult(ros::Duration(90.0));
-
-          actionlib::SimpleClientGoalState state = client.getState();
+        actionlib::SimpleClientGoalState state = client.getState();
 
 
-          if ( actionOk )
-              ROS_INFO_STREAM("Action finished successfully with state: " << state.toString());
-          else
-              ROS_ERROR_STREAM("Action failed with state: " << state.toString());
-          
-          check_previous_execution = random_select;
-        }
+        if ( actionOk )
+            ROS_INFO_STREAM("Action finished successfully with state: " << state.toString());
+        else
+            ROS_ERROR_STREAM("Action failed with state: " << state.toString());
+
+        //check if all motions have been executed
+        if ( last_motions_executed.size() == motions_vec.size() - 1 )
+            last_motions_executed.clear();
+
+        last_motions_executed.push_back(random_select);
       }
       else if(myparam==false)
        {
