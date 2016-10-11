@@ -1,9 +1,6 @@
 play_motion:
   controllers: [arm_controller, head_controller, torso_controller, gripper_controller]
-  motions: ## easily_amused, how_many_ingers_1/2, scratch, typing, wipes_brow, sweep, adhd
-##------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#MODEL:STEEL--MODEL:STEEL--MODEL:STEEL--MODEL:STEEL--MODEL:STEEL--MODEL:STEEL--MODEL:STEEL--MODEL:STEEL--MODEL:STEEL--MODEL:STEEL--MODEL:STEEL--MODEL:STEEL--MODEL:STEEL--MODEL:STEEL--MODEL:STEEL
-##------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  motions: 
 
     easily_amused:
       joints: [head_1_joint, head_2_joint, arm_1_joint, arm_2_joint, arm_3_joint, arm_4_joint, arm_5_joint, arm_6_joint, arm_7_joint, torso_lift_joint] 
@@ -280,24 +277,13 @@ play_motion:
         usage: demo
         description: template explanation    
 
-    simple_2:
+    raise_torso:
       joints: [torso_lift_joint, gripper_left_finger_joint, gripper_right_finger_joint]
       points:
       - positions: [0.34, 0.03, 0.03]
         time_from_start: 1.0                  
       meta:
-        name: simple_2
+        name: raise_torso
         usage: demo
-        description: template explanation
+        description: skip planning
 
-
-
-    # template:
-    #   joints: [head_1_joint, head_2_joint, arm_1_joint, arm_2_joint, arm_3_joint, arm_4_joint, arm_5_joint, arm_6_joint, arm_7_joint, torso_lift_joint]
-    #   points:
-      # - positions: [, , , , , , , , , ]
-      #   time_from_start: 1.0
-    #   meta:
-    #     name: template
-    #     usage: demo
-    #     description: template explanation        
