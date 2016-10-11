@@ -83,7 +83,7 @@ FlannMatching::FlannMatching(ros::NodeHandle nh_): _imageTransport(nh_)
 	image_sub = _imageTransport.subscribe("xtion/rgb/image_raw", 1, &FlannMatching::imageCB, this, image_transport::TransportHints("compressed"));
 	gui_sub = nh_.subscribe("/opencv_tut/flann_matching_gui", 1, &FlannMatching::guiCB, this);
 	
-	cv::namedWindow(win, CV_WINDOW_FREERATIO);
+	cv::namedWindow(win, CV_WINDOW_KEEPRATIO);
 	
 	feature_gui = "SURF";
 	extractor_gui = "SURF";
@@ -91,7 +91,7 @@ FlannMatching::FlannMatching(ros::NodeHandle nh_): _imageTransport(nh_)
 	knn = false;
 	k = 2;
 	dist_check = 0.6;
-	path = ros::package::getPath("opencv_tut") + "/resources/aruco.jpg";
+	path = ros::package::getPath("opencv_tut") + "/resources/REEM.png";
 }
 
 FlannMatching::~FlannMatching()
@@ -110,7 +110,7 @@ void FlannMatching::guiCB(const opencv_tut::valueMatrixConstPtr& msg)
 	else if(msg->header.frame_id == "dist_check")
 		dist_check = msg->value;
 	else if(msg->header.frame_id == "path")
-		path = ros::package::getPath("opencv_tut") + msg->option;
+		path = msg->option;
 	else if(msg->header.frame_id == "Keypoints")
 		knn = msg->tick;
 	else if(msg->header.frame_id == "feature_choice")
