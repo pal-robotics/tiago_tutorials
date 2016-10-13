@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+ <node name="gui" pkg="tiago_opencv_tutorial" type="gui_find_keypoints.py"/>
+ <node name="vision_code" pkg="tiago_opencv_tutorial" type="find_keypoints" output="screen"/>
+</launch>

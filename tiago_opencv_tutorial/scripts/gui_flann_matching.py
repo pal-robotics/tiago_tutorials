@@ -30,15 +30,15 @@ import rospkg
 from PyQt4 import QtGui, uic
 
 #Custom msg imports
-from opencv_tut.msg import valueMatrix
+from tiago_opencv_tutorial.msg import valueMatrix
 
-pub = rospy.Publisher('opencv_tut/flann_matching_gui', valueMatrix, queue_size=10)
+pub = rospy.Publisher('tiago_opencv_tutorial/flann_matching_gui', valueMatrix, queue_size=10)
 
 class MyWindow(QtGui.QMainWindow):
 	def __init__(self):
 		super(MyWindow, self).__init__()
 		self.rospack = rospkg.RosPack()
-		path = self.rospack.get_path('opencv_tut')
+		path = self.rospack.get_path('tiago_opencv_tutorial')
 		uic.loadUi(path + '/resources/gui_flann_matching.ui', self)
 		self.setMinMax()
 		self.setLabels()

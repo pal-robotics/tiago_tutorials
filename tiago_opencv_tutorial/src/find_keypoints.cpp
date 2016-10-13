@@ -41,7 +41,7 @@
 #include <sensor_msgs/Image.h>
 #include <image_transport/image_transport.h>
 #include <vector>
-#include <opencv_tut/valueMatrix.h>
+#include <tiago_opencv_tutorial/valueMatrix.h>
 
 // OpenCV headers
 #include <opencv2/core/core.hpp>
@@ -57,7 +57,7 @@ public:
 	~FindKeypoints();
 protected:
 	void imageCB(const sensor_msgs::ImageConstPtr& msg);
-	void matrixCB(const opencv_tut::valueMatrixConstPtr& msg);
+	void matrixCB(const tiago_opencv_tutorial::valueMatrixConstPtr& msg);
 	void FeaturesDetection(cv::Mat in, cv::Mat& out);
 	void contrastChange(cv::Mat in, cv::Mat& out);
 	void sharpenImg(cv::Mat in, cv::Mat& out);
@@ -83,7 +83,7 @@ const std::string combi_win= "Combined Effects";
 FindKeypoints::FindKeypoints(ros::NodeHandle nh_): _imageTransport(nh_)
 {
 	image_sub = _imageTransport.subscribe("xtion/rgb/image_raw", 1, &FindKeypoints::imageCB, this, image_transport::TransportHints("compressed"));
-	gui_sub = nh_.subscribe("/opencv_tut/find_keypoints_gui", 1, &FindKeypoints::matrixCB, this);
+	gui_sub = nh_.subscribe("/tiago_opencv_tutorial/find_keypoints_gui", 1, &FindKeypoints::matrixCB, this);
 
 	alpha = 2.2;
 	beta = 50;
@@ -100,7 +100,7 @@ FindKeypoints::~FindKeypoints()
 	cv::destroyAllWindows();
 }
 
-void FindKeypoints::matrixCB(const opencv_tut::valueMatrixConstPtr& msg)
+void FindKeypoints::matrixCB(const tiago_opencv_tutorial::valueMatrixConstPtr& msg)
 {
 	if(msg->header.frame_id == "zero_zero")
 		zero_zero = msg->value;
