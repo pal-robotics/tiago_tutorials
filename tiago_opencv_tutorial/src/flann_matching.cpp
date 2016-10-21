@@ -51,7 +51,7 @@
 #include <opencv2/calib3d/calib3d.hpp>
 
 //Custom Headers
-#include <opencv_tut/valueMatrix.h>
+#include <tiago_opencv_tutorial/valueMatrix.h>
 
 
 class FlannMatching
@@ -62,7 +62,7 @@ public:
 	
 protected:
 	void imageCB(const sensor_msgs::ImageConstPtr& msg);
-	void guiCB(const opencv_tut::valueMatrixConstPtr& msg);
+	void guiCB(const tiago_opencv_tutorial::valueMatrixConstPtr& msg);
 	void homography(std::vector<cv::KeyPoint> aruco_, std::vector<cv::KeyPoint> feed_, std::vector<cv::DMatch> match, cv::Mat aruco_img, cv::Mat matches_mat);
 	void Matcher(cv::Mat in_feed,cv::Mat in_static ,cv::Mat& out);
 
@@ -81,7 +81,7 @@ const std::string win = "Matcher";
 FlannMatching::FlannMatching(ros::NodeHandle nh_): _imageTransport(nh_)
 {
 	image_sub = _imageTransport.subscribe("xtion/rgb/image_raw", 1, &FlannMatching::imageCB, this, image_transport::TransportHints("compressed"));
-	gui_sub = nh_.subscribe("/opencv_tut/flann_matching_gui", 1, &FlannMatching::guiCB, this);
+	gui_sub = nh_.subscribe("/tiago_opencv_tutorial/flann_matching_gui", 1, &FlannMatching::guiCB, this);
 	
 	cv::namedWindow(win, CV_WINDOW_KEEPRATIO);
 	
@@ -91,7 +91,7 @@ FlannMatching::FlannMatching(ros::NodeHandle nh_): _imageTransport(nh_)
 	knn = false;
 	k = 2;
 	dist_check = 0.6;
-	path = ros::package::getPath("opencv_tut") + "/resources/REEM.png";
+	path = ros::package::getPath("tiago_opencv_tutorial") + "/resources/REEM.png";
 }
 
 FlannMatching::~FlannMatching()
@@ -99,7 +99,7 @@ FlannMatching::~FlannMatching()
 	cv::destroyAllWindows();
 }
 
-void FlannMatching::guiCB(const opencv_tut::valueMatrixConstPtr& msg)
+void FlannMatching::guiCB(const tiago_opencv_tutorial::valueMatrixConstPtr& msg)
 {
 	if(msg->header.frame_id == "dist")
 		dist_check = msg->value;

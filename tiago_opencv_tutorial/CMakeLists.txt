@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(opencv_tut)
+project(tiago_opencv_tutorial)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -28,7 +28,7 @@ generate_messages(
  )
 
 catkin_package(
-  LIBRARIES opencv_tut
+  LIBRARIES tiago_opencv_tutorial
   CATKIN_DEPENDS roscpp rospy image_transport cv_bridge pal_detection_msgs  geometry_msgs message_generation
   DEPENDS system_lib
 )

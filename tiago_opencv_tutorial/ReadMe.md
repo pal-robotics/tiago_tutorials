@@ -9,7 +9,7 @@ Then clone the following link into the catkin work directory
 
 Make sure the terminal is in the catkin Workspace, and build the package
 
-`$ catkin_make --pkg opencv_tut`
+`$ catkin_make --pkg tiago_opencv_tutorial`
 
 These tutorials require speciffically OpenCV 2.4 to be installed. If this is not yet the case, follow the instructions on the OpenCV page, such as 
 
@@ -39,7 +39,7 @@ On the MASTER URI, launch tiago gazebo simulation in any world, the default is e
 
 On any ROS system connected to the MASTER URI, run the following program
 
-` $ rosrun opencv_tut track_sequential `
+` $ rosrun tiago_opencv_tutorial track_sequential `
 
 In gazebo, create a sphere from the toolbar, resize it to be roughly between the size of a football to a tennisball. Drag the ball in front of and above the camera, and release the ball.
 
@@ -54,7 +54,7 @@ Firstly, on the MASTER URI launch tiago gazebo in the tutorial office world
 
 Then, on any ROS System connected to the MASTER URI, launch the following file
 
-`$ roslaunch opencv_tut keypoint_tutorial.launch`
+`$ roslaunch tiago_opencv_tutorial keypoint_tutorial.launch`
 
 Use the Gui to change the varibales and see the different keypoint detectors. See the Wiki page for more detail. Use a teleop to move around the office, a recommended place is in front of the wall with the image of the PAL Robotics REEM robot, as this offers multiple features, and will also be used for the matching section of this package.
 
@@ -69,7 +69,7 @@ As in previous tutorials, first launch tiago gazebo in the office tutorial world
 
 Then launch the matching tutorial launch file on any system connected to MASTER URI
 
-`$ roslaunch opencv_tut matching_tutorial.launch`
+`$ roslaunch tiago_opencv_tutorial matching_tutorial.launch`
 
 Use the gui to swtich between the matchers and detectors. More information can be found on the wiki page.
 
@@ -84,6 +84,6 @@ As in previous tutorials, first launch tiago gazebo in the office tutorial world
 
 execute the corner detection node on any system connected to the MASTER URI
 
-`$ rosrun opencv_tut corner_detection`
+`$ rosrun tiago_opencv_tutorial corner_detection`
 
 It is recommended to use a teleop software to move the robot in front of the cupboard in the corner of the office, as this provides nice corners to test the algorithms on. Use the sliders in the window to change the variables that the corner detection algorithms use. 

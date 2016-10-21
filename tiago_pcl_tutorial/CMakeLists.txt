@@ -2,17 +2,25 @@ cmake_minimum_required(VERSION 2.8.3)
 project(tiago_pcl_tutorial)
 
 find_package(catkin REQUIRED COMPONENTS
+  pcl_conversions
   pcl_ros
   roscpp
+  dynamic_reconfigure
   tf
   sensor_msgs
 )
 
+generate_dynamic_reconfigure_options(
+  cfg/region.cfg
+  cfg/segment.cfg
+ )
+
 catkin_package(
+  CATKIN_DEPENDS roscpp dynamic_reconfigure sensor_msgs
 )
 
 
-include_directories(
+include_directories(SYSTEM 
   include
   ${catkin_INCLUDE_DIRS}
 )
@@ -22,10 +30,18 @@ add_library(${PROJECT_NAME}
             src/pcl_filters.cpp)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
-add_executable(segment_table src/segment_table.cpp)
+add_executable(segment_table src/nodes/segment_table.cpp)
 target_link_libraries(segment_table ${catkin_LIBRARIES})
 
-install(TARGETS ${PROJECT_NAME} segment_table
+#add_executable(pcl_segment src/nodes/pcl_segment.cpp)
+#add_dependencies(pcl_segment ${tiago_pcl_tutorial_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} tiago_pcl_tutorial_gencfg)
+#target_link_libraries(pcl_segment ${catkin_LIBRARIES})
+
+add_executable(region_segment src/nodes/region_segment.cpp)
+add_dependencies(region_segment ${tiago_pcl_tutorial_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} tiago_pcl_tutorial_gencfg)
+target_link_libraries(region_segment ${catkin_LIBRARIES})
+
+install(TARGETS ${PROJECT_NAME} segment_table region_segment #pcl_segment
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

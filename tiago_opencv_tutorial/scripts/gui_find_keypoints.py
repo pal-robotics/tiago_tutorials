@@ -30,13 +30,13 @@ import rospkg
 from PyQt4 import QtGui, uic
 
 #Cusotm msg imports
-from opencv_tut.msg import valueMatrix
-pub = rospy.Publisher('opencv_tut/find_keypoints_gui', valueMatrix)
+from tiago_opencv_tutorial.msg import valueMatrix
+pub = rospy.Publisher('tiago_opencv_tutorial/find_keypoints_gui', valueMatrix)
 class MyWindow(QtGui.QMainWindow):
 	def __init__(self):
 		super(MyWindow, self).__init__()
 		self.rospack = rospkg.RosPack()
-		path = self.rospack.get_path('opencv_tut')
+		path = self.rospack.get_path('tiago_opencv_tutorial')
 		uic.loadUi(path + '/resources/gui_keypoints.ui', self)
 		self.setMinMax()
 		self.setLabels()

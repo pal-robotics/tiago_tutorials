@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+ <node name="gui" pkg="tiago_opencv_tutorial" type="gui_flann_matching.py"/>
+ <node name="flann_matching" pkg="tiago_opencv_tutorial" type="flann_matching" output="screen"/>
+</launch>
