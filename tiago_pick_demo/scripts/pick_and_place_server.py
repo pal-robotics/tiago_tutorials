@@ -178,7 +178,7 @@ class PickAndPlaceServer(object):
 
 	def grasp_object(self, object_pose):
 		rospy.loginfo("Removing any previous 'part' object")
-        self.scene.remove_attached_object("arm_tool_link")
+		self.scene.remove_attached_object("arm_tool_link")
 		self.scene.remove_world_object("part")
 		self.scene.remove_world_object("table")
 		rospy.loginfo("Clearing octomap")
