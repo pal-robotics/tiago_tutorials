@@ -32,6 +32,8 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
+/** \author Jordi Pages. */
+
 // ROS headers
 #include <pcl_ros/point_cloud.h>
 

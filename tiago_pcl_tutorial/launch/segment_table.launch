@@ -8,6 +8,7 @@
   <arg name="passthrough_min"           default="0.4"                             />
   <arg name="passthrough_max"           default="1.6"                             />
   <arg name="downsampling_size"         default="0.01"                            />
+  <arg name="show_rviz"                 default="true"                            />
 
   <node name="segment_table" pkg="tiago_pcl_tutorial" type="segment_table" output="screen">
     <remap from="cloud"                     to="$(arg cloud)"     />
@@ -19,6 +20,8 @@
     <param name="downsampling_size"         type="double" value="$(arg downsampling_size)" />
   </node>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tiago_pcl_tutorial)/config/pcl_segment_table.rviz"/>
+  <group if="$(arg show_rviz)">
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tiago_pcl_tutorial)/config/pcl_segment_table.rviz"/>
+  </group>
 
 </launch>
