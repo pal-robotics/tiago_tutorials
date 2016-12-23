@@ -54,7 +54,7 @@ int main(int argc, char** argv)
     ROS_INFO(" ");
     ROS_INFO("\tUsage:");
     ROS_INFO(" ");
-    ROS_INFO("\trosrun tiago_moveit_tutorial plan_arm_torso_fk torso_lift arm_1 arm_2 arm_3 arm_4 arm_5 arm_6 arm_7 arm_8");
+    ROS_INFO("\trosrun tiago_moveit_tutorial plan_arm_torso_fk torso_lift arm_1 arm_2 arm_3 arm_4 arm_5 arm_6 arm_7");
     ROS_INFO(" ");
     ROS_INFO("\twhere the list of arguments are the target values for the given joints");
     ROS_INFO(" ");
