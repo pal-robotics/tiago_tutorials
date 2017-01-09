@@ -12,9 +12,12 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 )
 
+include_directories(include ${catkin_INCLUDE_DIRS})
+
 add_executable(run_motion src/run_motion_node.cpp)
 target_link_libraries(run_motion ${catkin_LIBRARIES})
 
+add_dependencies(run_motion ${catkin_EXPORTED_TARGETS})
 
 ## Install
 
