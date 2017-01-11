@@ -52,9 +52,11 @@ class SphericalService(object):
 
 	def start_aruco_pick(self, req):
 		self.pick_type.pick_aruco("pick")
+		return {}
 
 	def start_aruco_place(self, req):
 		self.pick_type.pick_aruco("place")
+		return {}
 
 class PickAruco(object):
 	def __init__(self):
