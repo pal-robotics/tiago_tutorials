@@ -33,3 +33,5 @@ target_link_libraries(plan_arm_torso_ik
 install(TARGETS plan_arm_torso_fk plan_arm_torso_ik
    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
+
+install(DIRECTORY launch config DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
