@@ -123,7 +123,7 @@ void waypoints_arm_goal(control_msgs::FollowJointTrajectoryGoal& goal)
   goal.trajectory.points[index].velocities.resize(7);
   for (int j = 0; j < 7; ++j)
   {
-    goal.trajectory.points[index].velocities[j] = 1.0;
+    goal.trajectory.points[index].velocities[j] = 0.0;
   }
   // To be reached 4 seconds after starting along the trajectory
   goal.trajectory.points[index].time_from_start = ros::Duration(4.0);
