@@ -323,7 +323,7 @@ void TiagoJointController::execute(bool sendAll) {
  * Excute the goals of one client
  **/
 void TiagoJointController::execute() {
-	execute(false);
+	execute(this->sendAll); // default is false
 }
 
 using namespace std;
