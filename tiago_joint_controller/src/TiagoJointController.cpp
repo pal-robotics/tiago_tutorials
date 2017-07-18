@@ -293,12 +293,10 @@ void TiagoJointController::setGoal(const char * joint, float value) {
 }
 
 
-
-
 /**
  * Excute the goals of one or all the clients
  **/
-void TiagoJointController::execute() {
+void TiagoJointController::execute(bool sendAll) {
 	if (sendAll) // default is false.
 		for (int i=0 ; i< TOT ; i++) {
 			printf("Enviando goal %d\n", i);
@@ -311,20 +309,28 @@ void TiagoJointController::execute() {
 		goals[lastController].trajectory.header.stamp = ros::Time::now();// + ros::Duration(1.0);
 		clients[lastController]->sendGoal(goals[lastController]);
 	}
-
+	
 	// Wait for trajectory execution
-/*	while( (!clients[0]->getState().isDone() || !clients[2]->getState().isDone()) && ros::ok())
+	/*while( (!clients[0]->getState().isDone() || !clients[2]->getState().isDone()) && ros::ok())
 	{
 		printf("Dormindo goal 2\n");
 		ros::Duration(1).sleep(); // sleep for four seconds
 	}*/
+}
 
+
+/**
+ * Excute the goals of one client
+ **/
+void TiagoJointController::execute() {
+	execute(false);
 }
 
 using namespace std;
 
 /**
  * Test the TiagoJointController
+ * Rename mainTest to main, to test just this file.
  **/
 int main(int argc, char** argv)
 {

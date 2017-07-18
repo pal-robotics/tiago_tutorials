@@ -40,6 +40,7 @@ class TiagoJointController {
 		virtual ~TiagoJointController();
 
 		void setGoal(const char * joint, float value);
+		void execute(bool sendAll);
 		void execute();
 
 	private:
