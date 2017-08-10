@@ -77,8 +77,8 @@ void TiagoBaseController::createClients()
 {
 	ROS_INFO("Creating velocity clients");
 
-	cmd_pub = n->advertise<geometry_msgs::Twist>("/mobile_base_controller/cmd_vel", 100);
-	
+	cmd_pub    = n->advertise<geometry_msgs::Twist>("/mobile_base_controller/cmd_vel", 100);
+
 	ros::Rate loop_rate(10);
 }
 
@@ -127,7 +127,7 @@ int main(int argc, char** argv)
 		float d, a;
 	
 		while (argc==1) {
-			cout << "Enter direction and angle value: ";
+			cout << "Enter direction and angle value (-1 to quit): ";
 			cin >> d;
 			if (d<-1)
 				break;
