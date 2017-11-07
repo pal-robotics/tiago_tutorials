@@ -23,7 +23,7 @@ sudo apt-get update
 sudo apt-get install libopencv-nonfree-dev
 ~~~~
 
-**This tutorial package contains 4 seperate sections**
+**This tutorial package contains 4 separate sections**
 - Sequential Tracking
 - Keypoints
 - Matching
