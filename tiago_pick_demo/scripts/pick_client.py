@@ -27,7 +27,9 @@ from geometry_msgs.msg import PoseStamped, Pose
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from play_motion_msgs.msg import PlayMotionAction, PlayMotionGoal
 from actionlib import SimpleActionClient
-import tf
+
+import tf2_ros
+from tf2_geometry_msgs import do_transform_pose
 
 import numpy as np
 from std_srvs.srv import Empty
@@ -62,7 +64,9 @@ class PickAruco(object):
 	def __init__(self):
 		rospy.loginfo("Initalizing...")
                 self.bridge = CvBridge()
-		self.tf_l = tf.TransformListener()
+		self.tfBuffer = tf2_ros.Buffer()
+                self.tf_l = tf2_ros.TransformListener(self.tfBuffer)
+                
 		rospy.loginfo("Waiting for /pickup_pose AS...")
 		self.pick_as = SimpleActionClient('/pickup_pose', PickUpPoseAction)
                 time.sleep(1.0)
@@ -92,6 +96,9 @@ class PickAruco(object):
 		rospy.loginfo("Connected!")
 		rospy.sleep(1.0)
 		rospy.loginfo("Done initializing PickAruco.")
+
+   	def strip_leading_slash(self, s):
+		return s[1:] if s.startswith("/") else s
 		
 	def pick_aruco(self, string_operation):
 		self.prepare_robot()
@@ -100,27 +107,30 @@ class PickAruco(object):
 		rospy.loginfo("spherical_grasp_gui: Waiting for an aruco detection")
 
 		aruco_pose = rospy.wait_for_message('/aruco_single/pose', PoseStamped)
+		aruco_pose.header.frame_id = self.strip_leading_slash(aruco_pose.header.frame_id)
 		rospy.loginfo("Got: " + str(aruco_pose))
 
+
 		rospy.loginfo("spherical_grasp_gui: Transforming from frame: " +
-					  aruco_pose.header.frame_id + " to 'base_footprint'")
+		aruco_pose.header.frame_id + " to 'base_footprint'")
 		ps = PoseStamped()
 		ps.pose.position = aruco_pose.pose.position
-		ps.header.stamp = self.tf_l.getLatestCommonTime(
-			"base_footprint", aruco_pose.header.frame_id)
+		ps.header.stamp = self.tfBuffer.get_latest_common_time("base_footprint", aruco_pose.header.frame_id)
 		ps.header.frame_id = aruco_pose.header.frame_id
 		transform_ok = False
 		while not transform_ok and not rospy.is_shutdown():
 			try:
-				aruco_ps = self.tf_l.transformPose("/base_footprint", ps)
+				transform = self.tfBuffer.lookup_transform("base_footprint", 
+									   ps.header.frame_id,
+									   rospy.Time(0))
+				aruco_ps = do_transform_pose(ps, transform)
 				transform_ok = True
-			except tf.ExtrapolationException as e:
+			except tf2_ros.ExtrapolationException as e:
 				rospy.logwarn(
 					"Exception on transforming point... trying again \n(" +
 					str(e) + ")")
 				rospy.sleep(0.01)
-				ps.header.stamp = self.tf_l.getLatestCommonTime(
-					"base_footprint", aruco_pose.header.frame_id)
+				ps.header.stamp = self.tfBuffer.get_latest_common_time("base_footprint", aruco_pose.header.frame_id)
 			pick_g = PickUpPoseGoal()
 
 		if string_operation == "pick":
