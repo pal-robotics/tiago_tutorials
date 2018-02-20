@@ -12,7 +12,7 @@
 - git: {local-name: play_motion,                  uri: 'https://github.com/pal-robotics/play_motion.git', version: 'indigo-devel'}
 - git: {local-name: pmb2_robot,                   uri: 'https://github.com/pal-robotics/pmb2_robot.git', version: 'indigo-devel'}
 - git: {local-name: pmb2_simulation,              uri: 'https://github.com/pal-robotics/pmb2_simulation.git', version: 'indigo-devel'}
-- git: {local-name: ros_control,                  uri: 'https://github.com/pal-robotics-forks/ros_control.git', version: '0.2.2'}
+- git: {local-name: ros_control,                  uri: 'https://github.com/pal-robotics-forks/ros_control.git', version: '0.3.0'}
 - git: {local-name: ros_controllers,              uri: 'https://github.com/pal-robotics-forks/ros_controllers.git', version: 'indigo-devel'}
 - git: {local-name: rviz_plugin_covariance,       uri: 'https://github.com/pal-robotics/rviz_plugin_covariance.git', version: 'indigo-devel'}
 - git: {local-name: tf_lookup,                    uri: 'https://github.com/pal-robotics/tf_lookup.git', version: 'master'}
