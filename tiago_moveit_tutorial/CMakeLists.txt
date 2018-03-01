@@ -18,6 +18,8 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 add_executable(plan_arm_torso_fk src/plan_arm_torso_fk.cpp)
 add_dependencies(plan_arm_torso_fk ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(plan_arm_torso_fk

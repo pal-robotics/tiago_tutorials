@@ -38,7 +38,7 @@
 #include <ros/ros.h>
 
 // MoveIt! headers
-#include <moveit/move_group_interface/move_group.h>
+#include <moveit/move_group_interface/move_group_interface.h>
 
 // Std C++ headers
 #include <string>
@@ -74,7 +74,7 @@ int main(int argc, char** argv)
 
   std::vector<std::string> torso_arm_joint_names;
   //select group of joints
-  moveit::planning_interface::MoveGroup group_arm_torso("arm_torso");
+  moveit::planning_interface::MoveGroupInterface group_arm_torso("arm_torso");
   //choose your preferred planner
   group_arm_torso.setPlannerId("SBLkConfigDefault");
   group_arm_torso.setPoseReferenceFrame("base_footprint");
@@ -88,10 +88,10 @@ int main(int argc, char** argv)
   group_arm_torso.setMaxVelocityScalingFactor(1.0);
 
 
-  moveit::planning_interface::MoveGroup::Plan my_plan;
+  moveit::planning_interface::MoveGroupInterface::Plan my_plan;
   //set maximum time to find a plan
   group_arm_torso.setPlanningTime(5.0);
-  bool success = group_arm_torso.plan(my_plan);
+  bool success = bool(group_arm_torso.plan(my_plan));
 
   if ( !success )
     throw std::runtime_error("No plan found");

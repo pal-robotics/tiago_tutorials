@@ -78,7 +78,7 @@ int main(int argc, char** argv)
 
   std::vector<std::string> torso_arm_joint_names;
   //select group of joints
-  moveit::planning_interface::MoveGroup group_arm_torso("arm_torso");
+  moveit::planning_interface::MoveGroupInterface group_arm_torso("arm_torso");
   //choose your preferred planner
   group_arm_torso.setPlannerId("SBLkConfigDefault");
 
@@ -94,9 +94,9 @@ int main(int argc, char** argv)
       group_arm_torso.setJointValueTarget(torso_arm_joint_names[i], target_position[torso_arm_joint_names[i]]);
     }
 
-  moveit::planning_interface::MoveGroup::Plan my_plan;
+  moveit::planning_interface::MoveGroupInterface::Plan my_plan;
   group_arm_torso.setPlanningTime(5.0);
-  bool success = group_arm_torso.plan(my_plan);
+  bool success = bool(group_arm_torso.plan(my_plan));
 
   if ( !success )
     throw std::runtime_error("No plan found");
