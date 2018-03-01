@@ -11,9 +11,9 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
-find_package(OpenCV 2.4 REQUIRED )
+find_package(OpenCV REQUIRED COMPONENTS opencv_highgui opencv_features2d opencv_xfeatures2d)
 
-list(APPEND OpenCV_LIBRARIES opencv_nonfree)
+#list(APPEND OpenCV_LIBRARIES opencv_nonfree)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 

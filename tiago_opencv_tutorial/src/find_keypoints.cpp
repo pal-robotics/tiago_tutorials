@@ -46,10 +46,11 @@
 // OpenCV headers
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
-#include <opencv2/nonfree/features2d.hpp>
-#include <opencv2/nonfree/nonfree.hpp>
+#include <opencv2/xfeatures2d/nonfree.hpp>
+#include <opencv2/features2d.hpp>
 #include <opencv2/highgui/highgui.hpp>
- 
+
+#include "features2d_factory.h"
 class FindKeypoints
 {
 public:
@@ -174,10 +175,10 @@ void FindKeypoints::imageCB(const sensor_msgs::ImageConstPtr& msg)
 	cv_bridge::CvImagePtr cvPtr;
 
 	try
-	{ 
+	{
 		cvPtr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
 	}
-	catch (cv_bridge::Exception& e) 
+	catch (cv_bridge::Exception& e)
   {
 		ROS_ERROR("cv_bridge exception: %s", e.what());
 		return;
@@ -234,10 +235,9 @@ void FindKeypoints::contrastChange(cv::Mat in, cv::Mat& out)
 }
 
 void FindKeypoints::FeaturesDetection(cv::Mat in, cv::Mat& out)
-{	
+{
 	std::vector<cv::KeyPoint> keypoints;
-	cv::initModule_nonfree();
-	cv::Ptr<cv::FeatureDetector> detector = cv::FeatureDetector::create(detector_from_msg);
+  cv::Ptr<cv::FeatureDetector> detector = create(detector_from_msg);
 	detector->detect(in, keypoints);
 	cv::drawKeypoints(in, keypoints, out, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT);
 }

@@ -45,15 +45,14 @@
 // OpenCV headers
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
-#include <opencv2/nonfree/features2d.hpp>
-#include <opencv2/nonfree/nonfree.hpp>
+#include <opencv2/xfeatures2d/nonfree.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 
 //Custom Headers
 #include <tiago_opencv_tutorial/valueMatrix.h>
 
-
+#include "features2d_factory.h"
 class FlannMatching
 {
 public:
@@ -115,7 +114,7 @@ void FlannMatching::guiCB(const tiago_opencv_tutorial::valueMatrixConstPtr& msg)
 		knn = msg->tick;
 	else if(msg->header.frame_id == "feature_choice")
 		feature_gui = msg->option;
-	else if(msg->header.frame_id == "extracter_choice")
+  else if(msg->header.frame_id == "extractor_choice")
 		extractor_gui = msg->option;
 	else if(msg->header.frame_id == "matcher_choice")
 		matcher_gui = msg->option;
@@ -151,17 +150,15 @@ void FlannMatching::imageCB(const sensor_msgs::ImageConstPtr& msg)
 
 void FlannMatching::Matcher(cv::Mat in_feed,cv::Mat in_static ,cv::Mat& out)
 {
-	cv::initModule_nonfree();
-
-	cv::Mat desc_feed, desc_static;
-	cv::Ptr<cv::FeatureDetector> detector = cv::FeatureDetector::create(feature_gui);
+  cv::Mat desc_feed, desc_static;
+  cv::Ptr<cv::Feature2D> detector = create(feature_gui);
 
 	std::vector<cv::KeyPoint> vec_feed, vec_static;
 
 	detector->detect(in_feed, vec_feed);
 	detector->detect(in_static, vec_static);
 
-	cv::Ptr<cv::DescriptorExtractor> extractor = cv::DescriptorExtractor::create(extractor_gui);
+  cv::Ptr<cv::Feature2D> extractor = create(extractor_gui);
 	extractor->compute(in_feed, vec_feed, desc_feed);
 	extractor->compute(in_static, vec_static, desc_static);
 

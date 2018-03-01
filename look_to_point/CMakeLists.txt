@@ -11,6 +11,10 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
 )
 
+find_package(OpenCV REQUIRED 
+    COMPONENTS
+    opencv_highgui)
+
 catkin_package()
 
 include_directories(
@@ -19,7 +23,8 @@ include_directories(
 
 add_executable(look_to_point src/look_to_point.cpp)
 target_link_libraries(look_to_point
-  ${catkin_LIBRARIES})
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES})
 
 ### INSTALL ###
 

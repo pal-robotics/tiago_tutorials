@@ -201,16 +201,6 @@
           <string>BRISK</string>
          </property>
         </item>
-        <item>
-         <property name="text">
-          <string>FREAK</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OpponentSIFT</string>
-         </property>
-        </item>
        </widget>
       </widget>
      </item>

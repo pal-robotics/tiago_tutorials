@@ -341,11 +341,6 @@
      </item>
      <item>
       <property name="text">
-       <string>Dense</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
        <string>SimpleBlob</string>
       </property>
      </item>
