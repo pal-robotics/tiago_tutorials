@@ -101,7 +101,10 @@ int main(int argc, char** argv)
   // Execute the plan
   ros::Time start = ros::Time::now();
 
-  group_arm_torso.move();
+
+  moveit::planning_interface::MoveItErrorCode e = group_arm_torso.move();
+  if (!bool(e))
+    throw std::runtime_error("Error executing plan");
 
   ROS_INFO_STREAM("Motion duration: " << (ros::Time::now() - start).toSec());
 
