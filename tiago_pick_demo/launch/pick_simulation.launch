@@ -3,6 +3,7 @@
 
   <arg name="robot"      default="steel"/>
   <arg name="public_sim" default="true"/>
+  <arg name="gzclient" default="true"/>
 
   <env name="LC_NUMERIC" value="C" />
 
@@ -11,6 +12,7 @@
     <arg name="robot"      value="$(arg robot)"/>
     <arg name="public_sim" value="$(arg public_sim)"/>
     <arg name="world"      value="tabletop_cube"/>
+    <arg name="gui"      value="$(arg gzclient)"/>
   </include>
 
 

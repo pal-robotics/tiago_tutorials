@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 
+  <arg name="rviz"  default="true"/>
   <!-- marker detector -->
   <node pkg="aruco_ros" type="single"  name="aruco_single">
       <remap from="/camera_info"       to="/xtion/rgb/camera_info" />
@@ -28,6 +29,8 @@
   <!-- Node exposing service to start looking for the object and trigger the picking -->
   <node name="pick_client" pkg="tiago_pick_demo" type="pick_client.py" output="screen"/>  
 
-  <node name="pick_demo_rviz" pkg="rviz" type="rviz" args="-d $(find tiago_pick_demo)/config/rviz/tiago_pick_demo.rviz" />
+  <group if="$(arg rviz)">
+      <node name="pick_demo_rviz" pkg="rviz" type="rviz" args="-d $(find tiago_pick_demo)/config/rviz/tiago_pick_demo.rviz" />
+  </group>
 
 </launch>
