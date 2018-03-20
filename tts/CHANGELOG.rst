@@ -2,8 +2,8 @@
 Changelog for package tts
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.0 (2018-03-20)
+------------------
 * Homogenize package versions
 * Merge branch 'correct-tts-opencv-demo-motions-Readme' into 'master'
   Corrected tts opencv demo motions readme

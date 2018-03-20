@@ -2,8 +2,8 @@
 Changelog for package tiago_aruco_demo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.0 (2018-03-20)
+------------------
 * Homogenize package versions
 * add aruco demo
 * Contributors: Jordi Pages, Victor Lopez

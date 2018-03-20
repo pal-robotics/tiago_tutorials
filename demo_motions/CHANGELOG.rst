@@ -2,8 +2,8 @@
 Changelog for package demo_motions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.0 (2018-03-20)
+------------------
 * Merge pull request #3 from sebastianstock/master
   Added dependencies to catkin_exported_targets
 * Added dependencies to catkin_exported_targets

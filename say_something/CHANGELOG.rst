@@ -2,8 +2,8 @@
 Changelog for package say_something
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.0 (2018-03-20)
+------------------
 * Homogenize package versions
 * Merge branch 'more_tutorials' into 'master'
   More tutorials

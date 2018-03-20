@@ -2,8 +2,8 @@
 Changelog for package play_with_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.0 (2018-03-20)
+------------------
 * Homogenize package versions
 * Fix type of depth topic to make the demo work
 * Removed autocompletion trick that made node not work

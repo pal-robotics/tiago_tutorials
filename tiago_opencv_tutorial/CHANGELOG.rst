@@ -2,8 +2,8 @@
 Changelog for package tiago_opencv_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.0 (2018-03-20)
+------------------
 * Fixes required for OpenCV3
 * Merge pull request #10 from awesomebytes/patch-1
   typo fix

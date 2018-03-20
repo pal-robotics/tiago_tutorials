@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>look_hand</name>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
   <description>Example on how to command the head of the robot so that it looks at its hand. It shows how to use point_head_action and TF in order to retrieve the position of the hand</description>
 
   <maintainer email="sam.pfeiffer@pal-robotics.com">Sam Pfeiffer</maintainer>

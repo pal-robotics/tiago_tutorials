@@ -2,8 +2,8 @@
 Changelog for package look_to_point
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.0 (2018-03-20)
+------------------
 * Homogenize package versions
 * Fixes required for OpenCV3
 * set samples in different packages

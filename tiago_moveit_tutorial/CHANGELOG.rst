@@ -2,8 +2,8 @@
 Changelog for package tiago_moveit_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.0 (2018-03-20)
+------------------
 * Homogenize package versions
 * Throw on moveit plan execution
 * MoveIt kinetic compatibility
