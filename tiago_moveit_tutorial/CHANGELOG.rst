@@ -2,8 +2,8 @@
 Changelog for package tiago_moveit_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.1 (2018-03-20)
+------------------
 * Throw on moveit plan execution
 * Merge pull request #4 from AleDF/master
   Added Octomap tutorial demo with motion look_around definition

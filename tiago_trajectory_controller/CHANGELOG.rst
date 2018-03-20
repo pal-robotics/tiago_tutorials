@@ -2,8 +2,8 @@
 Changelog for package tiago_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.1 (2018-03-20)
+------------------
 * Merge pull request #7 from AleDF/traj_controller
   Change the velocity value to reach the waypoint
 * Velocity last waypoint to zero

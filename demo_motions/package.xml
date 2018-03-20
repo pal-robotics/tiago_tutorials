@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>demo_motions</name>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <description>This code runs several motions designed to show the mobility and use of the arm of the TIAGo robot</description>
 
   <author email="job.1994@gmail.com">Job van Dieten</author>

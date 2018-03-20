@@ -2,8 +2,8 @@
 Changelog for package look_hand
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.1 (2018-03-20)
+------------------
 * set samples in different packages
 * Contributors: Jordi Pages
 

@@ -2,8 +2,8 @@
 Changelog for package tiago_pick_demo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.1 (2018-03-20)
+------------------
 * Provide the possibility of disabling rviz and gzclient
 * Add moveit_commander dependency
 * migrate to tf2

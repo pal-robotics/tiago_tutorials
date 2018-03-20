@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>tiago_pcl_tutorial</name>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <description>Tutorial showing basic point cloud processing including different types of filtering and segmentation algorithms</description>
 
   <maintainer email="tiago-support@pal-robotics.com">TIAGo support team</maintainer>
