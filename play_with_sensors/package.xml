@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>play_with_sensors</name>
-  <version>0.0.0</version>
+  <version>1.0.0</version>
   <description>The play_with_sensors package contains little examples on using
     sensor data of the robot</description>
 
