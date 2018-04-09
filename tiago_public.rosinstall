@@ -22,3 +22,4 @@
 - git: {local-name: tiago_simulation,             uri: 'https://github.com/pal-robotics/tiago_simulation.git', version: 'kinetic-devel'}
 - git: {local-name: tiago_tutorials,              uri: 'https://github.com/pal-robotics/tiago_tutorials.git', version: 'kinetic-devel'}
 - git: {local-name: ddynamic_reconfigure_python,  uri: 'https://github.com/pal-robotics/ddynamic_reconfigure_python', version: 'master'}
+- git: {local-name: dynamic_introspection,        uri: 'https://github.com/pal-robotics/dynamic_introspection', version: 'master'}
