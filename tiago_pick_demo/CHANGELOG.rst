@@ -2,6 +2,9 @@
 Changelog for package tiago_pick_demo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.0.0 (2018-03-20)
 ------------------
 * Homogenize package versions
