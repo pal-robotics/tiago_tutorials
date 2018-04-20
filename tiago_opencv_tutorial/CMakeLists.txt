@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
-find_package(OpenCV REQUIRED COMPONENTS opencv_highgui opencv_features2d opencv_xfeatures2d)
+find_package(OpenCV REQUIRED COMPONENTS opencv_highgui opencv_features2d opencv_xfeatures2d opencv_calib3d)
 
 #list(APPEND OpenCV_LIBRARIES opencv_nonfree)
 
