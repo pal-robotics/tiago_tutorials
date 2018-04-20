@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>tiago_trajectory_controller</name>
-  <version>2.0.0</version>
+  <version>2.0.1</version>
   <description>Example on how to use the trajectory controller to make the robot reach some given waypoints</description>
 
   <maintainer email="alessandro.difava@pal-robotics.com">Alessandro Di Fava</maintainer>

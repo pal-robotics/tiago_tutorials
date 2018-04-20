@@ -2,8 +2,8 @@
 Changelog for package tiago_opencv_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.1 (2018-04-20)
+------------------
 * Fix link error
 * Contributors: Victor Lopez
 
