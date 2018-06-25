@@ -4,6 +4,7 @@
   <arg name="robot"      default="steel"/>
   <arg name="public_sim" default="true"/>
   <arg name="gzclient" default="true"/>
+  <arg name="recording" default="false"/>
 
   <env name="LC_NUMERIC" value="C" />
 
@@ -13,6 +14,7 @@
     <arg name="public_sim" value="$(arg public_sim)"/>
     <arg name="world"      value="tabletop_cube"/>
     <arg name="gui"      value="$(arg gzclient)"/>
+    <arg name="recording" value="$(arg recording)"/>
   </include>
 
 
