@@ -5,6 +5,7 @@
   <arg name="public_sim" default="true"/>
   <arg name="gzclient" default="true"/>
 
+  <arg name="recording"      default="false"/> <!-- Keep for backwards compatibility-->
   <env name="LC_NUMERIC" value="C" />
 
   <!-- Gazebo simulation -->
