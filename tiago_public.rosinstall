@@ -3,7 +3,7 @@
 - git: {local-name: head_action,                  uri: 'https://github.com/pal-robotics/head_action.git', version: 'indigo-devel'}
 - git: {local-name: hey5_description,             uri: 'https://github.com/pal-robotics/hey5_description.git', version: 'master'}
 - git: {local-name: pal_gazebo_plugins,           uri: 'https://github.com/pal-robotics/pal_gazebo_plugins.git', version: 'kinetic-devel'}
-- git: {local-name: pal_gripper,                  uri: 'https://github.com/pal-robotics/pal_gripper.git', version: 'indigo-devel'}
+- git: {local-name: pal_gripper,                  uri: 'https://github.com/pal-robotics/pal_gripper.git', version: 'kinetic-devel'}
 - git: {local-name: pal_hardware_gazebo,          uri: 'https://github.com/pal-robotics/pal_hardware_gazebo.git', version: 'kinetic-devel'}
 - git: {local-name: pal_hardware_interfaces,      uri: 'https://github.com/pal-robotics/pal_hardware_interfaces.git', version: 'indigo-devel'}
 - git: {local-name: pal_msgs,                     uri: 'https://github.com/pal-robotics/pal_msgs.git', version: 'indigo-devel'}
