@@ -13,7 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(OpenCV 2.4 REQUIRED )
 
-list(APPEND OpenCV_LIBRARIES opencv_nonfree)
+#opencv_nonfree seems to be no longer installable on 14.04
+#list(APPEND OpenCV_LIBRARIES opencv_nonfree)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
@@ -48,10 +49,11 @@ add_executable(corner_detection src/corner_detection.cpp)
   target_link_libraries(corner_detection ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
   add_dependencies(corner_detection ${PROJECT_NAME}_generate_messages_cpp)
 
-add_executable(find_keypoints src/find_keypoints.cpp)
-  target_link_libraries(find_keypoints ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
-  add_dependencies(find_keypoints ${PROJECT_NAME}_generate_messages_cpp)
+#opencv_nonfree seems to be no longer installable on 14.04
+#add_executable(find_keypoints src/find_keypoints.cpp)
+  #target_link_libraries(find_keypoints ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+  #add_dependencies(find_keypoints ${PROJECT_NAME}_generate_messages_cpp)
 
-add_executable(flann_matching src/flann_matching.cpp)
-  target_link_libraries(flann_matching ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
-  add_dependencies(flann_matching ${PROJECT_NAME}_generate_messages_cpp)
+#add_executable(flann_matching src/flann_matching.cpp)
+  #target_link_libraries(flann_matching ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+  #add_dependencies(flann_matching ${PROJECT_NAME}_generate_messages_cpp)
