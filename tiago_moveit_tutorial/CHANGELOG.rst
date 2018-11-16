@@ -2,6 +2,9 @@
 Changelog for package tiago_moveit_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.0.1 (2018-04-20)
 ------------------
 

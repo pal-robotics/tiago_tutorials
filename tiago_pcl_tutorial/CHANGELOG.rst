@@ -2,6 +2,11 @@
 Changelog for package tiago_pcl_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix clang linking issues
+* Contributors: Victor Lopez
+
 2.0.1 (2018-04-20)
 ------------------
 

@@ -2,6 +2,9 @@
 Changelog for package play_with_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.0.1 (2018-04-20)
 ------------------
 

@@ -2,6 +2,11 @@
 Changelog for package tiago_pick_demo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Forward recording argument
+* Contributors: Victor Lopez
+
 2.0.1 (2018-04-20)
 ------------------
 
