@@ -55,6 +55,9 @@
 #include <pcl/point_types.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/search/search.h>
+// Needed for clang linking
+// https://github.com/PointCloudLibrary/pcl/issues/2406
+#include <pcl/search/impl/search.hpp>
 #include <pcl/search/kdtree.h>
 #include <pcl/features/normal_3d.h>
 #include <pcl/filters/passthrough.h>

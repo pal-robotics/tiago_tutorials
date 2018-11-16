@@ -42,6 +42,9 @@
 // PCL headers
 #include <pcl/filters/extract_indices.h>
 #include <pcl_conversions/pcl_conversions.h>
+// Needed for clang linking
+// https://github.com/PointCloudLibrary/pcl/issues/2406
+#include <pcl/search/impl/search.hpp>
 
 // ROS headers
 #include <ros/ros.h>
@@ -236,7 +239,7 @@ double CylinderDetector::computeHeight(const pcl::PointCloud<pcl::PointXYZRGB>::
 }
 
 void CylinderDetector::cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloud)
-{  
+{
   if ( (cloud->width * cloud->height) == 0)
     return;
 
@@ -322,7 +325,7 @@ void CylinderDetector::publish(pcl::PointCloud<pcl::PointXYZRGB>::Ptr& cylinderC
     publishPose(pose, header);
 
   if ( _cylinderMarkerPub.getNumSubscribers() > 0 )
-  {    
+  {
     visualization_msgs::Marker marker;
     marker.header = header;
     marker.id = 0;
