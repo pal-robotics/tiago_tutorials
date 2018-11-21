@@ -29,5 +29,5 @@
   <run_depend>geometry_msgs</run_depend>
   <run_depend>message_generation</run_depend>
   <!--<run_depend>opencv2-nonfree</run_depend>-->
-
+  <run_depend>image_transport_plugins</run_depend>
 </package>
