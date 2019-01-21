@@ -26,3 +26,4 @@
 - git: {local-name: dynamic_introspection,        uri: 'https://github.com/pal-robotics/dynamic_introspection', version: 'kinetic-devel'}
 - git: {local-name: backward_ros,                 uri: 'https://github.com/pal-robotics/backward_ros', version: 'kinetic-devel'}
 - git: {local-name: pal_statistics,               uri: 'https://github.com/pal-robotics/pal_statistics', version: 'kinetic-devel'}
+- git: {local-name: robot_pose,                   uri: 'https://github.com/pal-robotics/robot_pose', version: 'kinetic-devel'}
