@@ -11,6 +11,7 @@
 - git: {local-name: pal_python,                   uri: 'https://github.com/pal-robotics/pal_python.git', version: 'indigo-devel'}
 - git: {local-name: play_motion,                  uri: 'https://github.com/pal-robotics/play_motion.git', version: 'indigo-devel'}
 - git: {local-name: pmb2_robot,                   uri: 'https://github.com/pal-robotics/pmb2_robot.git', version: 'indigo-devel'}
+- git: {local-name: pmb2_navigation,              uri: 'https://github.com/pal-robotics/pmb2_navigation.git', version: 'indigo-devel'}
 - git: {local-name: pmb2_simulation,              uri: 'https://github.com/pal-robotics/pmb2_simulation.git', version: 'indigo-devel'}
 - git: {local-name: ros_control,                  uri: 'https://github.com/pal-robotics-forks/ros_control.git', version: '0.2.5'}
 - git: {local-name: ros_controllers,              uri: 'https://github.com/pal-robotics-forks/ros_controllers.git', version: 'indigo-devel'}
@@ -22,3 +23,4 @@
 - git: {local-name: tiago_simulation,             uri: 'https://github.com/pal-robotics/tiago_simulation.git', version: 'indigo-devel'}
 - git: {local-name: tiago_tutorials,              uri: 'https://github.com/pal-robotics/tiago_tutorials.git', version: 'indigo-devel'}
 - git: {local-name: ddynamic_reconfigure_python,  uri: 'https://github.com/pal-robotics/ddynamic_reconfigure_python', version: 'master'}
+- git: {local-name: robot_pose,                   uri: 'https://github.com/pal-robotics/robot_pose', version: 'indigo-devel'}
