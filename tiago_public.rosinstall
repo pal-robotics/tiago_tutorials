@@ -3,6 +3,7 @@
 - git: {local-name: head_action,                  uri: 'https://github.com/pal-robotics/head_action.git', version: 'indigo-devel'}
 - git: {local-name: hey5_description,             uri: 'https://github.com/pal-robotics/hey5_description.git', version: 'master'}
 - git: {local-name: pal_gazebo_plugins,           uri: 'https://github.com/pal-robotics/pal_gazebo_plugins.git', version: 'kinetic-devel'}
+- git: {local-name: pal_gazebo_worlds,            uri: 'https://github.com/pal-robotics/pal_gazebo_worlds.git', version: 'kinetic-devel'}
 - git: {local-name: pal_gripper,                  uri: 'https://github.com/pal-robotics/pal_gripper.git', version: 'kinetic-devel'}
 - git: {local-name: pal_hardware_gazebo,          uri: 'https://github.com/pal-robotics/pal_hardware_gazebo.git', version: 'kinetic-devel'}
 - git: {local-name: pal_hardware_interfaces,      uri: 'https://github.com/pal-robotics/pal_hardware_interfaces.git', version: 'indigo-devel'}
@@ -15,11 +16,13 @@
 - git: {local-name: pmb2_navigation,              uri: 'https://github.com/pal-robotics/pmb2_navigation', version: 'kinetic-devel'}
 - git: {local-name: ros_control,                  uri: 'https://github.com/pal-robotics-forks/ros_control.git', version: 'kinetic-devel'}
 - git: {local-name: ros_controllers,              uri: 'https://github.com/pal-robotics-forks/ros_controllers.git', version: 'kinetic-devel'}
+- git: {local-name: pal_ros_controllers,          uri: 'https://github.com/pal-robotics-forks/pal_ros_controllers.git', version: 'kinetic-devel'}
 - git: {local-name: rviz_plugin_covariance,       uri: 'https://github.com/pal-robotics/rviz_plugin_covariance.git', version: 'indigo-devel'}
 - git: {local-name: tf_lookup,                    uri: 'https://github.com/pal-robotics/tf_lookup.git', version: 'master'}
-- git: {local-name: tiago_moveit_config,          uri: 'https://github.com/pal-robotics/tiago_moveit_config.git', version: 'indigo-devel'}
-- git: {local-name: tiago_navigation,             uri: 'https://github.com/pal-robotics/tiago_navigation.git', version: 'indigo-devel'}
-- git: {local-name: tiago_robot,                  uri: 'https://github.com/pal-robotics/tiago_robot.git', version: 'indigo-devel'}
+- git: {local-name: tiago_description_calibration,uri: 'https://github.com/pal-robotics/tiago_description_calibration.git', version: 'indigo-devel'}
+- git: {local-name: tiago_moveit_config,          uri: 'https://github.com/pal-robotics/tiago_moveit_config.git', version: 'kinetic-devel'}
+- git: {local-name: tiago_navigation,             uri: 'https://github.com/pal-robotics/tiago_navigation.git', version: 'kinetic-devel'}
+- git: {local-name: tiago_robot,                  uri: 'https://github.com/pal-robotics/tiago_robot.git', version: 'kinetic-devel'}
 - git: {local-name: tiago_simulation,             uri: 'https://github.com/pal-robotics/tiago_simulation.git', version: 'kinetic-devel'}
 - git: {local-name: tiago_tutorials,              uri: 'https://github.com/pal-robotics/tiago_tutorials.git', version: 'kinetic-devel'}
 - git: {local-name: ddynamic_reconfigure_python,  uri: 'https://github.com/pal-robotics/ddynamic_reconfigure_python', version: 'master'}
