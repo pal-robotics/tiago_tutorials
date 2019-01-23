@@ -16,6 +16,7 @@
 - git: {local-name: pmb2_navigation,              uri: 'https://github.com/pal-robotics/pmb2_navigation', version: 'kinetic-devel'}
 - git: {local-name: ros_control,                  uri: 'https://github.com/pal-robotics-forks/ros_control.git', version: 'kinetic-devel'}
 - git: {local-name: ros_controllers,              uri: 'https://github.com/pal-robotics-forks/ros_controllers.git', version: 'kinetic-devel'}
+- git: {local-name: pal_ros_control,              uri: 'https://github.com/pal-robotics/pal_ros_control.git', version: 'kinetic-devel'}
 - git: {local-name: pal_ros_controllers,          uri: 'https://github.com/pal-robotics/pal_ros_controllers.git', version: 'kinetic-devel'}
 - git: {local-name: rviz_plugin_covariance,       uri: 'https://github.com/pal-robotics/rviz_plugin_covariance.git', version: 'indigo-devel'}
 - git: {local-name: tf_lookup,                    uri: 'https://github.com/pal-robotics/tf_lookup.git', version: 'master'}
