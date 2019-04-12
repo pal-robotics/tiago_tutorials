@@ -34,17 +34,17 @@ allowed_touch_objects: ''
 
 # Rotation to apply if you have unaligned
 # tool link to grasping frame
-fix_tool_frame_to_grasping_frame_roll: -90.0
+fix_tool_frame_to_grasping_frame_roll: 0.0
 fix_tool_frame_to_grasping_frame_pitch: 0.0
-fix_tool_frame_to_grasping_frame_yaw: 0.0
+fix_tool_frame_to_grasping_frame_yaw: 90.0
 
 # Generation of grasps configuration
 # in order to generate more or less poses these
 # parameters can be tuned
 min_degrees_yaw: 0
-max_degrees_yaw: 180
+max_degrees_yaw: 360
 min_degrees_pitch: 0
-max_degrees_pitch: 180
+max_degrees_pitch: 360
 
 # The steps are the main thing to tune
 step_degrees_pitch: 15
