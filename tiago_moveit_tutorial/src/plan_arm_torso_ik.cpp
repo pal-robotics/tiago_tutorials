@@ -39,6 +39,7 @@
 
 // MoveIt! headers
 #include <moveit/move_group_interface/move_group_interface.h>
+#include <tf/transform_broadcaster.h>
 
 // Std C++ headers
 #include <string>
