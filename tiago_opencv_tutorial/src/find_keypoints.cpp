@@ -46,7 +46,9 @@
 // OpenCV headers
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
+#ifndef NO_CV_XFEATURES2D
 #include <opencv2/xfeatures2d/nonfree.hpp>
+#endif
 #include <opencv2/features2d.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
