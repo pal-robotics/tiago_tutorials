@@ -38,7 +38,7 @@
 #include <ros/ros.h>
 
 // MoveIt! headers
-#include <moveit/move_group_interface/move_group.h>
+#include <moveit/move_group_interface/move_group_interface.h>
 
 // Std C++ headers
 #include <string>
