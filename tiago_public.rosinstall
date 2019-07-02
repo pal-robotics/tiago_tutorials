@@ -18,6 +18,7 @@
 - git: {local-name: ros_controllers,              uri: 'https://github.com/pal-robotics-forks/ros_controllers.git', version: 'kinetic-devel'}
 - git: {local-name: rviz_plugin_covariance,       uri: 'https://github.com/pal-robotics/rviz_plugin_covariance.git', version: 'indigo-devel'}
 - git: {local-name: simple_grasping_action,       uri: 'https://github.com/pal-robotics/simple_grasping_action.git', version: 'master'}
+- git: {local-name: simple_models_robot,          uri: 'https://github.com/pal-robotics/simple_models_robot.git', version: 'master'}
 - git: {local-name: tf_lookup,                    uri: 'https://github.com/pal-robotics/tf_lookup.git', version: 'master'}
 - git: {local-name: tiago_description_calibration,uri: 'https://github.com/pal-robotics/tiago_description_calibration.git', version: 'indigo-devel'}
 - git: {local-name: tiago_moveit_config,          uri: 'https://github.com/pal-robotics/tiago_moveit_config.git', version: 'kinetic-devel'}
