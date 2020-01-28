@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package()
 
 include_directories(
+  SYSTEM
   ${catkin_INCLUDE_DIRS}
 )
 
