@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>tiago_moveit_tutorial</name>
-  <version>2.0.2</version>
+  <version>2.0.3</version>
   <description>MoveIt! tutorials for TIAGo robot</description>
 
   <maintainer email="tiago-support@pal-robotics.com">TIAGo support team</maintainer>

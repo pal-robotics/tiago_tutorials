@@ -2,8 +2,8 @@
 Changelog for package tiago_opencv_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.3 (2020-01-28)
+------------------
 * Merge branch 'melodic_fixes' into 'erbium-devel'
   Melodic fixes
   See merge request apps/tiago_tutorials!21
