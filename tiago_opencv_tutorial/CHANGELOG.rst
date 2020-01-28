@@ -2,6 +2,18 @@
 Changelog for package tiago_opencv_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'melodic_fixes' into 'erbium-devel'
+  Melodic fixes
+  See merge request apps/tiago_tutorials!21
+* added cmake definition for cv_xfeatures2d
+* Merge branch 'add_jpeg_dependency' into 'erbium-devel'
+  Add dependency on Image Transport Plugins
+  See merge request apps/tiago_tutorials!19
+* Add dependency on Image Transport Plugins
+* Contributors: Sai Kishor Kothakota, Victor Lopez, davidfernandez
+
 2.0.2 (2018-11-16)
 ------------------
 

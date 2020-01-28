@@ -2,6 +2,16 @@
 Changelog for package tiago_moveit_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add SYSTEM to some include_directories
+* Merge branch 'melodic_fixes' into 'erbium-devel'
+  Melodic fixes
+  See merge request apps/tiago_tutorials!21
+* added missing transform_broadcaster header
+* update new move_group_interface header
+* Contributors: Sai Kishor Kothakota, Victor Lopez
+
 2.0.2 (2018-11-16)
 ------------------
 

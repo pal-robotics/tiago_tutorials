@@ -2,6 +2,11 @@
 Changelog for package look_to_point
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add SYSTEM to some include_directories
+* Contributors: Victor Lopez
+
 2.0.2 (2018-11-16)
 ------------------
 

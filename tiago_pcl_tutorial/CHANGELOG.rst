@@ -2,6 +2,9 @@
 Changelog for package tiago_pcl_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.0.2 (2018-11-16)
 ------------------
 * Fix clang linking issues
