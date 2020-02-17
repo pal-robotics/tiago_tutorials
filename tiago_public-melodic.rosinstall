@@ -39,3 +39,4 @@
 - git: {local-name: slam_gmapping,                uri: 'https://github.com/ros-perception/slam_gmapping.git', version: 'hydro-devel'}
 - git: {local-name: openslam_gmapping,            uri: 'https://github.com/ros-perception/openslam_gmapping.git', version: 'master'}
 - git: {local-name: eband_local_planner,          uri: 'https://github.com/pal-robotics-forks/eband_local_planner.git', version: 'melodic-devel'}
+- git: {local-name: navigation_layers,            uri: 'https://github.com/DLu/navigation_layers.git', version: 'melodic'}
