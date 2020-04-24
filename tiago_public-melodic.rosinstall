@@ -40,3 +40,5 @@
 - git: {local-name: openslam_gmapping,            uri: 'https://github.com/ros-perception/openslam_gmapping.git', version: 'master'}
 - git: {local-name: eband_local_planner,          uri: 'https://github.com/pal-robotics-forks/eband_local_planner.git', version: 'melodic-devel'}
 - git: {local-name: navigation_layers,            uri: 'https://github.com/DLu/navigation_layers.git', version: 'melodic'}
+- git: {local-name: custom_end_effector,          uri: 'https://github.com/pal-robotics/custom_end_effector', version: 'master'}
+
