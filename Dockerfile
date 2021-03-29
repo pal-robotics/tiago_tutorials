@@ -2,8 +2,9 @@ FROM osrf/ros:melodic-desktop-full
 
 LABEL maintainer="Yue Erro <yue.erro@pal-robotics.com>"
 
-RUN mkdir -p /root/tiago_public_ws/src
-WORKDIR /root/tiago_public_ws
+ARG REPO_WS=/tiago_public_ws
+RUN mkdir -p $REPO_WS/src
+WORKDIR $REPO_WS
 
 RUN apt-get update && apt-get install -y \
     libv4l-dev \
@@ -24,6 +25,6 @@ RUN apt-get update && rosdep install --from-paths src --ignore-src -y --rosdistr
 
 RUN bash -c "source /opt/ros/melodic/setup.bash \
     && catkin build -DCATKIN_ENABLE_TESTING=0 \
-    && echo 'source /root/tiago_public_ws/devel/setup.bash' >> ~/.bashrc"
+    && echo 'source $REPO_WS/devel/setup.bash' >> ~/.bashrc"
 
 ENTRYPOINT ["bash"]
