@@ -1,4 +1,4 @@
-FROM osrf/ros:melodic-desktop-full
+FROM osrf/ros:melodic-desktop-full-bionic
 
 LABEL maintainer="Yue Erro <yue.erro@pal-robotics.com>"
 
@@ -6,12 +6,42 @@ ARG REPO_WS=/tiago_public_ws
 RUN mkdir -p $REPO_WS/src
 WORKDIR $REPO_WS
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    apt-utils \
     libv4l-dev \
     libv4l2rds0 \
     git \
     wget \
     vim \
+    locales \
+    dpkg \
+    ssh \
+    curl \
+    aptitude \
+    g++ \
+    gcc \
+    openvpn \
+    gnupg \
+    bash-completion \
+    vim-gnome \
+    nano \
+    psmisc \
+    ccache \
+    gdb \
+    qtcreator \
+    htop \
+    man \
+    meld \
+    silversearcher-ag \
+    terminator \
+    tig \
+    valgrind \
+    iputils-ping \
+    ipython \
+    python-scipy \
+    python-wstool \
+    python-networkx \
+    python-pip  \
     python3-vcstool \
     python-rosinstall \
     python-catkin-tools \
