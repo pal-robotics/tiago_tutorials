@@ -35,4 +35,5 @@
 - git: {local-name: pal_wsg_gripper,              uri: 'https://github.com/pal-robotics/pal_wsg_gripper', version: 'indigo-devel'}
 - git: {local-name: roboticsgroup_gazebo_plugins, uri: 'https://github.com/pal-robotics-forks/roboticsgroup_gazebo_plugins.git', version: 'kinetic-devel'}
 - git: {local-name: teleop_tools,                 uri: 'https://github.com/pal-robotics-forks/teleop_tools.git', version: 'kinetic-devel'}
-- git: {local-name: custom_end_effector,          uri: 'https://github.com/pal-robotics/custom_end_effector', version: 'master'}
+- git: {local-name: custom_end_effector,          uri: 'https://github.com/pal-robotics/custom_end_effector.git', version: 'master'}
+- git: {local-name: pal_robotiq_gripper,          uri: 'https://github.com/pal-robotics/pal_robotiq_gripper.git', version: 'master'}
