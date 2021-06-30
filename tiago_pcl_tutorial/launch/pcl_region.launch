@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<launch>
-  <node name="pcl_regions" pkg="tiago_pcl_tutorial" type="region_segment" output="screen"/>
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tiago_pcl_tutorial)/config/pcl_regions.rviz"/>
-  <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" />
-</launch>

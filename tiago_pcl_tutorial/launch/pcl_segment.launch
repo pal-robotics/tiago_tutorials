@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<launch>
-  <node name="pcl_segmentation" pkg="tiago_pcl_tutorial" type="pcl_segment" output="screen"/>
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tiago_pcl_tutorial)/config/pcl_segment.rviz"/>
-  <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui" />
-</launch>
