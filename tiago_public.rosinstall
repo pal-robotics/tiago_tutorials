@@ -19,3 +19,4 @@
 - git: {local-name: hey5_description, uri: 'git@github.com:pal-robotics/hey5_description.git', version: 'foxy-devel'}
 - git: {local-name: pal_gripper, uri: 'git@github.com:pal-robotics/pal_gripper.git', version: 'foxy-devel'}
 - git: {local-name: tiago_description_calibration, uri: 'git@github.com:pal-robotics/tiago_description_calibration.git', version: 'foxy-devel'}
+- git: {local-name: play_motion, uri: 'git@github.com:pal-robotics/play_motion.git', version: 'foxy-devel'}
