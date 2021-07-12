@@ -95,7 +95,7 @@ FindKeypoints::FindKeypoints(ros::NodeHandle nh_): _imageTransport(nh_)
 	two_zero = 0; two_one = -1; two_two = 0;
 	keypoints_bool= true;
 	sharpen_bool = contrast_bool = original_bool = combined_bool = false;
-	detector_from_msg = "SURF";
+	detector_from_msg = "ORB";
 }
 
 FindKeypoints::~FindKeypoints()
