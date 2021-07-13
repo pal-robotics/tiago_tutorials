@@ -15,5 +15,5 @@
       <param name="marker_frame"       value="/aruco_frame" />
       <param name="corner_refinement"  value="SUBPIX" />
   </node>
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tiago_aruco_demo)/config/aruco_demo_v2.rviz" required="true" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tiago_aruco_demo)/config/aruco_demo.rviz" required="true" />
 </launch>
