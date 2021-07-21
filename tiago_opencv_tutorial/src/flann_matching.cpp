@@ -86,8 +86,8 @@ FlannMatching::FlannMatching(ros::NodeHandle nh_): _imageTransport(nh_)
 	
 	cv::namedWindow(win, CV_WINDOW_KEEPRATIO);
 	
-	feature_gui = "SURF";
-	extractor_gui = "SURF";
+	feature_gui = "ORB";
+	extractor_gui = "ORB";
 	matcher_gui = "FlannBased";
 	knn = false;
 	k = 2;
