@@ -1,13 +1,15 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 134
+    Help Height: 78
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Grid1/Offset1
-        - /TF1/Frames1
-      Splitter Ratio: 0.85906
-    Tree Height: 420
+        - /Global Options1
+        - /Status1
+        - /Pose1
+        - /Image1
+      Splitter Ratio: 0.5
+    Tree Height: 633
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -16,7 +18,7 @@ Panels:
       - /2D Nav Goal1
       - /Publish Point1
     Name: Tool Properties
-    Splitter Ratio: 0.588679
+    Splitter Ratio: 0.5886790156364441
   - Class: rviz/Views
     Expanded:
       - /Current View1
@@ -26,17 +28,21 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: RGB-D camera
+    SyncSource: PointCloud2
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
 Visualization Manager:
   Class: ""
   Displays:
     - Alpha: 0.5
-      Cell Size: 0.75
+      Cell Size: 1
       Class: rviz/Grid
-      Color: 229; 229; 229
+      Color: 160; 160; 164
       Enabled: true
       Line Style:
-        Line Width: 0.03
+        Line Width: 0.029999999329447746
         Value: Lines
       Name: Grid
       Normal Cell Count: 0
@@ -45,7 +51,7 @@ Visualization Manager:
         Y: 0
         Z: 0
       Plane: XY
-      Plane Cell Count: 75
+      Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
       Value: true
     - Alpha: 1
@@ -130,6 +136,22 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        base_mic_back_left_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_mic_back_right_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_mic_front_left_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_mic_front_right_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         base_sonar_01_link:
           Alpha: 1
           Show Axes: false
@@ -204,6 +226,10 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        gripper_tool_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         head_1_link:
           Alpha: 1
           Show Axes: false
@@ -214,6 +240,18 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        rgbd_laser_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        suspension_left_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        suspension_right_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         torso_fixed_column_link:
           Alpha: 1
           Show Axes: false
@@ -255,6 +293,10 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        xtion_orbbec_aux_joint_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         xtion_rgb_frame:
           Alpha: 1
           Show Axes: false
@@ -263,196 +305,56 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-      Name: TIAGo
+      Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
       Update Interval: 0
       Value: true
       Visual Enabled: true
-    - Class: rviz/TF
-      Enabled: false
-      Frame Timeout: 15
-      Frames:
-        All Enabled: false
-      Marker Scale: 1
-      Name: TF
-      Show Arrows: true
-      Show Axes: true
-      Show Names: false
-      Tree:
-        {}
-      Update Interval: 0
-      Value: false
-    - Class: rviz/Group
-      Displays:
-        - Alpha: 1
-          Class: rviz/Map
-          Color Scheme: map
-          Draw Behind: true
-          Enabled: true
-          Name: Map
-          Topic: /map
-          Unreliable: false
-          Value: true
-        - Alpha: 1
-          Axes Length: 1
-          Axes Radius: 0.1
-          Class: rviz/Pose
-          Color: 255; 25; 0
-          Enabled: true
-          Head Length: 0.3
-          Head Radius: 0.1
-          Name: Pose
-          Shaft Length: 1
-          Shaft Radius: 0.05
-          Shape: Arrow
-          Topic: /move_base/current_goal
-          Unreliable: false
-          Value: true
-        - Alpha: 0.7
-          Class: rviz/Map
-          Color Scheme: map
-          Draw Behind: false
-          Enabled: true
-          Name: Map
-          Topic: /map
-          Unreliable: false
-          Value: true
-        - Alpha: 1
-          Buffer Length: 1
-          Class: rviz/Path
-          Color: 25; 255; 0
-          Enabled: true
-          Line Style: Lines
-          Line Width: 0.03
-          Name: Path
-          Offset:
-            X: 0
-            Y: 0
-            Z: 0
-          Topic: /move_base/PalLocalPlanner/global_plan
-          Unreliable: false
-          Value: true
-      Enabled: false
-      Name: Navigation
-    - Class: rviz/Group
-      Displays:
-        - Alpha: 1
-          Autocompute Intensity Bounds: true
-          Autocompute Value Bounds:
-            Max Value: 10
-            Min Value: -10
-            Value: true
-          Axis: Z
-          Channel Name: intensity
-          Class: rviz/LaserScan
-          Color: 255; 0; 0
-          Color Transformer: FlatColor
-          Decay Time: 0
-          Enabled: false
-          Invert Rainbow: false
-          Max Color: 255; 255; 255
-          Max Intensity: 4096
-          Min Color: 0; 0; 0
-          Min Intensity: 0
-          Name: LaserScan
-          Position Transformer: XYZ
-          Queue Size: 10
-          Selectable: true
-          Size (Pixels): 3
-          Size (m): 0.01
-          Style: Points
-          Topic: /scan
-          Unreliable: false
-          Use Fixed Frame: true
-          Use rainbow: true
-          Value: false
-        - Class: rviz/Camera
-          Enabled: false
-          Image Rendering: background and overlay
-          Image Topic: /xtion/rgb/image_raw
-          Name: RGB-D camera
-          Overlay Alpha: 0.5
-          Queue Size: 2
-          Transport Hint: compressed
-          Unreliable: false
-          Value: false
-          Visibility:
-            ArUco debug: true
-            Detected marker: true
-            Grid: true
-            Navigation:
-              Map: true
-              Path: true
-              Pose: true
-              Value: true
-            Sensors:
-              LaserScan: true
-              Point cloud: true
-              Value: true
-              depth image: true
-            TF: true
-            TIAGo: true
-            Value: true
-          Zoom Factor: 1
-        - Alpha: 1
-          Autocompute Intensity Bounds: true
-          Autocompute Value Bounds:
-            Max Value: 10
-            Min Value: -10
-            Value: true
-          Axis: Z
-          Channel Name: intensity
-          Class: rviz/PointCloud2
-          Color: 255; 255; 255
-          Color Transformer: RGB8
-          Decay Time: 0
-          Enabled: true
-          Invert Rainbow: false
-          Max Color: 255; 255; 255
-          Max Intensity: 4096
-          Min Color: 0; 0; 0
-          Min Intensity: 0
-          Name: Point cloud
-          Position Transformer: XYZ
-          Queue Size: 10
-          Selectable: true
-          Size (Pixels): 3
-          Size (m): 0.01
-          Style: Flat Squares
-          Topic: /xtion/depth_registered/points
-          Unreliable: false
-          Use Fixed Frame: true
-          Use rainbow: true
-          Value: true
-        - Class: rviz/Image
-          Enabled: false
-          Image Topic: /xtion/depth_registered/image_raw
-          Max Value: 1
-          Median window: 5
-          Min Value: 0
-          Name: depth image
-          Normalize Range: true
-          Queue Size: 2
-          Transport Hint: raw
-          Unreliable: false
-          Value: false
-      Enabled: true
-      Name: Sensors
     - Alpha: 1
-      Axes Length: 0.15
-      Axes Radius: 0.025
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
       Class: rviz/Pose
       Color: 255; 25; 0
       Enabled: true
-      Head Length: 0.3
-      Head Radius: 0.1
-      Name: Detected marker
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: Pose
       Shaft Length: 1
-      Shaft Radius: 0.05
-      Shape: Axes
+      Shaft Radius: 0.05000000074505806
+      Shape: Arrow
       Topic: /aruco_single/pose
       Unreliable: false
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: RGB8
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: PointCloud2
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 1
+      Size (m): 0.009999999776482582
+      Style: Points
+      Topic: /xtion/depth_registered/points
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
       Value: true
     - Class: rviz/Image
       Enabled: true
@@ -460,16 +362,17 @@ Visualization Manager:
       Max Value: 1
       Median window: 5
       Min Value: 0
-      Name: ArUco debug
+      Name: Image
       Normalize Range: true
       Queue Size: 2
-      Transport Hint: raw
+      Transport Hint: compressed
       Unreliable: false
       Value: true
   Enabled: true
   Global Options:
-    Background Color: 80; 100; 100
-    Fixed Frame: base_footprint
+    Background Color: 48; 48; 48
+    Default Light: true
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -480,7 +383,10 @@ Visualization Manager:
     - Class: rviz/FocusCamera
     - Class: rviz/Measure
     - Class: rviz/SetInitialPose
+      Theta std deviation: 0.2617993950843811
       Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
     - Class: rviz/SetGoal
       Topic: /move_base_simple/goal
     - Class: rviz/PublishPoint
@@ -490,34 +396,35 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 5.03644
+      Distance: 2.590181350708008
       Enable Stereo Rendering:
-        Stereo Eye Separation: 0.06
+        Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 3.56794
-        Y: 0.640251
-        Z: -0.0287486
+        X: 0.7409473657608032
+        Y: 0.1974421590566635
+        Z: 0.9713950157165527
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
       Name: Current View
-      Near Clip Distance: 0.01
-      Pitch: 0.274797
-      Target Frame: base_link
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.26539820432662964
+      Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.3836
+      Yaw: 2.3404042720794678
     Saved: ~
 Window Geometry:
-  ArUco debug:
-    collapsed: false
   Displays:
     collapsed: false
-  Height: 1026
+  Height: 1376
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000021900000378fc020000000bfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c00610079007301000000280000026b000000dd00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb00000018005200470042002d0044002000630061006d0065007200610000000208000000c90000001600fffffffb000000160064006500700074006800200069006d00610067006500000002d7000000c90000001600fffffffb000000160041007200550063006f0020006400650062007500670100000299000001070000001600ffffff000000010000010f0000035ffc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a0056006900650077007300000000410000035f000000b000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000064f0000003efc0100000002fb0000000800540069006d006501000000000000064f000002f600fffffffb0000000800540069006d00650100000000000004500000000000000000000004300000037800000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
-  RGB-D camera:
+  Image:
     collapsed: false
+  QMainWindow State: 000000ff00000000fd00000004000000000000023a000004c6fc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b00000302000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006101000003660000019b0000000000000000fb0000000a0049006d0061006700650100000343000001be0000001600ffffff000000010000010f000004c6fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003b000004c6000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000009b80000003efc0100000002fb0000000800540069006d00650100000000000009b80000024400fffffffb0000000800540069006d0065010000000000000450000000000000000000000663000004c600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -526,8 +433,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: false
-  Width: 1615
-  X: 75
-  Y: 14
-  depth image:
-    collapsed: false
+  Width: 2488
+  X: 1992
+  Y: 27
