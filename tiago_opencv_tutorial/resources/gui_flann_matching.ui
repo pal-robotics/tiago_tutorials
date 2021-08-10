@@ -119,22 +119,12 @@
        <widget class="QComboBox" name="feature_choice">
         <item>
          <property name="text">
-          <string>SURF</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>SIFT</string>
+          <string>ORB</string>
          </property>
         </item>
         <item>
          <property name="text">
           <string>BRISK</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ORB</string>
          </property>
         </item>
         <item>
@@ -157,11 +147,6 @@
           <string>FAST</string>
          </property>
         </item>
-        <item>
-         <property name="text">
-          <string>STAR</string>
-         </property>
-        </item>
        </widget>
       </widget>
      </item>
@@ -178,22 +163,7 @@
        <widget class="QComboBox" name="extractor_choice">
         <item>
          <property name="text">
-          <string>SURF</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>SIFT</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
           <string>ORB</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BRIEF</string>
          </property>
         </item>
         <item>
