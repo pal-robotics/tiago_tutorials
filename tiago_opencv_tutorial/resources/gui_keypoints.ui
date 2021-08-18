@@ -339,6 +339,21 @@
        <string>FAST</string>
       </property>
      </item>
+     <item>
+      <property name="text">
+       <string>SURF</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SIFT</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>STAR</string>
+      </property>
+     </item>
     </widget>
    </widget>
    <zorder>layoutWidget</zorder>
