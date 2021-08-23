@@ -68,8 +68,8 @@ class MyWindow(QtGui.QMainWindow):
 		self.knnMatching_check.setChecked(False)
 	
 	def use_button_cb(self):
-		value = self.path_text.toPlainText()
-		self.pubString("path", str(value))
+                fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',"/tiago_public_ws","Image files (*.jpg *.gif *.png)")
+                self.pubString("path", str(fname))
 
 	def knn_cb(self):
 		tick = self.knnMatching_check.checkState()
