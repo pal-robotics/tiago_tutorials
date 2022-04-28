@@ -54,7 +54,7 @@ ARG ROSDEP_IGNORE="opencv2 opencv2-nonfree pal_laser_filters speed_limit_node se
 RUN apt-get update && rosdep install --from-paths src --ignore-src -y --rosdistro melodic --skip-keys="${ROSDEP_IGNORE}"
 
 RUN bash -c "source /opt/ros/melodic/setup.bash \
-    && catkin build -DCATKIN_ENABLE_TESTING=0 \
+    && catkin build -DCATKIN_ENABLE_TESTING=0 -j $(expr `nproc` / 2) \
     && echo 'source $REPO_WS/devel/setup.bash' >> ~/.bashrc"
 
 ENTRYPOINT ["bash"]
