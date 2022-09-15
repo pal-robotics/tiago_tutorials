@@ -14,6 +14,9 @@
 - git: {local-name: pmb2_robot,                   uri: 'https://github.com/pal-robotics/pmb2_robot.git', version: 'kinetic-devel'}
 - git: {local-name: pmb2_simulation,              uri: 'https://github.com/pal-robotics/pmb2_simulation.git', version: 'indigo-devel'}
 - git: {local-name: pmb2_navigation,              uri: 'https://github.com/pal-robotics/pmb2_navigation', version: 'kinetic-devel'}
+- git: {local-name: omni_base_robot,              uri: 'https://github.com/pal-robotics/omni_base_robot.git', version: 'melodic-devel'}
+- git: {local-name: omni_base_simulation,         uri: 'https://github.com/pal-robotics/omni_base_simulation.git', version: 'melodic-devel'}
+- git: {local-name: omni_base_navigation,         uri: 'https://github.com/pal-robotics/omni_base_navigation.git', version: 'melodic-devel'}
 - git: {local-name: ros_control,                  uri: 'https://github.com/pal-robotics-forks/ros_control.git', version: 'kinetic-devel'}
 - git: {local-name: ros_controllers,              uri: 'https://github.com/pal-robotics-forks/ros_controllers.git', version: 'kinetic-devel'}
 - git: {local-name: rviz_plugin_covariance,       uri: 'https://github.com/pal-robotics/rviz_plugin_covariance.git', version: 'indigo-devel'}
