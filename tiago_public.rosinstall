@@ -10,5 +10,4 @@
 - git: {local-name: tiago_simulation, uri: 'https://github.com/pal-robotics/tiago_simulation.git', version: 'humble-devel'}
 - git: {local-name: hey5_description, uri: 'https://github.com/pal-robotics/hey5_description.git', version: 'humble-devel'}
 - git: {local-name: pal_gripper, uri: 'https://github.com/pal-robotics/pal_gripper.git', version: 'humble-devel'}
-- git: {local-name: tiago_description_calibration, uri: 'https://github.com/pal-robotics/tiago_description_calibration.git', version: 'humble-devel'}
 - git: {local-name: tiago_moveit_config, uri: 'https://github.com/pal-robotics/tiago_moveit_config.git', version: 'humble-devel'}
