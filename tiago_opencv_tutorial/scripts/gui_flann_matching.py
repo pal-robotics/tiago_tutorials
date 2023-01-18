@@ -27,14 +27,14 @@ import rospy
 import rospkg
 
 #GUI imports
-from PyQt4 import QtGui, uic
+from PyQt5 import QtGui, QtWidgets, uic
 
 #Custom msg imports
 from tiago_opencv_tutorial.msg import valueMatrix
 
 pub = rospy.Publisher('tiago_opencv_tutorial/flann_matching_gui', valueMatrix, queue_size=10)
 
-class MyWindow(QtGui.QMainWindow):
+class MyWindow(QtWidgets.QMainWindow):
 	def __init__(self):
 		super(MyWindow, self).__init__()
 		self.rospack = rospkg.RosPack()
@@ -68,8 +68,8 @@ class MyWindow(QtGui.QMainWindow):
 		self.knnMatching_check.setChecked(False)
 	
 	def use_button_cb(self):
-                fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',"/tiago_public_ws","Image files (*.jpg *.gif *.png)")
-                self.pubString("path", str(fname))
+		fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file',"/tiago_public_ws","Image files (*.jpg *.gif *.png)")[0]
+		self.pubString("path", str(fname))
 
 	def knn_cb(self):
 		tick = self.knnMatching_check.checkState()
@@ -119,7 +119,7 @@ class MyWindow(QtGui.QMainWindow):
 		
 if __name__ == '__main__':
 	rospy.init_node('flann_matching_gui')
-	app = QtGui.QApplication(sys.argv)
+	app = QtWidgets.QApplication(sys.argv)
 	signal.signal(signal.SIGINT, signal.SIG_DFL)
 	myWindow = MyWindow()
-   	sys.exit(app.exec_())
+	sys.exit(app.exec_())

@@ -31,9 +31,9 @@ import actionlib
 from pal_interaction_msgs.msg import TtsAction, TtsGoal
 
 #import GUI headers
-from PyQt4 import QtGui, uic
+from PyQt5 import QtGui, QtWidgets, uic
 
-class Action(QtGui.QMainWindow):
+class Action(QtWidgets.QMainWindow):
 	def __init__(self):
 		super(Action, self).__init__()
 		self.rospack = rospkg.RosPack()
@@ -79,7 +79,7 @@ class Action(QtGui.QMainWindow):
 
 if __name__ == '__main__':
 	rospy.init_node('tts_client_gui')
-	app = QtGui.QApplication(sys.argv)
+	app = QtWidgets.QApplication(sys.argv)
 	signal.signal(signal.SIGINT, signal.SIG_DFL)
 	action_ob = Action()
 	sys.exit(app.exec_())

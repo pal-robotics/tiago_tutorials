@@ -50,7 +50,7 @@
 #include <opencv2/xfeatures2d/nonfree.hpp>
 #endif
 #include <opencv2/features2d.hpp>
-#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/highgui.hpp>
 
 #include "features2d_factory.h"
 class FindKeypoints
@@ -74,6 +74,7 @@ protected:
 	int beta;
 	int zero_zero, zero_one, zero_two, one_zero, one_one, one_two, two_zero, two_one, two_two;
 	bool keypoints_bool, sharpen_bool, contrast_bool, original_bool, combined_bool;
+	bool keypoints_show, sharpen_show, contrast_show, original_show, combined_show;
 	std::string detector_from_msg;
 };
 
@@ -87,7 +88,6 @@ FindKeypoints::FindKeypoints(ros::NodeHandle nh_): _imageTransport(nh_)
 {
 	image_sub = _imageTransport.subscribe("xtion/rgb/image_raw", 1, &FindKeypoints::imageCB, this, image_transport::TransportHints("compressed"));
 	gui_sub = nh_.subscribe("/tiago_opencv_tutorial/find_keypoints_gui", 1, &FindKeypoints::matrixCB, this);
-
 	alpha = 2.2;
 	beta = 50;
 	zero_zero = 0; zero_one = -1; zero_two = 0;
@@ -95,6 +95,7 @@ FindKeypoints::FindKeypoints(ros::NodeHandle nh_): _imageTransport(nh_)
 	two_zero = 0; two_one = -1; two_two = 0;
 	keypoints_bool= true;
 	sharpen_bool = contrast_bool = original_bool = combined_bool = false;
+	keypoints_show = sharpen_show = contrast_show = original_show = combined_show = false;
 	detector_from_msg = "ORB";
 }
 
@@ -146,29 +147,40 @@ void FindKeypoints::matrixCB(const tiago_opencv_tutorial::valueMatrixConstPtr& m
 void FindKeypoints::cvWindows()
 {
 	if(keypoints_bool == true)
-		cv::namedWindow(key_win, CV_WINDOW_FREERATIO);
-	else if (keypoints_bool == false)
+		cv::namedWindow(key_win, cv::WINDOW_FREERATIO);
+	else if (keypoints_bool == false && keypoints_show == true)
+	{
 		cv::destroyWindow(key_win);
-
+		keypoints_show = false;
+	}
 	if(sharpen_bool == true)
-		cv::namedWindow(sharp_win, CV_WINDOW_FREERATIO);
-	else if (sharpen_bool == false)
+		cv::namedWindow(sharp_win, cv::WINDOW_FREERATIO);
+	else if (sharpen_bool == false && sharpen_show == true)
+	{
 		cv::destroyWindow(sharp_win);
-
+		sharpen_show = false;
+	}
 	if(contrast_bool == true)
-		cv::namedWindow(cont_win, CV_WINDOW_FREERATIO);
-	else if (contrast_bool == false)
+		cv::namedWindow(cont_win, cv::WINDOW_FREERATIO);
+	else if (contrast_bool == false && contrast_show == true)
+	{
 		cv::destroyWindow(cont_win);
-
+		contrast_show = false;
+	}
 	if(original_bool == true)
-		cv::namedWindow(orig_win, CV_WINDOW_FREERATIO);
-	else if (original_bool == false)
+		cv::namedWindow(orig_win, cv::WINDOW_FREERATIO);
+	else if (original_bool == false && original_show == true)
+	{
 		cv::destroyWindow(orig_win);
-
+		original_show = false;
+	}
 	if(combined_bool == true)
-		cv::namedWindow(combi_win, CV_WINDOW_FREERATIO);
-	else if (combined_bool == false)
+		cv::namedWindow(combi_win, cv::WINDOW_FREERATIO);
+	else if (combined_bool == false && combined_show == true)
+	{
 		cv::destroyWindow(combi_win);
+		combined_show = false;
+	}
 }
 
 void FindKeypoints::imageCB(const sensor_msgs::ImageConstPtr& msg)
@@ -190,25 +202,30 @@ void FindKeypoints::imageCB(const sensor_msgs::ImageConstPtr& msg)
 
 	if(original_bool == true)
 	{
+		original_show = true;
 		cv::imshow(orig_win, img);
 	}
 	if(contrast_bool == true)
 	{
+		contrast_show = true;
 		this->contrastChange(img, contrast_mat);
 		cv::imshow(cont_win, contrast_mat);
 	}
 	if(sharpen_bool == true)
 	{
+		sharpen_show = true;
 		this->sharpenImg(img, sharp_mat);
 		cv::imshow(sharp_win, sharp_mat);
 	}
 	if(keypoints_bool == true)
 	{
+		keypoints_show = true;
 		this->FeaturesDetection(img, keypoints_mat);
 		cv::imshow(key_win, keypoints_mat);
 	}
 	if(combined_bool == true)
 	{
+		combined_show = true;
 		cv::Mat combi_mat_1, combi_mat_2;
 		this->contrastChange(img, combi_mat_1);
 		this->sharpenImg(combi_mat_1, combi_mat_2);
