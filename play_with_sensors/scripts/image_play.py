@@ -18,22 +18,22 @@
 # Author:
 #   * Sammy Pfeiffer
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import rospy
 from sensor_msgs.msg import CompressedImage
 
 
-class Main(QtGui.QMainWindow):
+class Main(QtWidgets.QMainWindow):
 
     def __init__(self, parent=None):
         super(Main, self).__init__(parent)
-        self.image_label = QtGui.QLabel()
+        self.image_label = QtWidgets.QLabel()
         self.image_label.resize(640, 480)
         self.pixmap = QtGui.QPixmap()
 
-        self.layout = QtGui.QHBoxLayout()
+        self.layout = QtWidgets.QHBoxLayout()
         self.layout.addWidget(self.image_label)
-        self.central_widget = QtGui.QWidget()
+        self.central_widget = QtWidgets.QWidget()
         self.central_widget.setLayout(self.layout)
         self.setCentralWidget(self.central_widget)
 
@@ -62,7 +62,7 @@ class Main(QtGui.QMainWindow):
 
 if __name__ == '__main__':
     rospy.init_node('image_play')
-    app = QtGui.QApplication(["image_play window"])
+    app = QtWidgets.QApplication(["image_play window"])
     myWidget = Main()
     myWidget.show()
     app.exec_()

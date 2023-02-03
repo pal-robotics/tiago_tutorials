@@ -10,9 +10,9 @@
       <param name="image_is_rectified" value="true"/>
       <param name="marker_size"        value="$(arg markerSize)"/>
       <param name="marker_id"          value="$(arg markerId)"/>
-      <param name="reference_frame"    value="/base_footprint"/>   <!-- frame in which the marker pose will be expressed -->
-      <param name="camera_frame"       value="/xtion_rgb_optical_frame"/>
-      <param name="marker_frame"       value="/aruco_frame" />
+      <param name="reference_frame"    value="base_footprint"/>   <!-- frame in which the marker pose will be expressed -->
+      <param name="camera_frame"       value="xtion_rgb_optical_frame"/>
+      <param name="marker_frame"       value="aruco_frame" />
       <param name="corner_refinement"  value="SUBPIX" />
   </node>
   <node pkg="look_to_point" type="look_to_point" name="look_to_point"/>

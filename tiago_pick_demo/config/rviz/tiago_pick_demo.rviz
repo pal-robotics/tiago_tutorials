@@ -6,15 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /RobotModel1
-        - /PlanningScene1
         - /PlanningScene1/Scene Geometry1
-        - /Marker pose1
-        - /Camera1
-        - /Aruco1
-        - /Grasps1
-      Splitter Ratio: 0.683333
-    Tree Height: 466
+      Splitter Ratio: 0.6833329796791077
+    Tree Height: 452
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -23,17 +17,20 @@ Panels:
       - /2D Nav Goal1
       - /Publish Point1
     Name: Tool Properties
-    Splitter Ratio: 0.588679
+    Splitter Ratio: 0.5886790156364441
   - Class: rviz/Views
     Expanded:
       - /Current View1
     Name: Views
     Splitter Ratio: 0.5
   - Class: rviz/Time
-    Experimental: false
     Name: Time
     SyncMode: 0
     SyncSource: Camera
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
 Visualization Manager:
   Class: ""
   Displays:
@@ -43,7 +40,7 @@ Visualization Manager:
       Color: 160; 160; 164
       Enabled: true
       Line Style:
-        Line Width: 0.03
+        Line Width: 0.029999999329447746
         Value: Lines
       Name: Grid
       Normal Cell Count: 0
@@ -137,6 +134,22 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        base_mic_back_left_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_mic_back_right_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_mic_front_left_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_mic_front_right_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         base_sonar_01_link:
           Alpha: 1
           Show Axes: false
@@ -211,6 +224,10 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        gripper_tool_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         head_1_link:
           Alpha: 1
           Show Axes: false
@@ -221,6 +238,18 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        rgbd_laser_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        suspension_left_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        suspension_right_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         torso_fixed_column_link:
           Alpha: 1
           Show Axes: false
@@ -262,6 +291,10 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        xtion_orbbec_aux_joint_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         xtion_rgb_frame:
           Alpha: 1
           Show Axes: false
@@ -283,9 +316,9 @@ Visualization Manager:
       Planning Scene Topic: /move_group/monitored_planning_scene
       Robot Description: robot_description
       Scene Geometry:
-        Scene Alpha: 0.9
+        Scene Alpha: 0.8999999761581421
         Scene Color: 50; 230; 50
-        Scene Display Time: 0.2
+        Scene Display Time: 0.20000000298023224
         Show Scene Geometry: true
         Voxel Coloring: Z-Axis
         Voxel Rendering: Occupied Voxels
@@ -369,6 +402,22 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          base_mic_back_left_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          base_mic_back_right_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          base_mic_front_left_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          base_mic_front_right_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           base_sonar_01_link:
             Alpha: 1
             Show Axes: false
@@ -443,6 +492,10 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          gripper_tool_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           head_1_link:
             Alpha: 1
             Show Axes: false
@@ -453,6 +506,18 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          rgbd_laser_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          suspension_left_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          suspension_right_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           torso_fixed_column_link:
             Alpha: 1
             Show Axes: false
@@ -494,6 +559,10 @@ Visualization Manager:
             Alpha: 1
             Show Axes: false
             Show Trail: false
+          xtion_orbbec_aux_joint_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           xtion_rgb_frame:
             Alpha: 1
             Show Axes: false
@@ -507,16 +576,17 @@ Visualization Manager:
         Show Robot Visual: true
       Value: true
     - Alpha: 1
-      Axes Length: 0.05
-      Axes Radius: 0.01
+      Axes Length: 0.05000000074505806
+      Axes Radius: 0.009999999776482582
       Class: rviz/Pose
       Color: 255; 25; 0
       Enabled: true
-      Head Length: 0.3
-      Head Radius: 0.1
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
       Name: Marker pose
+      Queue Size: 10
       Shaft Length: 1
-      Shaft Radius: 0.05
+      Shaft Radius: 0.05000000074505806
       Shape: Axes
       Topic: /aruco_single/pose
       Unreliable: false
@@ -526,7 +596,7 @@ Visualization Manager:
       Image Rendering: background and overlay
       Image Topic: /xtion/rgb/image_rect_color
       Name: Camera
-      Overlay Alpha: 0.2
+      Overlay Alpha: 0.20000000298023224
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
@@ -537,6 +607,7 @@ Visualization Manager:
         Grid: true
         Marker pose: true
         PlanningScene: true
+        PointCloud2: true
         RobotModel: true
         Value: true
       Zoom Factor: 1
@@ -548,17 +619,55 @@ Visualization Manager:
         "": true
       Queue Size: 100
       Value: true
-    - Arrow Length: 0.05
+    - Alpha: 1
+      Arrow Length: 0.05000000074505806
+      Axes Length: 0.30000001192092896
+      Axes Radius: 0.009999999776482582
       Class: rviz/PoseArray
       Color: 255; 25; 0
       Enabled: true
+      Head Length: 0.07000000029802322
+      Head Radius: 0.029999999329447746
       Name: Grasps
+      Queue Size: 10
+      Shaft Length: 0.23000000417232513
+      Shaft Radius: 0.009999999776482582
+      Shape: Arrow (Flat)
       Topic: /sphere_poses
       Unreliable: false
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: RGB8
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: PointCloud2
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /xtion/depth_registered/points
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
+    Default Light: true
     Fixed Frame: base_footprint
     Frame Rate: 30
   Name: root
@@ -570,7 +679,10 @@ Visualization Manager:
     - Class: rviz/FocusCamera
     - Class: rviz/Measure
     - Class: rviz/SetInitialPose
+      Theta std deviation: 0.2617993950843811
       Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
     - Class: rviz/SetGoal
       Topic: /move_base_simple/goal
     - Class: rviz/PublishPoint
@@ -580,32 +692,35 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.16794
+      Distance: 1.4773902893066406
       Enable Stereo Rendering:
-        Stereo Eye Separation: 0.06
+        Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
+      Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.140763
-        Y: -0.16088
-        Z: 0.774189
+        X: 0.4223411977291107
+        Y: 0.10884090512990952
+        Z: 0.861178994178772
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
       Name: Current View
-      Near Clip Distance: 0.01
-      Pitch: 0.5304
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.6103999018669128
       Target Frame: <Fixed Frame>
-      Value: Orbit (rviz)
-      Yaw: 0.280398
+      Yaw: 1.1353975534439087
     Saved: ~
 Window Geometry:
   Camera:
     collapsed: false
   Displays:
     collapsed: false
-  Height: 1056
+  Height: 1043
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001ae00000396fc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000002800000261000000dd00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e006701000003a8000000160000000000000000fb0000000c00430061006d006500720061010000028f0000012f0000001600ffffff000000010000010f00000396fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000002800000396000000b000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000073f0000003efc0100000002fb0000000800540069006d006501000000000000073f000002f600fffffffb0000000800540069006d006501000000000000045000000000000000000000058b0000039600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001ae00000379fc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b0000024d000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e006701000003a8000000160000000000000000fb0000000c00430061006d006500720061010000028e000001260000001600ffffff000000010000010f00000396fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000002800000396000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007800000003efc0100000002fb0000000800540069006d00650100000000000007800000030700fffffffb0000000800540069006d00650100000000000004500000000000000000000005cc0000037900000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -614,6 +729,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: false
-  Width: 1855
-  X: 65
-  Y: 24
+  Width: 1920
+  X: 0
+  Y: 0

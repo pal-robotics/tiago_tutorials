@@ -376,7 +376,8 @@ class SphericalGrasps(object):
         jtpoint = JointTrajectoryPoint()
         jtpoint.positions = [
             float(pos) for pos in self._gripper_pre_grasp_positions.split()]
-        jtpoint.time_from_start = rospy.Duration(self._time_pre_grasp_posture)
+        #Let enough time for the gripper to release the object
+        jtpoint.time_from_start = rospy.Duration(3.5)
         pre_grasp_posture.points.append(jtpoint)
         # Generate all the orientations every step_degrees_yaw deg
         for yaw_angle in np.arange(0.0, 2.0 * pi, radians(self._step_degrees_yaw)):

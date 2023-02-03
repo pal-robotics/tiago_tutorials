@@ -71,8 +71,8 @@ const std::string win2 = "Threshold Difference";
 TrackSequential::TrackSequential(ros::NodeHandle nh_): _imageTransport(nh_)
 {
 	image_sub = _imageTransport.subscribe("xtion/rgb/image_raw", 1, &TrackSequential::imageCB, this, image_transport::TransportHints("compressed"));
-	cv::namedWindow(win1, CV_WINDOW_FREERATIO);
-	cv::namedWindow(win2, CV_WINDOW_FREERATIO);
+	cv::namedWindow(win1, cv::WINDOW_FREERATIO);
+	cv::namedWindow(win2, cv::WINDOW_FREERATIO);
 	i=0;
 }
 

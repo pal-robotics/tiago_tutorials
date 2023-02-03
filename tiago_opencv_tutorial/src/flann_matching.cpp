@@ -84,7 +84,7 @@ FlannMatching::FlannMatching(ros::NodeHandle nh_): _imageTransport(nh_)
 	image_sub = _imageTransport.subscribe("xtion/rgb/image_raw", 1, &FlannMatching::imageCB, this, image_transport::TransportHints("compressed"));
 	gui_sub = nh_.subscribe("/tiago_opencv_tutorial/flann_matching_gui", 1, &FlannMatching::guiCB, this);
 	
-	cv::namedWindow(win, CV_WINDOW_KEEPRATIO);
+	cv::namedWindow(win, cv::WINDOW_KEEPRATIO);
 	
 	feature_gui = "ORB";
 	extractor_gui = "ORB";
@@ -199,7 +199,7 @@ void FlannMatching::homography(std::vector<cv::KeyPoint> aruco_, std::vector<cv:
 		feed_2f.push_back(feed_[match_vector[i].trainIdx].pt);
 	}
 
-	cv::Mat h_mat = cv::findHomography(aruco_2f, feed_2f, CV_RANSAC );
+	cv::Mat h_mat = cv::findHomography(aruco_2f, feed_2f, cv::RANSAC );
 
 	std::vector<cv::Point2f>aruco_corners(4), feed_corners(4);
 	aruco_corners[0] = cv::Point2f(0,0);

@@ -80,10 +80,10 @@ CornerDetection::CornerDetection(ros::NodeHandle nh_): _imageTransport(nh_)
 {
 	image_sub = _imageTransport.subscribe("xtion/rgb/image_raw", 1, &CornerDetection::imageCB, this, image_transport::TransportHints("compressed"));
 	
-	cv::namedWindow(shiTomasi_win, CV_WINDOW_FREERATIO);
+	cv::namedWindow(shiTomasi_win, cv::WINDOW_FREERATIO);
   cv::createTrackbar( " Quality Level:", shiTomasi_win, &myShiTomasi_qualityLevel, max_qualityLevel);
   cv::createTrackbar( " Block Size:", shiTomasi_win, &blockSize_shi, 25);
-	cv::namedWindow(harris_win, CV_WINDOW_FREERATIO);
+	cv::namedWindow(harris_win, cv::WINDOW_FREERATIO);
   cv::createTrackbar( " Quality Level:", harris_win, &myHarris_qualityLevel, max_qualityLevel);
   cv::createTrackbar( " Block Size:", harris_win, &blockSize_harris, 25);
 }

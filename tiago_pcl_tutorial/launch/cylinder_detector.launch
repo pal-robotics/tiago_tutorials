@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="rate"   default="1"/>
-  <arg name="cloud"  default="/segment_table/nonplane"/>
+  <arg name="cloud"  default="segment_table/nonplane"/>
 
   <node name="cylinder_detector" pkg="tiago_pcl_tutorial" type="cylinder_detector" output="screen">
     <remap from="cloud" to="$(arg cloud)"/>

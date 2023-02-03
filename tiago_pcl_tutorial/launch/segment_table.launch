@@ -3,7 +3,7 @@
 
   <arg name="rate"                      default="1"                               />
   <arg name="cloud"                     default="/xtion/depth_registered/points"  />
-  <arg name="frame"                     default="/base_footprint"                 />
+  <arg name="frame"                     default="base_footprint"                 />
   <arg name="passthrough_axis"          default="z"                               />
   <arg name="passthrough_min"           default="0.4"                             />
   <arg name="passthrough_max"           default="1.6"                             />
