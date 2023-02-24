@@ -11,6 +11,10 @@ repositories:
     type: git
     url: https://github.com/pal-robotics/pal_gazebo_worlds.git
     version: humble-devel
+  play_motion2:
+    type: git
+    url: https://github.com/pal-robotics/play_motion2.git
+    version: humble-devel
 
   pmb2_robot:
     type: git
