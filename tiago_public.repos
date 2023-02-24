@@ -1,0 +1,47 @@
+repositories:
+  urdf_test:
+    type: git
+    url: https://github.com/pal-robotics/urdf_test.git
+    version: humble-devel
+  launch_pal:
+    type: git
+    url: https://github.com/pal-robotics/launch_pal.git
+    version: master
+  pal_gazebo_worlds:
+    type: git
+    url: https://github.com/pal-robotics/pal_gazebo_worlds.git
+    version: humble-devel
+
+  pmb2_robot:
+    type: git
+    url: https://github.com/pal-robotics/pmb2_robot.git
+    version: humble-devel
+  pmb2_navigation:
+    type: git
+    url: https://github.com/pal-robotics/pmb2_navigation.git
+    version: humble-devel
+
+  tiago_robot:
+    type: git
+    url: https://github.com/pal-robotics/tiago_robot.git
+    version: humble-devel
+  tiago_navigation:
+    type: git
+    url: https://github.com/pal-robotics/tiago_navigation.git
+    version: humble-devel
+  tiago_simulation:
+    type: git
+    url: https://github.com/pal-robotics/tiago_simulation.git
+    version: humble-devel
+  hey5_description:
+    type: git
+    url: https://github.com/pal-robotics/hey5_description.git
+    version: humble-devel
+  pal_gripper:
+    type: git
+    url: https://github.com/pal-robotics/pal_gripper.git
+    version: humble-devel
+  tiago_moveit_config:
+    type: git
+    url: https://github.com/pal-robotics/tiago_moveit_config.git
+    version: humble-devel
