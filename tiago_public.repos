@@ -24,6 +24,10 @@ repositories:
     type: git
     url: https://github.com/pal-robotics/pmb2_navigation.git
     version: humble-devel
+  pal_navigation_cfg_public:
+    type: git
+    url: https://github.com/pal-robotics/pal_navigation_cfg_public.git
+    version: humble-devel
 
   tiago_robot:
     type: git
