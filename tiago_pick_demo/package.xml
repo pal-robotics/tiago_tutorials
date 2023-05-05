@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>tiago_pick_demo</name>
-  <version>2.0.3</version>
+  <version>2.0.4</version>
   <description>Example of TIAGo picking an object with an ArUco marker placed on top of a table</description>
 
   <author email="sammy.pfeiffer@pal-robotics.com">Sammy Pfeiffer</author>

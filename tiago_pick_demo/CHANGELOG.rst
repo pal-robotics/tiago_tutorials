@@ -2,8 +2,8 @@
 Changelog for package tiago_pick_demo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.4 (2023-05-05)
+------------------
 * Merge branch 'fix_tutorials_noetic' into 'noetic-devel'
   Fix tutorials noetic
   See merge request apps/tiago_tutorials!38
