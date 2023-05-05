@@ -2,6 +2,15 @@
 Changelog for package tiago_pcl_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'fix_tutorials_noetic' into 'noetic-devel'
+  Fix tutorials noetic
+  See merge request apps/tiago_tutorials!38
+* Minor fix + rosinstall fix
+* Split look_down into torso_up and look_down
+* Contributors: Victor Lopez, narcismiguel, thomaspeyrucain
+
 2.0.3 (2020-01-28)
 ------------------
 

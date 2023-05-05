@@ -2,6 +2,23 @@
 Changelog for package tiago_opencv_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'fix_tutorials_noetic' into 'noetic-devel'
+  Fix tutorials noetic
+  See merge request apps/tiago_tutorials!38
+* Fix Qt and opencv version errors + update package.xml
+* Merge branch 'tuto_update' into 'erbium-devel'
+  Update the matching tuto with file browser
+  See merge request apps/tiago_tutorials!31
+* Update the matching tuto with file browser
+* Merge branch 'find_keypoint_fix' into 'erbium-devel'
+  Fix OpenCV tutorials find keypoint and matching
+  See merge request apps/tiago_tutorials!29
+* Fix Matching OpenCV Tutorial
+* Removing SURF, SIFT and STAR detectors
+* Contributors: ThomasPeyrucain, narcismiguel, thomaspeyrucain, victor
+
 2.0.3 (2020-01-28)
 ------------------
 * Merge branch 'melodic_fixes' into 'erbium-devel'

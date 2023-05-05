@@ -2,6 +2,14 @@
 Changelog for package tts
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'fix_tutorials_noetic' into 'noetic-devel'
+  Fix tutorials noetic
+  See merge request apps/tiago_tutorials!38
+* Fix Qt and opencv version errors + update package.xml
+* Contributors: narcismiguel, thomaspeyrucain
+
 2.0.3 (2020-01-28)
 ------------------
 
