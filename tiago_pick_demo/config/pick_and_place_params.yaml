@@ -1,7 +1,7 @@
 # Desired distance from grasp_postures_frame_id to put the object
 # So, the grasping point
 grasp_desired_distance: 0.20
-grasp_min_distance: 0.0
+grasp_min_distance: 0.12
 # Times for the grasp, they are sumed step after step
 time_pre_grasp_posture: 2.0
 time_grasp_posture: 1.0
@@ -15,9 +15,9 @@ grasp_quality: 0.1
 # Gripper joint poses
 gripper_joint_names: "gripper_left_finger_joint gripper_right_finger_joint"
 # Closed position
-gripper_grasp_positions: "0.015 0.015"
+gripper_grasp_positions: "0.022 0.022"
 # Open position
-gripper_pre_grasp_positions: "0.038 0.038"
+gripper_pre_grasp_positions: "0.040 0.040"
 
 # Direction in reference of the grasp_postures_frame_id
 pre_grasp_direction_x: 1.0
@@ -25,8 +25,8 @@ pre_grasp_direction_y: 0.0
 pre_grasp_direction_z: 0.0
 
 # Direction in reference of the grasp_postures_frame_id
-post_grasp_direction_x: -1.0
-post_grasp_direction_y: 0.0
+post_grasp_direction_x: 0.0
+post_grasp_direction_y: -1.0
 post_grasp_direction_z: 0.0
 
 max_contact_force: 0.0
@@ -41,13 +41,13 @@ fix_tool_frame_to_grasping_frame_yaw: 0.0
 # Generation of grasps configuration
 # in order to generate more or less poses these
 # parameters can be tuned
-min_degrees_yaw: 0
-max_degrees_yaw: 360
+min_degrees_yaw: 240
+max_degrees_yaw: 300
 min_degrees_pitch: 0
 max_degrees_pitch: 360
 
 # The steps are the main thing to tune
 step_degrees_pitch: 15
-step_degrees_yaw: 15
+step_degrees_yaw: 5
 
 links_to_allow_contact: ["gripper_left_finger_link", "gripper_right_finger_link", "gripper_link"]
