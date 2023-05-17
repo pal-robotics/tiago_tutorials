@@ -79,7 +79,7 @@ public:
     RCLCPP_INFO_STREAM(this->get_logger(), "Aruco detected: looking to it");
     geometry_msgs::msg::PointStamped point_stamped;
 
-    point_stamped.header.frame_id = "base_footprint";
+    point_stamped.header.frame_id = msg->header.frame_id;
     point_stamped.header.stamp = msg->header.stamp;
 
     point_stamped.point.x = msg->pose.position.x;
@@ -103,7 +103,7 @@ public:
       << " point_stamped.point.y " << point_stamped.point.y
       << " point_stamped.point.z" << point_stamped.point.z);
     this->action_client_ptr_->async_send_goal(goal);
-    rclcpp::sleep_for(std::chrono::milliseconds(200));
+    rclcpp::sleep_for(std::chrono::milliseconds(100));
   }
 };
 
