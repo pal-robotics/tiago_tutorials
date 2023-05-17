@@ -82,7 +82,7 @@ public:
     point_stamped.header.frame_id = msg->header.frame_id;
     point_stamped.header.stamp = msg->header.stamp;
 
-    point_stamped.point.x = msg->pose.position.x;
+    point_stamped.point.x = msg->pose.position.x + 0.35;
     point_stamped.point.y = msg->pose.position.y;
     point_stamped.point.z = msg->pose.position.z;
 
