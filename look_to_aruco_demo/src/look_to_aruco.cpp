@@ -67,7 +67,7 @@ public:
     RCLCPP_INFO_STREAM(this->get_logger(), "Subscribing to " << ARUCO_TOPIC << "...");
     aruco_sub_ =
       create_subscription<geometry_msgs::msg::PoseStamped>(
-      ARUCO_TOPIC, 10,
+      ARUCO_TOPIC, 1,
       std::bind(&LookToAruco::aruco_callback, this, _1));
 
     return true;
