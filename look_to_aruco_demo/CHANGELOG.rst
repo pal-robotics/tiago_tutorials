@@ -2,8 +2,8 @@
 Changelog for package look_to_aruco_demo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+4.0.0 (2023-05-17)
+------------------
 * apply offset to compensate the camera issues
 * reduce subscription queue size
 * use msg header and reduce sleep time

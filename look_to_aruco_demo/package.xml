@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>look_to_aruco_demo</name>
-  <version>2.0.0</version>
+  <version>4.0.0</version>
   <description>The TIAGo follow the ArUco tag with the head</description>
 
   <maintainer email="jordan.palacios@pal-robotics.com">Jordan Palacios</maintainer>
