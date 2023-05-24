@@ -82,7 +82,7 @@ public:
     point_stamped.header.frame_id = msg->header.frame_id;
     point_stamped.header.stamp = msg->header.stamp;
 
-    point_stamped.point.x = msg->pose.position.x + 0.35;
+    point_stamped.point.x = msg->pose.position.x;
     point_stamped.point.y = msg->pose.position.y;
     point_stamped.point.z = msg->pose.position.z;
 
@@ -93,15 +93,11 @@ public:
     goal.pointing_axis.x = 0.0;
     goal.pointing_axis.y = 0.0;
     goal.pointing_axis.z = 1.0;
-    goal.min_duration.sec = 1.0;
-    goal.max_velocity = 1.0;
+    goal.min_duration.sec = 1;
+    goal.min_duration.nanosec = 0;
+    goal.max_velocity = 0.25;
     goal.target = point_stamped;
 
-    RCLCPP_INFO_STREAM(
-      this->get_logger(),
-      "point_stamped.point.x " << point_stamped.point.x
-      << " point_stamped.point.y " << point_stamped.point.y
-      << " point_stamped.point.z" << point_stamped.point.z);
     this->action_client_ptr_->async_send_goal(goal);
     rclcpp::sleep_for(std::chrono::milliseconds(100));
   }
