@@ -31,7 +31,7 @@ def generate_launch_description():
     )
 
     aruco_single_params = {
-        'image_is_rectified': True,
+        'image_is_rectified': False,
         'marker_size': LaunchConfiguration('marker_size'),
         'marker_id': LaunchConfiguration('marker_id'),
         'reference_frame': 'base_footprint',
