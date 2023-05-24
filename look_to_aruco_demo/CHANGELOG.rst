@@ -2,8 +2,8 @@
 Changelog for package look_to_aruco_demo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+4.0.1 (2023-05-24)
+------------------
 * adjust goal max velocity and min duration
 * add output to head_action node
 * set image_is_rectified to false
