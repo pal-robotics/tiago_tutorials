@@ -64,6 +64,7 @@ def generate_launch_description():
             package='head_action',
             executable='head_action',
             namespace="head_controller",
+            output="both",
             parameters=[head_action_params],)
 
     # Create the launch description and populate
