@@ -24,6 +24,7 @@
 - git: {local-name: pal_python,                   uri: 'https://github.com/pal-robotics/pal_python.git', version: 'melodic-devel'}
 - git: {local-name: pal_robotiq_gripper,          uri: 'https://github.com/pal-robotics/pal_robotiq_gripper.git', version: 'master'}
 - git: {local-name: pal_statistics,               uri: 'https://github.com/pal-robotics/pal_statistics', version: 'kinetic-devel'}
+- git: {local-name: pal_urdf_utils,               uri: 'https://github.com/pal-robotics/pal_urdf_utils.git', version: 'master'}
 - git: {local-name: pal_wsg_gripper,              uri: 'https://github.com/pal-robotics/pal_wsg_gripper', version: 'indigo-devel'}
 - git: {local-name: play_motion,                  uri: 'https://github.com/pal-robotics/play_motion.git', version: 'kinetic-devel'}
 - git: {local-name: pmb2_navigation,              uri: 'https://github.com/pal-robotics/pmb2_navigation', version: 'kinetic-devel'}
