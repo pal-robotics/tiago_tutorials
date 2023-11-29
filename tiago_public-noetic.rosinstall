@@ -18,6 +18,7 @@
 - git: {local-name: pal_gripper,                  uri: 'https://github.com/pal-robotics/pal_gripper.git', version: 'kinetic-devel'}
 - git: {local-name: pal_hardware_gazebo,          uri: 'https://github.com/pal-robotics/pal_hardware_gazebo.git', version: 'melodic-devel'}
 - git: {local-name: pal_hardware_interfaces,      uri: 'https://github.com/pal-robotics/pal_hardware_interfaces.git', version: 'indigo-devel'}
+- git: {local-name: pal_motion_loader,            uri: 'https://github.com/pal-robotics/pal_motion_loader.git', version: 'main'}
 - git: {local-name: pal_msgs,                     uri: 'https://github.com/pal-robotics/pal_msgs.git', version: 'indigo-devel'}
 - git: {local-name: pal_navigation_cfg_public,    uri: 'https://github.com/pal-robotics/pal_navigation_cfg_public.git', version: 'master'}
 - git: {local-name: pal_navigation_sm,            uri: 'https://github.com/pal-robotics/pal_navigation_sm.git', version: 'master'}
