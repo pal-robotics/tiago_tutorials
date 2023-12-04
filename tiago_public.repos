@@ -3,6 +3,10 @@ repositories:
     type: git
     url: https://github.com/pal-robotics/urdf_test.git
     version: humble-devel
+  pal_urdf_utils:
+    type: git
+    url: https://github.com/pal-robotics/pal_urdf_utils.git
+    version: humble-devel
   launch_pal:
     type: git
     url: https://github.com/pal-robotics/launch_pal.git
