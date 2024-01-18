@@ -53,6 +53,10 @@ repositories:
     type: git
     url: https://github.com/pal-robotics/pal_gripper.git
     version: humble-devel
+  pal_robotiq_gripper:
+    type: git
+    url: https://github.com/pal-robotics/pal_robotiq_gripper.git
+    version: humble-devel
   tiago_moveit_config:
     type: git
     url: https://github.com/pal-robotics/tiago_moveit_config.git
