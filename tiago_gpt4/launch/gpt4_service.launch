@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+
+  <!-- <include file="$(find iri_wam_reproduce_trajectory)/launch/start_service.launch"/> -->
+  <node pkg="tiago_gpt4" type="voice_recognition_server.py" name="voice_recognition_server" output="screen">
+
+    </node>
+
+  <node pkg="tiago_gpt4" type="gpt4_server.py" name="gpt4_client" output="screen">
+
+    </node>
+  <node pkg="tiago_gpt4" type="text_to_speech_gpt4.py" name="gpt4_to_tts" output="screen">
+
+    </node>
+
+
+</launch>
