@@ -6,6 +6,7 @@ import pyaudio
 from pydub import AudioSegment
 from pydub.playback import play
 import io
+import time
 
 # Configure your OpenAI API key here
 openai.api_key = ''
@@ -19,6 +20,10 @@ class GPT4Client:
         
         # Publisher to publish GPT-4's response
         self.publisher = rospy.Publisher('/tiago/gpt4_response', String, queue_size=10)
+        
+        # Publisher to publish a flag and timestamp
+        self.flag_publisher = rospy.Publisher('/tiago/conversation_cont', String, queue_size=10)
+        
         self.stream = None
 
 
@@ -29,6 +34,10 @@ class GPT4Client:
         # Process the text with GPT-4
         response = self.process_with_gpt4(recognized_text)
 
+        # Publish a timestamp to indicate the conversation time
+        timestamp = rospy.get_time() 
+        flag_message = str(timestamp)
+        self.flag_publisher.publish(flag_message)
 
         # Publish GPT-4's response
         self.publisher.publish(response)
@@ -49,7 +58,7 @@ class GPT4Client:
             return "Error processing text with GPT-4."
     
     def text_to_speech(self, text):
-        # 6 7 9 10
+        # 6 7 10
         my_device_index = 6
 
         try:
@@ -66,7 +75,7 @@ class GPT4Client:
 
             # Export the audio segment to WAV format in memory
             wav_io = io.BytesIO()
-            my_sample_rate = 44100
+            my_sample_rate = 44100 # 44100 16000
             audio_segment.set_frame_rate(my_sample_rate).export(wav_io, format="wav")
             wav_io.seek(0)  # Go to the beginning of the WAV BytesIO object
 

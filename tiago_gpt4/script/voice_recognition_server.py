@@ -21,6 +21,8 @@ class VoiceRecognitionServer:
         
         # Create a publisher for the recognized text
         self.text_pub = rospy.Publisher('/tiago/recognized_text', String, queue_size=10)
+        self.last_flag_timestamp = None
+        self.subscriber = rospy.Subscriber('/tiago/conversation_cont', String, self.flag_callback)
         
         # # Initialize the speech recognizer
         # self.recognizer = sr.Recognizer()
@@ -36,11 +38,18 @@ class VoiceRecognitionServer:
         #     rospy.loginfo("Adjustment done. Ready to recognize speech.")
 
         # Audio recording parameters
-        self.sample_rate = 16000
+        self.sample_rate = 16000 # 16000 44100
         self.threshold = 3  # Silence detection threshold
-        self.silence_duration = 1.5  # Seconds of silence to consider the speaker has stopped
+        self.silence_duration = 1  # Seconds of silence to consider the speaker has stopped
         self.stream = None
+        self.first_conversation = True
+        self.last_flag_timestamp = 0
+        self.conv_break = False
 
+    def flag_callback(self, msg):
+        # Update the last flag timestamp when a new message is received
+
+        self.last_flag_timestamp = float(msg.data)
 
     def calibrate_threshold(self, calibration_duration=1, device_index=None):
         """Automatically calibrate the noise threshold."""
@@ -145,6 +154,7 @@ class VoiceRecognitionServer:
                 recorded_data.append(indata.copy())
         
         self.stream = sd.InputStream(callback=callback, samplerate=self.sample_rate, channels=1, device=device_index, dtype='float32')
+        # self.stream = sd.InputStream(callback=callback, samplerate=self.sample_rate, device=device_index, dtype='float32')
         with self.stream:
             print("Recording started. Speak into the microphone.")
             while self.stream.active:
@@ -182,9 +192,33 @@ class VoiceRecognitionServer:
                         language="en"
                     )
                     # Extract the transcript text
-                    text = self.check_grammar(transcript)
-                    rospy.loginfo(f"Whisper thinks you said: {text}")
-                    self.text_pub.publish(text)
+                    text = transcript
+                    # text = self.check_grammar(transcript)
+                    # Check for trigger phrase
+
+                    current_time = rospy.get_time()
+                    # Check if the current time is within 10 seconds of the last flag timestamp
+                    if self.last_flag_timestamp is not None and current_time - self.last_flag_timestamp <= 10:
+                        rospy.loginfo("Conversation continuous.")
+                        corrected_text = self.check_grammar(text)
+                        rospy.loginfo(f"You are saying: {corrected_text}")
+                        self.text_pub.publish(corrected_text)
+                        self.conv_break = False
+                    else:
+                        if ("Hey" in text or "hey" in text) and "Tiago" in text:
+                            rospy.loginfo("Trigger phrase detected.")
+                            # Optionally, you can remove the trigger phrase from the transcript before processing
+                            text = text.replace("Hey, Tiago", "").strip()
+                            corrected_text = self.check_grammar(text)
+                            rospy.loginfo(f"You are saying: {corrected_text}")
+                            self.text_pub.publish(corrected_text)
+                            self.conv_break = False
+                        else:
+                            rospy.loginfo(f"Ignoring the input. {text}")
+                            self.conv_break = True
+                    
+                    # rospy.loginfo(f"Whisper thinks you said: {text}")
+                    # self.text_pub.publish(text)
             except Exception as e:
                 rospy.loginfo(f"Unexpected error occurred: {e}")
             except openai.BadRequestError as e:
@@ -192,7 +226,15 @@ class VoiceRecognitionServer:
 
     def run(self):
         while not rospy.is_shutdown():
-            self.recognize_speech_whisper()
+            time_now = int(rospy.get_time())
+            last_time = int(self.last_flag_timestamp)
+            if self.first_conversation == True or time_now == last_time or self.conv_break == True:
+                self.recognize_speech_whisper()
+                self.first_conversation = False
+                self.conv_break == False
+            else:
+                # rospy.loginfo("Wait for gpt speaking")
+                continue
 
 if __name__ == '__main__':
     vr_server = VoiceRecognitionServer()

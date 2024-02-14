@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# not using anymore
 import rospy
 from std_msgs.msg import String
 from actionlib import SimpleActionClient
