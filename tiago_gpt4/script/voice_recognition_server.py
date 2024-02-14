@@ -8,8 +8,6 @@ import soundfile as sf
 import sounddevice as sd
 import numpy as np
 import sys
-import os
-# import speech_recognition as sr
 
 # for index, name in enumerate(sr.Microphone.list_microphone_names()):
 #     print("Microphone with index {} is named \"{}\"".format(index, name))
@@ -39,19 +37,22 @@ class VoiceRecognitionServer:
 
         # Audio recording parameters
         self.sample_rate = 16000
-        self.threshold = 0.02  # Silence detection threshold
-        self.silence_duration = 0.2  # Seconds of silence to consider the speaker has stopped
+        self.threshold = 3  # Silence detection threshold
+        self.silence_duration = 1.5  # Seconds of silence to consider the speaker has stopped
         self.stream = None
 
 
-    def calibrate_threshold(self, calibration_duration=2, device_index=None):
+    def calibrate_threshold(self, calibration_duration=1, device_index=None):
         """Automatically calibrate the noise threshold."""
         rospy.loginfo("Calibrating microphone. Please remain silent...")
         recording = sd.rec(int(calibration_duration * self.sample_rate), samplerate=self.sample_rate, channels=1, device=device_index, dtype='float32')
         sd.wait()  # Wait for the recording to finish
         # Calculate the RMS of the recording
         rms = np.sqrt(np.mean(np.square(recording), axis=0))
-        self.threshold = np.max(rms) * 100  # Set threshold to 1.5 times the RMS value
+        if np.max(rms) > 0.03:
+            self.threshold = np.max(rms) * 100
+        else:
+            self.threshold = 3  # set minimum threshold
         rospy.loginfo(f"Calibration complete. New threshold: {self.threshold}")
 
 
@@ -69,6 +70,36 @@ class VoiceRecognitionServer:
     #             rospy.loginfo("Google Web Speech could not understand audio")
     #         except sr.RequestError as e:
     #             rospy.loginfo(f"Could not request results from Google Web Speech service; {e}")
+
+    def check_grammar(self, transcript):
+        """Checks and corrects the grammar of the given transcript using ChatGPT."""
+        rospy.loginfo("Checking grammar")
+
+        # Send the transcript to ChatGPT for grammar correction
+        response = openai.chat.completions.create(
+            model="gpt-4",
+            messages= [
+                {"role": "user", "content": f"Please correct the grammar and any inappropriate word of the following text: \"{transcript}\". If you think there is nothing to correct, just return 'grammatically correct'."}],
+            max_tokens=500
+        )
+        # Access the corrected text
+        # corrected_text = response['choices'][0]['message']['content'].strip() if response['choices'] else None
+
+        # corrected_text = response.choices[0].message.content if response.choices else transcript
+        corrected_text = response.choices[0].message.content
+        
+
+        # Implementing logic to return the original transcript if the correction indicates no change
+        if "grammatically correct" or "Grammatically correct" in corrected_text:
+            return transcript  # Return the original if the API indicates it's already correct or no meaningful correction was made
+        else:
+            return corrected_text  # Return the corrected text
+        
+        # corrected_text = response['choices'][0]['message']['content']
+        # corrected_text = response.choices[0].text.strip()
+        # return corrected_text
+
+
 
     def record_until_silence(self, device_index=None):
         """Record from the microphone until silence is detected."""
@@ -117,7 +148,7 @@ class VoiceRecognitionServer:
         with self.stream:
             print("Recording started. Speak into the microphone.")
             while self.stream.active:
-                sd.sleep(100)
+                sd.sleep(10)
 
         # with sd.InputStream(callback=callback, samplerate=self.sample_rate, channels=1, device=device_index, dtype='float32'):
         #     sd.sleep(5000)
@@ -151,7 +182,7 @@ class VoiceRecognitionServer:
                         language="en"
                     )
                     # Extract the transcript text
-                    text = transcript
+                    text = self.check_grammar(transcript)
                     rospy.loginfo(f"Whisper thinks you said: {text}")
                     self.text_pub.publish(text)
             except Exception as e:
