@@ -18,6 +18,7 @@ if __name__ == "__main__":
   rospy.loginfo("unfold arm...")
   goal = PlayMotionGoal()
   goal.motion_name = 'unfold_arm'
+  # goal.motion_name = 'lower_arm'
   goal.skip_planning = False
 
   client.send_goal(goal)

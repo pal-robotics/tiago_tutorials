@@ -1,39 +1,77 @@
 #!/usr/bin/env python
-# not using anymore
+
+import openai
+import pyaudio
+from pydub import AudioSegment
+from pydub.playback import play
+import io
 import rospy
-from std_msgs.msg import String
-from actionlib import SimpleActionClient
-from pal_interaction_msgs.msg import TtsAction, TtsGoal
 
-class TTSClient:
+# Configure your OpenAI API key here
+openai.api_key = ''
+
+class TTSFunction:
     def __init__(self):
-        # Initialize the ROS node
-        rospy.init_node('gpt4_to_tts')
+        self.stream = None
 
-        # Subscribe to the GPT-4 output topic
-        self.gpt4_subscriber = rospy.Subscriber('/tiago/gpt4_response', String, self.handle_gpt4_output)
+    def text_to_speech(self, text, my_speed):
+        # 6 7 10
+        my_device_index = 6
 
-        # Connect to the text-to-speech action server
-        self.tts_client = SimpleActionClient('tts_to_soundplay', TtsAction)
-        rospy.loginfo("Waiting for TTS action server...")
-        self.tts_client.wait_for_server()
-        rospy.loginfo("TTS action server found!")
+        try:
+            response = openai.audio.speech.create(
+                model="tts-1",
+                voice="shimmer",
+                input= text,
+                speed=my_speed
+                )
 
-    def handle_gpt4_output(self, msg):
-        # The callback function for the GPT-4 output subscriber
-        text = msg.data
-        rospy.loginfo(f"Received from GPT-4: {text}")
-        
-        # Create a goal with the received text
-        goal = TtsGoal()
-        goal.rawtext.text = text
-        goal.rawtext.lang_id = "en_GB"  # Assuming British English output
+            audio_response = response.content
+            # print(type(audio_response))
+            # Convert MP3 bytes to audio segment
+            audio_segment = AudioSegment.from_file(io.BytesIO(audio_response), format="mp3")
 
-        # Send the goal to the TTS service and wait for the result
-        rospy.loginfo("Sending text to TTS...")
-        self.tts_client.send_goal_and_wait(goal)
-        rospy.loginfo("TTS processing complete.")
+            # Export the audio segment to WAV format in memory
+            wav_io = io.BytesIO()
+            my_sample_rate = 44100 # 44100 16000
+            audio_segment.set_frame_rate(my_sample_rate).export(wav_io, format="wav")
+            wav_io.seek(0)  # Go to the beginning of the WAV BytesIO object
 
-if __name__ == '__main__':
-    tts_client = TTSClient()
-    rospy.spin()  # Keep the program running, listening for GPT-4 output
+
+            # Initialize PyAudio
+            p = pyaudio.PyAudio()
+
+            # Open a stream with the proper configuration for playback
+            self.stream = p.open(format=p.get_format_from_width(audio_segment.sample_width),
+                            channels=audio_segment.channels,
+                            rate=my_sample_rate,
+                            output=True,
+                            output_device_index=my_device_index)
+
+            # Play the stream directly from the WAV BytesIO object
+            wav_data = wav_io.read()
+            self.stream.write(wav_data)
+            # print("speaking")  
+            
+            # Open a stream with the proper configuration for playback
+            # self.stream = p.open(format=p.get_format_from_width(2),  # Assuming 16-bit PCM
+            #                 channels=1,  # Assuming mono audio
+            #                 rate=44100,  # Assuming a sample rate of 44100/ 16000 Hz
+            #                 output=True,
+            #                 output_device_index=my_device_index)
+
+            # Play the stream directly from the bytes object
+            # self.stream.write(audio_response)
+            # print("speaking")
+
+        except Exception as e:
+            rospy.loginfo(f"Failed to play audio: {e}")
+
+        finally:
+            # Close the stream
+            if self.stream:
+                self.stream.stop_stream()
+                self.stream.close()
+
+        # Terminate PyAudio
+        p.terminate()

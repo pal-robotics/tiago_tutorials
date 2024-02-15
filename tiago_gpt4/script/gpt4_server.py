@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 import rospy
 from std_msgs.msg import String
-import openai
-import pyaudio
-from pydub import AudioSegment
-from pydub.playback import play
-import io
+# import openai
+# import pyaudio
+# from pydub import AudioSegment
+# from pydub.playback import play
+# import io
+# from text_to_speech_gpt4 import TTSFunction
+from gpt_generation import GenerationFuncion
 import time
 
 # Configure your OpenAI API key here
-openai.api_key = ''
+# openai.api_key = ''
 
 class GPT4Client:
     def __init__(self):
@@ -24,7 +26,8 @@ class GPT4Client:
         # Publisher to publish a flag and timestamp
         self.flag_publisher = rospy.Publisher('/tiago/conversation_cont', String, queue_size=10)
         
-        self.stream = None
+        # self.stream = None
+        self.generate = GenerationFuncion()
 
 
     def callback(self, data):
@@ -32,7 +35,7 @@ class GPT4Client:
         rospy.loginfo(f"Received recognized text: {recognized_text}")
         
         # Process the text with GPT-4
-        response = self.process_with_gpt4(recognized_text)
+        response = self.generate.process_with_gpt4(recognized_text)
 
         # Publish a timestamp to indicate the conversation time
         timestamp = rospy.get_time() 
@@ -41,7 +44,7 @@ class GPT4Client:
 
         # Publish GPT-4's response
         self.publisher.publish(response)
-    
+    '''
     def process_with_gpt4(self, text):
         try:
             gpt_response = openai.chat.completions.create(
@@ -50,13 +53,13 @@ class GPT4Client:
                           {"role": "user", "content": text}],
             )
             response = gpt_response.choices[0].message.content
-            self.text_to_speech(response)
+            self.speak.text_to_speech(response, 1.0)
             rospy.loginfo(f"GPT response is: {response}")
             return response
         except Exception as e:
             rospy.logerr(f"Failed to process text with GPT-4: {e}")
             return "Error processing text with GPT-4."
-    
+
     def text_to_speech(self, text):
         # 6 7 10
         my_device_index = 6
@@ -117,6 +120,7 @@ class GPT4Client:
 
         # Terminate PyAudio
         p.terminate()
+    '''
 
 def main():
     gpt4_client = GPT4Client()
