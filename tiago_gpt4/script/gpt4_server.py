@@ -93,7 +93,7 @@ class GPT4Client:
             # Play the stream directly from the WAV BytesIO object
             wav_data = wav_io.read()
             self.stream.write(wav_data)
-            print("speaking")  
+            # print("speaking")  
             
             # Open a stream with the proper configuration for playback
             # self.stream = p.open(format=p.get_format_from_width(2),  # Assuming 16-bit PCM
@@ -107,7 +107,7 @@ class GPT4Client:
             # print("speaking")
 
         except Exception as e:
-            print(f"Failed to play audio: {e}")
+            rospy.loginfo(f"Failed to play audio: {e}")
 
         finally:
             # Close the stream

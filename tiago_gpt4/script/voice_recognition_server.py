@@ -14,6 +14,7 @@ import sys
 # Configure your OpenAI API key here
 openai.api_key = ''
 
+
 class VoiceRecognitionServer:
     def __init__(self):
         # Initialize the ROS node
@@ -42,9 +43,9 @@ class VoiceRecognitionServer:
         self.threshold = 3  # Silence detection threshold
         self.silence_duration = 1  # Seconds of silence to consider the speaker has stopped
         self.stream = None
-        self.first_conversation = True
         self.last_flag_timestamp = 0
-        self.conv_break = False
+        self.first_conversation = True
+        # self.conv_break = False
 
     def flag_callback(self, msg):
         # Update the last flag timestamp when a new message is received
@@ -151,7 +152,9 @@ class VoiceRecognitionServer:
             else:
                 recording = True
                 silent_frames = 0
+                
                 recorded_data.append(indata.copy())
+                # print(recorded_data[-1])
         
         self.stream = sd.InputStream(callback=callback, samplerate=self.sample_rate, channels=1, device=device_index, dtype='float32')
         # self.stream = sd.InputStream(callback=callback, samplerate=self.sample_rate, device=device_index, dtype='float32')
@@ -193,30 +196,47 @@ class VoiceRecognitionServer:
                     )
                     # Extract the transcript text
                     text = transcript
+                    
+                    # print(len(text))
                     # text = self.check_grammar(transcript)
                     # Check for trigger phrase
 
-                    current_time = rospy.get_time()
-                    # Check if the current time is within 10 seconds of the last flag timestamp
-                    if self.last_flag_timestamp is not None and current_time - self.last_flag_timestamp <= 10:
-                        rospy.loginfo("Conversation continuous.")
+                    # current_time = rospy.get_time()
+                    # # Check if the current time is within 10 seconds of the last flag timestamp
+                    # if self.last_flag_timestamp is not None and current_time - self.last_flag_timestamp <= 60:
+                    #     rospy.loginfo("Conversation continuous.")
+                    #     corrected_text = self.check_grammar(text)
+                    #     rospy.loginfo(f"You are saying: {corrected_text}")
+                    #     self.text_pub.publish(corrected_text)
+                    #     self.conv_break = False
+                    # else:
+                    #     if ("Hey" in text or "hey" in text) and "Tiago" in text:
+                    #         rospy.loginfo("Trigger phrase detected.")
+                    #         # Optionally, you can remove the trigger phrase from the transcript before processing
+                    #         text = text.replace("Hey, Tiago", "").strip()
+                    #         corrected_text = self.check_grammar(text)
+                    #         rospy.loginfo(f"You are saying: {corrected_text}")
+                    #         self.text_pub.publish(corrected_text)
+                    #         self.conv_break = False
+                    #     else:
+                    #         rospy.loginfo(f"Ignoring the input. {text}")
+                    #         self.conv_break = True
+                    
+                    
+                    if (self.first_conversation == True and ("Hey" in text or "hey" in text) and "Tiago" in text) or self.first_conversation == False:
+                        rospy.loginfo("Trigger phrase detected.")
+                        # Optionally, you can remove the trigger phrase from the transcript before processing
+                        text = text.replace("Hey, Tiago", "").strip()
                         corrected_text = self.check_grammar(text)
                         rospy.loginfo(f"You are saying: {corrected_text}")
                         self.text_pub.publish(corrected_text)
-                        self.conv_break = False
+                        # self.conv_break = False
+                        self.first_conversation = False
                     else:
-                        if ("Hey" in text or "hey" in text) and "Tiago" in text:
-                            rospy.loginfo("Trigger phrase detected.")
-                            # Optionally, you can remove the trigger phrase from the transcript before processing
-                            text = text.replace("Hey, Tiago", "").strip()
-                            corrected_text = self.check_grammar(text)
-                            rospy.loginfo(f"You are saying: {corrected_text}")
-                            self.text_pub.publish(corrected_text)
-                            self.conv_break = False
-                        else:
-                            rospy.loginfo(f"Ignoring the input. {text}")
-                            self.conv_break = True
-                    
+                        rospy.loginfo(f"Ignoring the input. {text}")
+                        # self.conv_break = True
+
+
                     # rospy.loginfo(f"Whisper thinks you said: {text}")
                     # self.text_pub.publish(text)
             except Exception as e:
@@ -228,10 +248,8 @@ class VoiceRecognitionServer:
         while not rospy.is_shutdown():
             time_now = int(rospy.get_time())
             last_time = int(self.last_flag_timestamp)
-            if self.first_conversation == True or time_now == last_time or self.conv_break == True:
+            if self.first_conversation == True or time_now == last_time:
                 self.recognize_speech_whisper()
-                self.first_conversation = False
-                self.conv_break == False
             else:
                 # rospy.loginfo("Wait for gpt speaking")
                 continue
