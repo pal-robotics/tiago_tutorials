@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+
+  <node pkg="tiago_gpt4" type="unfold_arm.py" name="unfold_arm" output="screen">
+
+    </node>
+
+  <node pkg="tiago_gpt4" type="breathing.py" name="breathing_exercise" output="screen">
+    </node>
+
+
+</launch>

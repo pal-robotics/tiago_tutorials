@@ -2,7 +2,6 @@
 
 <launch>
 
-  <!-- <include file="$(find iri_wam_reproduce_trajectory)/launch/start_service.launch"/> -->
   <node pkg="tiago_gpt4" type="voice_recognition_server.py" name="voice_recognition_server" output="screen">
 
     </node>
