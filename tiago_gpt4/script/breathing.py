@@ -64,7 +64,7 @@ class BreathingExercise:
 
     def adjust_height(self, target_height):
         rate = rospy.Rate(10)
-        duration = 4.0  # Duration for height adjustment
+        duration = 6.0  # Duration for height adjustment
 
         traj = JointTrajectory()
         traj.joint_names = ["torso_lift_joint"]
@@ -216,7 +216,7 @@ class BreathingExercise:
         point.positions = [
             0.21, -0.2, -2.2, 1.15, -1.57, 0.2, 0.0  # Positions for the arm joints
         ]
-        point.time_from_start = rospy.Duration(4.0)
+        point.time_from_start = rospy.Duration(6.0)
         trajectory.points.append(point)
 
         # Set the trajectory in the goal
@@ -249,7 +249,7 @@ class BreathingExercise:
         point.positions = [
             0.21, -0.37, -1.08, 1.18, -2.07, 1.06, -1.58  # Positions for the arm joints
         ]
-        point.time_from_start = rospy.Duration(4.0)
+        point.time_from_start = rospy.Duration(6.0)
         trajectory.points.append(point)
 
         # Set the trajectory in the goal
