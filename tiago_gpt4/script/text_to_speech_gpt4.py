@@ -6,9 +6,16 @@ from pydub import AudioSegment
 from pydub.playback import play
 import io
 import rospy
+import yaml
+import os
 
 # Configure your OpenAI API key here
-openai.api_key = ''
+current_dir = os.path.dirname(__file__)  # Gets the directory of the current script
+config_path = os.path.join(current_dir, '..', 'config', 'gpt_api.yaml')  # Navigate to the config.yaml file
+with open(config_path, 'r') as file:
+    config = yaml.safe_load(file)
+openai.api_key = config['api_key']
+
 
 class TTSFunction:
     def __init__(self):
