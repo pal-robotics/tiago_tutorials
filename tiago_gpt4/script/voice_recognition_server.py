@@ -8,11 +8,15 @@ import soundfile as sf
 import sounddevice as sd
 import numpy as np
 import sys
+import yaml
+import os
 
-# for index, name in enumerate(sr.Microphone.list_microphone_names()):
-#     print("Microphone with index {} is named \"{}\"".format(index, name))
 # Configure your OpenAI API key here
-openai.api_key = ''
+current_dir = os.path.dirname(__file__)  # Gets the directory of the current script
+config_path = os.path.join(current_dir, '..', 'config', 'gpt_api.yaml')  # Navigate to the config.yaml file
+with open(config_path, 'r') as file:
+    config = yaml.safe_load(file)
+openai.api_key = config['api_key']
 
 
 class VoiceRecognitionServer:

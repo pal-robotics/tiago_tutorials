@@ -167,7 +167,7 @@ if __name__ == '__main__':
         # Move arm to handover position
         # snack.move_arm(strech_joint_angles, 6)
         
-        offer_angles = [0.44, -0.63, -1.88, 1.37, -1.43, 0.22, 0.7]
+        offer_angles = [0.44, -0.63, -1.88, 1.37, -1.12, -0.7, 0.41]
         text = "Here you go. They are all yours. One chocolate a day keeps the doctor away."
         snack.speak_and_move(text, offer_angles, 6)
         # snack.move_arm(offer_angles, 6)
