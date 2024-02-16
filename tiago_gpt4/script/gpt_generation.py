@@ -5,7 +5,7 @@ import openai
 from text_to_speech_gpt4 import TTSFunction
 
 # Configure your OpenAI API key here
-openai.api_key = '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'
+openai.api_key = ''
 
 class GenerationFuncion():
     def __init__(self):

@@ -16,7 +16,7 @@ import time
 import actionlib
 from control_msgs.msg import FollowJointTrajectoryAction, FollowJointTrajectoryGoal
 import threading
-# from play_motion_msgs.msg import PlayMotionAction, PlayMotionGoal
+from play_motion_msgs.msg import PlayMotionAction, PlayMotionGoal
 
 class BreathingExercise:
     def __init__(self):
@@ -37,15 +37,17 @@ class BreathingExercise:
         self.speak = TTSFunction()
 
         self.unfold_client = actionlib.SimpleActionClient('/arm_controller/follow_joint_trajectory', FollowJointTrajectoryAction)
+        self.lower_client = actionlib.SimpleActionClient('/arm_controller/follow_joint_trajectory', FollowJointTrajectoryAction)
         self.unfold_client.wait_for_server()
+        self.lower_client.wait_for_server()
         rospy.loginfo("...connected.")
+
+        self.home_client = actionlib.SimpleActionClient("play_motion", PlayMotionAction)
+        self.home_client.wait_for_server()
 
         rospy.wait_for_message("joint_states", JointState)
         rospy.sleep(3.0)
 
-        self.lower_client = actionlib.SimpleActionClient('/arm_controller/follow_joint_trajectory', FollowJointTrajectoryAction)
-        rospy.loginfo("Waiting for arm_controller/follow_joint_trajectory server...")
-        self.lower_client.wait_for_server()
         rospy.loginfo("Connected to server")
 
     def joint_states_callback(self, msg):
@@ -104,6 +106,12 @@ class BreathingExercise:
             elif arm_action == 'lower':
                 arm_thread = threading.Thread(target=self.go_lower_arm)
                 arm_thread.start()
+            elif arm_action == 'initial':
+                arm_thread = threading.Thread(target=self.go_initial_arm)
+                arm_thread.start()
+            elif arm_action == 'home':
+                arm_thread = threading.Thread(target=self.go_home_position)
+                arm_thread.start()
 
             if height is not None:
                 height_thread = threading.Thread(target=self.adjust_height, args=(height,))
@@ -117,7 +125,8 @@ class BreathingExercise:
 
 
         text = "Let's take a moment to recharge and refocus. Join me in a brief breathing exercise to relieve any tension, and to come back to your tasks with renewed energy and focus. We'll do this together for three rounds, syncing our breaths and movements. Find a comfortable standing position, with your feet hip-width apart and your spine straight."
-        speak_and_move(text, height = 0.2)
+        speak_and_move(text, "initial", 0.2)
+        time.sleep(2)
         # self.speak.text_to_speech(text, 1.2)
         # text = "Find a comfortable standing position, with your feet hip-width apart and your spine straight."
         # speak_and_move(text, height=0.2)
@@ -189,7 +198,7 @@ class BreathingExercise:
         # self.adjust_height(0.1)  # Decrease height
 
         text = "How do you feel?"
-        speak_and_move(text, height = 0.2)
+        speak_and_move(text, 'home', 0.2)
         
         # self.speak.text_to_speech(text, 1.2)
         
@@ -199,6 +208,17 @@ class BreathingExercise:
         time.sleep(1)  # Wait for user to exhale
 
         # self.adjust_height(0.2)  # Return to default height
+    
+    def go_initial_arm(self):
+        goal = PlayMotionGoal()
+        goal.motion_name = 'unfold_arm'
+        goal.skip_planning = False
+
+        self.home_client.send_goal(goal)
+        self.home_client.wait_for_result(rospy.Duration(10.0))
+        rospy.loginfo("Arm tucked.")
+    
+    
     
     def go_unfold_arm(self):
         # Define the goal
@@ -225,12 +245,11 @@ class BreathingExercise:
         # Send the goal and wait for the result
         rospy.loginfo("Sending goal for arm and torso movement...")
         self.unfold_client.send_goal(goal)
-        if self.unfold_client.wait_for_result(rospy.Duration(2.0)):  # Increase timeout to ensure enough time for execution
+        if self.unfold_client.wait_for_result(rospy.Duration(7.0)):  # Increase timeout to ensure enough time for execution
             rospy.loginfo("Action completed successfully.")
         else:
             rospy.loginfo("Action did not complete before the timeout.")
 
-    
     
     def go_lower_arm(self):
         
@@ -258,12 +277,19 @@ class BreathingExercise:
         # Send the goal and wait for the result
         rospy.loginfo("Sending goal for arm and torso movement...")
         self.lower_client.send_goal(goal)
-        if self.lower_client.wait_for_result(rospy.Duration(2.0)):  # Increase timeout to ensure enough time for execution
+        if self.lower_client.wait_for_result(rospy.Duration(7.0)):  # Increase timeout to ensure enough time for execution
             rospy.loginfo("Action completed successfully.")
         else:
             rospy.loginfo("Action did not complete before the timeout.")
 
+    def go_home_position(self):
+        goal = PlayMotionGoal()
+        goal.motion_name = 'home'
+        goal.skip_planning = False
 
+        self.home_client.send_goal(goal)
+        self.home_client.wait_for_result(rospy.Duration(10.0))
+        rospy.loginfo("Arm tucked.")
 
     '''
     def text_to_speech(self, text):
