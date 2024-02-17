@@ -20,7 +20,7 @@ from play_motion_msgs.msg import PlayMotionAction, PlayMotionGoal
 
 class BreathingExercise:
     def __init__(self):
-        rospy.init_node('breathing_exercise')
+        
 
         # self.soundhandle = SoundClient()
 
@@ -353,9 +353,15 @@ class BreathingExercise:
         # Terminate PyAudio
         p.terminate()
     '''
+    def run(self):
+        try:
+            self.start_exercise()
+        except rospy.ROSInterruptException:
+            pass
         
 if __name__ == '__main__':
     try:
+        rospy.init_node('breathing_exercise')
         exercise = BreathingExercise()
         exercise.start_exercise()
     except rospy.ROSInterruptException:

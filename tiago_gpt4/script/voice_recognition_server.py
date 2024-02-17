@@ -10,6 +10,11 @@ import numpy as np
 import sys
 import yaml
 import os
+from nltk.tokenize import word_tokenize
+from breathing import BreathingExercise
+from handover_snacks import GetSnack
+from strech_ball import CatchBall
+
 
 # Configure your OpenAI API key here
 current_dir = os.path.dirname(__file__)  # Gets the directory of the current script
@@ -49,7 +54,10 @@ class VoiceRecognitionServer:
         self.stream = None
         self.last_flag_timestamp = 0
         self.first_conversation = True
+        self.action_flag = False
         # self.conv_break = False
+        
+
 
     def flag_callback(self, msg):
         # Update the last flag timestamp when a new message is received
@@ -176,6 +184,7 @@ class VoiceRecognitionServer:
     
     
     def recognize_speech_whisper(self):
+        global categories
         my_device_index = 7
 
         # Calibrate threshold before recording
@@ -233,9 +242,50 @@ class VoiceRecognitionServer:
                         text = text.replace("Hey, Tiago", "").strip()
                         corrected_text = self.check_grammar(text)
                         rospy.loginfo(f"You are saying: {corrected_text}")
-                        self.text_pub.publish(corrected_text)
-                        # self.conv_break = False
-                        self.first_conversation = False
+
+                        # Normalize the text
+                        normalized_text = corrected_text.lower()
+                        # Tokenize the text
+                        tokens = set(word_tokenize(normalized_text))
+
+                        
+                        found_categories = []
+                        for category, keywords in categories.items():
+                            for keyword in keywords:
+                                if keyword.lower() in tokens:
+                                    if category not in found_categories:
+                                        found_categories.append(category)
+                                        rospy.loginfo(f"Found category {category}")
+                        
+                        if len(found_categories) == 0:
+                            self.text_pub.publish(corrected_text)
+                            rospy.loginfo("Go to gpt")
+                            # self.conv_break = False
+                            self.first_conversation = False
+                            self.action_flag = False
+                        elif len(found_categories) != 0:
+                            if found_categories[0] == "Breathing Exercises":
+                                rospy.loginfo("Doing Breathing Exercises")
+                                breathing = BreathingExercise()
+                                breathing.run()
+                                self.action_flag = True
+                            elif found_categories[0] == "Get a Snack":
+                                rospy.loginfo("Doing Get a Snack")
+                                snake = GetSnack()
+                                snake.run()
+                                self.action_flag = True
+                            elif found_categories[0] == "Stretch or Use a Ball":
+                                rospy.loginfo("Doing Stretch or Use a Ball")
+                                ball = CatchBall()
+                                ball.run()
+                                self.action_flag = True
+                            elif found_categories[0] == "Tell a Joke":
+                                rospy.loginfo("Doing Tell a Joke")
+                                request_joke = "Can you tell me a Australian joke?"
+                                self.text_pub.publish(request_joke)
+                                self.action_flag = False
+                            
+                            
                     else:
                         rospy.loginfo(f"Ignoring the input. {text}")
                         # self.conv_break = True
@@ -249,10 +299,19 @@ class VoiceRecognitionServer:
                 rospy.loginfo(f"Audio processing error: {e}")
 
     def run(self):
+        global categories
+        categories = {
+            "Breathing Exercises": ["Relax", "Stressed", "Calm", "Mindful", "Unwind", "Anxiety", "Overwhelmed", "Peace", "Tranquility", "Zen", "Quiet", "Serene", "Breathe", "Pause", "Focus", "Meditate", "Chill", "Decompress", "Stillness", "Center", "Balance", "Ease", "Rest", "De-stress", "Refresh", "Tired", "Busy", "Work", "Rushed", "Deadline", "Frustrated", "Monday", "Traffic", "Noise", "Late", "Early", "Headache", "Busywork", "Multitask", "Overtime"],
+            "Get a Snack": ["Hungry", "Snack", "Food", "Break", "Eat", "Treat", "Biscuit", "Cookie", "Craving", "Chocolate", "Chips", "Fruit", "Bite", "Yummy", "Refreshment", "Sweets", "Nuts", "Hungry", "Lunchtime", "Tea time", "Coffee break", "Break time", "Starving", "Sugar", "Refresh", "food"],
+            "Stretch or Use a Ball": ["Exercise", "Active", "Fitness", "Workout", "Play", "Ball", "Catch", "Throw", "Sports", "Activity", "Movement", "Agility", "Fun", "Game", "Physical", "Outdoors", "Sporty", "Energize", "Dynamic", "Action", "Roll", "Toss", "Fetch", "Jump", "Run", "Sportive"],
+            "Schedule a Meeting": ["Schedule", "Meeting", "Appointment", "Calendar", "Organize", "Plan", "Set up", "Arrange", "Book", "Reserve", "Video call", "Teleconference", "Zoom", "Webinar", "Date", "Time", "Slot", "Planning", "Outlook", "Google Calendar", "Reminder"],
+            "Tell a Joke": ["Joke", "Laugh", "Funny", "Humor", "Comedy", "Entertainment", "Hilarious", "Sarcasm"]
+        }
+
         while not rospy.is_shutdown():
             time_now = int(rospy.get_time())
             last_time = int(self.last_flag_timestamp)
-            if self.first_conversation == True or time_now == last_time:
+            if self.first_conversation == True or time_now == last_time or self.action_flag == True:
                 self.recognize_speech_whisper()
             else:
                 # rospy.loginfo("Wait for gpt speaking")

@@ -4,8 +4,11 @@ import rospy
 import actionlib
 from play_motion_msgs.msg import PlayMotionAction, PlayMotionGoal
 from sensor_msgs.msg import JointState
+from text_to_speech_gpt4 import TTSFunction
 
 def play_action(action_name):
+  # write the name of your action as action_name, then will play that certain action.
+  # support 'home', 'wave', 'shake_hands'
   client = actionlib.SimpleActionClient("play_motion", PlayMotionAction)
   client.wait_for_server()
   rospy.loginfo("...connected.")
@@ -25,6 +28,8 @@ def play_action(action_name):
     goal.skip_planning = False
   elif action_name == 'shake_hands':
     rospy.loginfo("shake hands...")
+    text = "Let's shake hands."
+    TTSFunction.text_to_speech(text)
     goal.motion_name = 'shake_hands'
     goal.skip_planning = False
 

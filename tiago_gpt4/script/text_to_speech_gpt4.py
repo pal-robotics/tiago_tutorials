@@ -80,5 +80,6 @@ class TTSFunction:
                 self.stream.stop_stream()
                 self.stream.close()
 
-        # Terminate PyAudio
-        p.terminate()
+            # Terminate PyAudio
+            if p:
+                p.terminate()
