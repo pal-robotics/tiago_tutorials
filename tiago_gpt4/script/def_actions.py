@@ -38,7 +38,6 @@ def play_action(action_name):
   rospy.loginfo("Arm tucked.")
 
 
-
 if __name__ == "__main__":
   rospy.init_node("def_action")
   play_action('wave')

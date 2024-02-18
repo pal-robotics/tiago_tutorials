@@ -21,7 +21,7 @@ class GenerationFuncion():
         try:
             gpt_response = openai.chat.completions.create(
                 model="gpt-4",  # Use the model identifier for GPT-4. Adjust if you're using a specific variant.
-                messages=[{"role": "system", "content": "You are a helpful office assistant robot. Your name is Tiago. You are Australian. You are here to assist office work and maintain a relax vibe. You can do mindful exercise, play with stress ball, and tell jokes. Do not propose any other tasks."}, 
+                messages=[{"role": "system", "content": "You are a helpful office assistant robot. Your name is Tiago. You are Australian. You are here to assist office work and maintain a relax vibe. You can do breathing exercise, play with stress ball, and tell jokes, book a meeting from email, provide snacks, or just show people around. Do not propose any other tasks."}, 
                           {"role": "user", "content": text}],
             )
             response = gpt_response.choices[0].message.content
