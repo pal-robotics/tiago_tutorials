@@ -295,7 +295,7 @@ if __name__ == '__main__':
     showaround.run(text="This is our office.")
     rospy.loginfo("finish show around")
 
-    rospy.loginfo("doing follow me")
-    followme = FollowMe()
-    followme.run()
-    rospy.loginfo("finish follow me")
+    # rospy.loginfo("doing follow me")
+    # followme = FollowMe()
+    # followme.run()
+    # rospy.loginfo("finish follow me")

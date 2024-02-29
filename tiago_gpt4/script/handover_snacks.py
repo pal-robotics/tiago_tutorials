@@ -144,7 +144,7 @@ class GetSnack:
     def run(self):
         try:
             self.adjust_height(0.296)
-            strech_joint_angles = [0.21, 0.35, -0.2, 0.8, -1.57, 1.37, 0.0]
+            strech_joint_angles = [0.21, 0.19, -0.2, 1.32, -1.57, 1.37, 0.0]
             text = "Relax time now. Let's have some snacks."
             self.speak_and_move(text, strech_joint_angles, 6)
 
@@ -155,8 +155,12 @@ class GetSnack:
             
             # self.move_arm(strech_joint_angles, 6)
             # Move arm to pick position
-            pick_joint_angles = [0.11602674838239582, -0.6345909108407859,-0.016299100591050636, 1.3664337391581403, -1.436371130566239, 0.7749725120977005, 0.002761107620995556]  # Replace with actual angles
-            self.move_arm(pick_joint_angles, 6)
+            pre_grasp_angles = [0.116, -0.42,-0.0163, 1.367, -1.436, 0.775, 0.003]
+            self.move_arm(pre_grasp_angles, 6)
+            rospy.sleep(0.5)
+
+            pick_joint_angles = [0.116, -0.635,-0.0163, 1.367, -1.436, 0.775, 0.003] 
+            self.move_arm(pick_joint_angles, 1)
             # Close gripper to grasp the box
             width_close = [0.044, 0.044]
             self.move_gripper(width_close, 1)
@@ -170,14 +174,18 @@ class GetSnack:
             # self.move_arm(offer_angles, 6)
 
             time.sleep(5)
-            pick_joint_angles = [0.11602674838239582, -0.6345909108407859,-0.016299100591050636, 1.3664337391581403, -1.436371130566239, 0.7749725120977005, 0.002761107620995556]  # Replace with actual angles
-            self.move_arm(pick_joint_angles, 6)
+            back_angles = [0.116, -0.34,-0.0163, 1.71, -1.436, 0.775, 0.003]
+            self.move_arm(back_angles, 4)
+            rospy.sleep(0.5)
+
+            pick_joint_angles = [0.116, -0.635,-0.0163, 1.367, -1.436, 0.775, 0.003]
+            self.move_arm(pick_joint_angles, 1)
 
             # Open 
             width_open = [0.2, 0.2]
             self.move_gripper(width_open, 1)  # Replace with actual width needed to grasp the box
             
-            strech_joint_angles = [0.21, 0.35, -0.2, 0.8, -1.57, 1.37, 0.0]
+            strech_joint_angles = [0.21, 0.19, -0.2, 1.32, -1.57, 1.37, 0.0]
             self.move_arm(strech_joint_angles, 6)
 
             self.go_home_position()

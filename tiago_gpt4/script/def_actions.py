@@ -40,8 +40,8 @@ def play_action(action_name):
 
 if __name__ == "__main__":
   rospy.init_node("def_action")
-  play_action('wave')
-  play_action('shake_hands')
+  # play_action('wave')
+  # play_action('shake_hands')
   play_action('home')
 
   

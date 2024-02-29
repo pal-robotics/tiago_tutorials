@@ -173,139 +173,11 @@ class VoiceRecognitionServer:
                     text = text.replace("Hey, Tiago", "").strip()
                     corrected_text = self.check_grammar(text)
                     rospy.loginfo(f"You are saying: {corrected_text}")
-
-                    # Normalize the text
-                    normalized_text = corrected_text.lower()
-                    # Tokenize the text
-                    tokens = set(word_tokenize(normalized_text))
-
-                    
-                    found_categories = []
-                    for category, keywords in categories.items():
-                        for keyword in keywords:
-                            if keyword.lower() in tokens:
-                                if category not in found_categories:
-                                    found_categories.append(category)
-                                    rospy.loginfo(f"Found category {category}")
-                    
-                    if len(found_categories) == 0:
-                        self.text_pub.publish(corrected_text)
-                        rospy.loginfo("Go to gpt")
-                        # self.conv_break = False
-                        self.first_conversation = False
-                        self.action_flag = False
-                    else:
-                        if found_categories[0] == "Breathing Exercises":
-                            rospy.loginfo("Doing Breathing Exercises")
-                            breathing = BreathingExercise()
-                            breathing.run()
-                            self.action_flag = True
-
-                        elif found_categories[0] == "Get a Snack":
-                            rospy.loginfo("Doing Get a Snack")
-                            snake = GetSnack()
-                            snake.run()
-                            self.action_flag = True
-
-                        elif found_categories[0] == "Stress Ball":
-                            rospy.loginfo("Doing Stress Ball")
-                            ball = CatchBall()
-                            ball.run()
-                            self.action_flag = True
-
-                        elif found_categories[0] == "Wave":
-                            rospy.loginfo("Doing a wave")
-                            play_action('wave')
-                            play_action('home')
-                            self.action_flag = True
-
-                        elif found_categories[0] == "Tell a Joke":
-                            rospy.loginfo("Doing Tell a Joke")
-                            request_joke = "Can you tell me a Australian joke?"
-                            self.text_pub.publish(request_joke)
-                            self.action_flag = False
-
-                        elif found_categories[0] == "Schedule a Meeting":
-                            rospy.loginfo("Doing schedule a meeting")
-                            create_event_calendar()
-                            schedule = Showing_Events_Calender()
-                            rospy.loginfo(schedule)
-                            self.speak.text_to_speech(schedule, 1.2)
-                            self.action_flag = True
-
-                        elif found_categories[0] == "Navigation":
-                            rospy.loginfo("Doing navigation")
-                            navigation = "Which room do you want to go? Meeting room A, meeting room B, office desk, or the kitchen?"
-                            self.speak.text_to_speech(navigation, 1.2)
-                            time.sleep(1)
-
-                            # listening to user's response
-                            navigation_response = self.recognize_speech_whisper()
-                            navigation_response = self.check_grammar(navigation_response)
-
-                            if "a" in navigation_response or "A" in navigation_response:
-                                rospy.loginfo("Show meeting room A")
-                                navigation = "I'll show you meeting room A"
-                                self.speak.text_to_speech(navigation, 1.2)
-                                self.action_flag = True
-
-                            elif "b" in navigation_response or "B" in navigation_response:
-                                rospy.loginfo("Show meeting room B")
-                                navigation = "I'll show you meeting room B"
-                                self.speak.text_to_speech(navigation, 1.2)
-                                self.action_flag = True
-
-                            elif "desk" in navigation_response or "Desk" in navigation_response:
-                                rospy.loginfo("Show office desk")
-                                navigation = "I'll show you your desk"
-                                self.speak.text_to_speech(navigation, 1.2)
-                                self.action_flag = True
-
-                            elif "kitchen" in navigation_response or "Kitchen" in navigation_response:
-                                rospy.loginfo("Show kitchen")
-                                navigation = "I'll show you our kitchen. There is a coffee machine."
-                                self.speak.text_to_speech(navigation, 1.2)
-                                self.action_flag = True
-                            else:
-                                navigation = "I'm sorry I missed that, can you say it again?"
-                                self.speak.text_to_speech(navigation, 1.2)
-                                time.sleep(1)
-
-                                # listening to user's response
-                                navigation_response = self.recognize_speech_whisper()
-                                navigation_response = self.check_grammar(navigation_response)
-
-
-                                if "a" in navigation_response or "A" in navigation_response:
-                                    rospy.loginfo("Show meeting room A")
-                                    navigation = "I'll show you meeting room A"
-                                    self.speak.text_to_speech(navigation, 1.2)
-                                    self.action_flag = True
-
-                                elif "b" in navigation_response or "B" in navigation_response:
-                                    rospy.loginfo("Show meeting room B")
-                                    navigation = "I'll show you meeting room B"
-                                    self.speak.text_to_speech(navigation, 1.2)
-                                    self.action_flag = True
-
-                                elif "desk" in navigation_response or "Desk" in navigation_response:
-                                    rospy.loginfo("Show office desk")
-                                    navigation = "I'll show you your desk"
-                                    self.speak.text_to_speech(navigation, 1.2)
-                                    self.action_flag = True
-
-                                elif "kitchen" in navigation_response or "Kitchen" in navigation_response:
-                                    rospy.loginfo("Show kitchen")
-                                    navigation = "I'll show you our kitchen. There is a coffee machine."
-                                    self.speak.text_to_speech(navigation, 1.2)
-                                    self.action_flag = True
-
-                                else:
-                                    navigation = "Do you want to talk somethin else?"
-                                    self.speak.text_to_speech(navigation, 1.2)
-                                    time.sleep(1)
-                                    self.action_flag = True
-                            
+                    self.text_pub.publish(corrected_text)
+                    rospy.loginfo("Go to gpt")
+                    # self.conv_break = False
+                    self.first_conversation = False
+                    self.action_flag = False                      
                         
                 else:
                     rospy.loginfo(f"Ignoring the input. {text}")
@@ -333,6 +205,7 @@ class VoiceRecognitionServer:
         }
 
         while not rospy.is_shutdown():
+            time_now = int(rospy.get_time())
             time_now = int(rospy.get_time())
             duration = time_now - time_start
             last_time = int(self.last_flag_timestamp)
