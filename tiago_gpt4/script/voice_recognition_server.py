@@ -19,6 +19,7 @@ from text_to_speech_gpt4 import TTSFunction
 import time
 from create_calendar import create_event_calendar
 from Showing_Events_Caleder import Showing_Events_Calender
+from customized_gesture import FollowMe, ShowAround
 
 
 # Configure your OpenAI API key here
@@ -179,6 +180,9 @@ class VoiceRecognitionServer:
                     # Tokenize the text
                     tokens = set(word_tokenize(normalized_text))
 
+                    follow_me = FollowMe()
+                    show_around = ShowAround()
+
                     
                     found_categories = []
                     for category, keywords in categories.items():
@@ -253,18 +257,27 @@ class VoiceRecognitionServer:
                                 rospy.loginfo("Show meeting room B")
                                 navigation = "I'll show you meeting room B"
                                 self.speak.text_to_speech(navigation, 1.2)
+                                follow_me.run()
+
+                                show_around.run()
                                 self.action_flag = True
 
                             elif "desk" in navigation_response or "Desk" in navigation_response:
                                 rospy.loginfo("Show office desk")
                                 navigation = "I'll show you your desk"
                                 self.speak.text_to_speech(navigation, 1.2)
+                                follow_me.run()
+
+                                show_around.run()
                                 self.action_flag = True
 
                             elif "kitchen" in navigation_response or "Kitchen" in navigation_response:
                                 rospy.loginfo("Show kitchen")
                                 navigation = "I'll show you our kitchen. There is a coffee machine."
                                 self.speak.text_to_speech(navigation, 1.2)
+                                follow_me.run()
+
+                                show_around.run()
                                 self.action_flag = True
                             else:
                                 navigation = "I'm sorry I missed that, can you say it again?"
@@ -280,24 +293,36 @@ class VoiceRecognitionServer:
                                     rospy.loginfo("Show meeting room A")
                                     navigation = "I'll show you meeting room A"
                                     self.speak.text_to_speech(navigation, 1.2)
+                                    follow_me.run()
+
+                                    show_around.run()
                                     self.action_flag = True
 
                                 elif "b" in navigation_response or "B" in navigation_response:
                                     rospy.loginfo("Show meeting room B")
                                     navigation = "I'll show you meeting room B"
                                     self.speak.text_to_speech(navigation, 1.2)
+                                    follow_me.run()
+
+                                    show_around.run()
                                     self.action_flag = True
 
                                 elif "desk" in navigation_response or "Desk" in navigation_response:
                                     rospy.loginfo("Show office desk")
                                     navigation = "I'll show you your desk"
                                     self.speak.text_to_speech(navigation, 1.2)
+                                    follow_me.run()
+
+                                    show_around.run()
                                     self.action_flag = True
 
                                 elif "kitchen" in navigation_response or "Kitchen" in navigation_response:
                                     rospy.loginfo("Show kitchen")
                                     navigation = "I'll show you our kitchen. There is a coffee machine."
                                     self.speak.text_to_speech(navigation, 1.2)
+                                    follow_me.run()
+
+                                    show_around.run()
                                     self.action_flag = True
 
                                 else:
